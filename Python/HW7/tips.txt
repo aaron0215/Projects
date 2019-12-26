@@ -1,0 +1,17 @@
+#
+
+1. ask the user for a file name
+
+2. open file from step  1 in a read mode - infile
+
+3. create file with name 'ln_' + the name of the file user gave you in step 1- outfile
+
+	3.5 create a variable nun = 1
+
+4. for each line in file from step 2:
+   
+5. outfile.write(str(num) + line)
+   
+6. increase num by 1
+
+make sure you have try except in good places

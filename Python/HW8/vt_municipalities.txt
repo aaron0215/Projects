@@ -1,0 +1,123 @@
+Albany
+Alburg
+Arlington
+Ascutney
+Barnet
+Barre
+Barton
+Beecher Falls
+Bellows Falls
+Bennington
+Benson
+Berlin
+Bethel
+Bradford
+Brandon
+Brattleboro
+Bristol
+Burlington
+Cabot
+Cambridge
+Canaan
+Castleton
+Cavendish
+Chester
+Concord
+Coventry
+Danville
+Derby Center
+Derby Line
+Dorset
+East Barre
+East Burke
+East Middlebury
+East Montpelier
+Enosburg Falls
+Essex Junction
+Fair Haven
+Fairlee
+Fairfax
+Fletcher
+Glover
+Graniteville
+Greensboro
+Greensboro Bend
+Groton
+Hardwick
+Hartland
+Hinesburg
+Hyde Park
+Irasburg
+Island Pond
+Jacksonville
+Jeffersonville
+Jericho
+Johnson
+Lincoln
+Lowell
+Ludlow
+Lyndonville
+Manchester
+Manchester Center
+Marshfield
+Middlebury
+Milton
+Montpelier
+Morrisville
+Newbury
+Newfane
+Newport
+Newport Center
+North Bennington
+North Hartland
+North Springfield
+North Troy
+North Westminster
+Northfield
+Norwich
+Old Bennington
+Orleans
+Perkinsville
+Pittsford
+Plainfield
+Poultney
+Proctorsville
+Putney
+Quechee
+Randolph
+Readsboro
+Richford
+Richmond
+Rochester
+Rutland
+Saint Albans
+Saint Johnsbury
+Saxtons River
+Shelburne
+South Barre
+South Burlington
+South Royalton
+South Shaftsbury
+Springfield
+Stowe
+Swanton
+Troy
+Vergennes
+Waitsfield
+Wallingford
+Waterbury
+Websterville
+Wells
+Wells River
+West Brattleboro
+West Burke
+West Rutland
+Westminster
+White River Junction
+Wilder
+Williamstown
+Wilmington
+Windsor
+Winooski
+Woodstock
+Worcester
