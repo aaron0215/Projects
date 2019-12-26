@@ -1,0 +1,3 @@
+/Users/zhiyi215/Desktop/CS120/Project1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/zhiyi215/Desktop/CS120/Project1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/zhiyi215/Desktop/CS120/Project1/cmake-build-debug/CMakeFiles/Project1.dir
