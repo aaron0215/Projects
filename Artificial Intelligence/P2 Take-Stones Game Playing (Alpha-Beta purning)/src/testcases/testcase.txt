@@ -1,0 +1,6 @@
+output1.txt:
+    $ java TakeStones 3 0 0
+output2.txt:
+    $ java TakeStones 7 1 1 2
+output3.txt:
+    $ java TakeStones 10 3 4 2 6 4
