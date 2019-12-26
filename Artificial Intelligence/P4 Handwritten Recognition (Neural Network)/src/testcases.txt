@@ -1,0 +1,3 @@
+Sample test case #1: java DigitClassifier 5 0.01 100 train1.txt test1.txt : sample_output1.txt
+Sample test case #2: java DigitClassifier 10 0.01 1 train1.txt test1.txt : sample_output2.txt
+Sample test case #3: java DigitClassifier 50 0.01 20 train1.txt test1.txt : sample_output3.txt

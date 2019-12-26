@@ -1,0 +1,25 @@
+Epoch: 0, Loss: 6.710e-01
+0th instance got misclassified, expected: 6. But actual: 8
+3th instance got misclassified, expected: 6. But actual: 8
+12th instance got misclassified, expected: 9. But actual: 8
+13th instance got misclassified, expected: 9. But actual: 8
+16th instance got misclassified, expected: 9. But actual: 8
+20th instance got misclassified, expected: 6. But actual: 8
+42th instance got misclassified, expected: 9. But actual: 8
+51th instance got misclassified, expected: 9. But actual: 8
+52th instance got misclassified, expected: 9. But actual: 8
+53th instance got misclassified, expected: 9. But actual: 8
+55th instance got misclassified, expected: 9. But actual: 8
+69th instance got misclassified, expected: 9. But actual: 8
+70th instance got misclassified, expected: 9. But actual: 8
+71th instance got misclassified, expected: 9. But actual: 8
+72th instance got misclassified, expected: 9. But actual: 8
+74th instance got misclassified, expected: 9. But actual: 8
+76th instance got misclassified, expected: 9. But actual: 8
+98th instance got misclassified, expected: 9. But actual: 8
+99th instance got misclassified, expected: 9. But actual: 8
+101th instance got misclassified, expected: 9. But actual: 8
+102th instance got misclassified, expected: 9. But actual: 8
+104th instance got misclassified, expected: 9. But actual: 8
+Total instances: 105
+Correctly classified: 83
