@@ -1,0 +1,3 @@
+D:/CS120/Project4/cmake-build-debug/CMakeFiles/Project4.dir
+D:/CS120/Project4/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/CS120/Project4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
