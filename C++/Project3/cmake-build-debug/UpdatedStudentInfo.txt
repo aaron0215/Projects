@@ -1,0 +1,150 @@
+Noel
+Freshman
+Computer Science
+3.14
+Active
+Reed
+Sophomore
+Computer Science
+2.85
+Active
+Douglas
+Freshman
+Mechanical Engineering
+3.67
+Active
+Livia
+Sophomore
+Computer Science
+2.34
+Active
+Hugo
+Sophomore
+Computer Science
+3.42
+Active
+Sheldon
+Freshman
+Biological Engineering
+3.33
+Active
+Kendal
+Senior
+Biological Engineering
+3.12
+Active
+Paula
+Freshman
+Mechanical Engineering
+3.67
+Active
+Alexia
+Sophomore
+Mechanical Engineering
+2.67
+Active
+Gwendolyn
+Sophomore
+Computer Science
+3.33
+Active
+Iliana
+Freshman
+Biological Engineering
+3.37
+Active
+Avery
+Sophomore
+Mechanical Engineering
+3.91
+Active
+Leah
+Freshman
+Biological Engineering
+2.87
+Active
+Luz
+Freshman
+Biological Engineering
+3.96
+Active
+Neil
+Junior
+Biological Engineering
+2.33
+Active
+Ellie
+Junior
+Biological Engineering
+3.33
+Active
+Maximus
+Freshman
+Computer Science
+2.67
+Active
+Saul
+Junior
+Electric Engineering
+3.33
+Active
+Charity
+Senior
+Computer Science
+3.41
+Active
+Emmy
+Junior
+Electric Engineering
+2.86
+Active
+Kathryn
+Senior
+Computer Science
+3.82
+Active
+Cali
+Senior
+Mechanical Engineering
+3.67
+Active
+Mathew
+Senior
+Electric Engineering
+3.67
+Active
+Gerald
+Junior
+Mechanical Engineering
+3.66
+Active
+Jaydin
+Senior
+Computer Science
+4.0
+Active
+Jaliyah
+Senior
+Computer Science
+2.54
+Active
+Brynlee
+Junior
+Mechanical Engineering
+3.67
+Active
+Nadia
+Senior
+Mechanical Engineering
+3.02
+Active
+Kaleigh
+Senior
+Electric Engineering
+3.91
+Active
+Jazlene
+Junior
+Electric Engineering
+2.73
+Active
