@@ -83,8 +83,8 @@ class Game
 	   of specific card and remove it from the 
       selectedCard list
    */
-   
-   public void removeSelected(BoardSquare bs,int row, int col)
+
+   public void removeSelected(BoardSquare bs,int row, int col, ArrayList<BoardSquare> selectedCard, ArrayList<Card> cardlist)
    {
       b.getBoardSquare(row,col).setUnselected();
       for (int i = 0; i < selectedCard.size(); i++)
