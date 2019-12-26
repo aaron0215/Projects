@@ -1,0 +1,31 @@
+1) What can you tell about the performance of your hash table implementation compared to Java's tree map? 
+Explain why (or when) your hash table is better or worse than Java's Tree Map.
+	
+	Hash table provides a performance of O(1) for most operations like add, remove and get exception when
+	collisions happen. Tree map generally performs with O(logN) complexity. In this aspect, the hash table
+	performs better than tree map. However, hash table would take more memory space since there will be lots
+	of unused buckets after we initialize it. So generally, hash table is faster than tree map, but tree map
+	shoule cost less space than hash table.
+
+
+2) What did you observe in java mission control to come to the conclusion above?
+
+	Based on the two screenshots, TreeMap takes much longer time to execute. Once we go to hot methods section,
+	we can see the insertion method of TreeMap which is put() takes much more tiem than hash table. These two
+	screenshots can prove that hash table is faster than tree map. The memory usage can only be explained by
+	how we design tree map and hash table since there is no certain graph can show it clearly.
+
+
+3) SCREENSHOT_001.PNG NOTES: Briefly describe what this image 001 shows
+
+	Time uasge of each method which takes significant time.
+
+
+4) SCREENSHOT_002.PNG NOTES: Briefly describe what this image 002 shows
+
+	Time uasge of each method which takes significant time.
+
+
+5) Describe other screenshots if you include them in your submission.
+
+	None.
