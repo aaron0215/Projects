@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Animation and Interaction with Canvas</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<h1 id="page-4-animation-and-interaction-with-canvas">Page 4: Animation and Interaction with Canvas</h1>
+<p>Back on <a href="../../docs/1/">Page1(Web Graphics APIs)</a>, we saw animation with Canvas and SVG,
+and interaction with SVG. Now we will look at animation and
+interaction with Canvas in more detail.</p>
+<p>The tricky thing is that with Canvas, we don't store the objects.
+That means we don't have anything to change - it's up to the program
+to keep track of things and adjust them accordingly, and we need to redraw everything.
+Similarly, for interactions, there are no objects to generate events.
+The graphics &ldquo;objects&rdquo; only exist in our program, so we are responsible
+for creating events.</p>
+<p>We'll look at some implications of needing to represent objects in
+our own programs on this page.</p>
+<h2 id="box-1-animation-with-canvas">Box 1: Animation with Canvas</h2>
+<p>When we animate, we need to change the image for each &ldquo;frame&rdquo;.
+With SVG, we modify the elements that change - and the picture gets
+updated accordingly.
+With Canvas, we have to update the picture ourselves.</p>
+<p>In general, we will do this by (1) clearing the canvas and (2) redrawing
+everything. Notice that this is wasteful: we redraw things that didn't change.
+If we really care about performance, we would try to figure out what
+changed and only change those parts.
+With graphics, figuring out what changed and only changing those parts can be
+hard (especially with 3D).
+For example, moving one object might let us see new things behind.
+The complexity of keeping track of what has changed may outweigh the extra
+effort to redraw things that didn't change.</p>
+<p>In almost all cases in this class, we will just clear the whole canvas
+and draw everything. We'll just be careful to try to make &ldquo;drawing everything&rdquo;
+as fast as possible (which can be easier, since we don't need to think about
+what not to draw).</p>
+<p>So, if you notice that things are wasteful, you're being observant.</p>
+<p>Here's an example (that we will come back to later):</p>
+<iframe src="../../for_students/4-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Be sure to read the javascript code for this example (<a href="../../for_students/4-1.js" class="for_students">4-1.js</a>).
+Notice that we can use the same animation loop for both elements (created using the <code>box1animate</code> function, which &ldquo;calls itself&rdquo; using <code>window.requestAnimationFrame</code>).
+For Canvas, we clear and redraw everything, each time.
+For SVG, we only change the things that move. The web browser may or may not decide
+to redraw everything.</p>
+<h2 id="box-2-events-for-svg-canvas">Box 2: Events for SVG Canvas</h2>
+<p>With SVG, because the graphics elements are HTML elements, we can assign events to them.
+In this example, I will handle all the <code>onclick</code> events for each of the objects.
+Try clicking on the rectangles.</p>
+<iframe src="../../for_students/4-2a.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>When you look at the code (<a href="../../for_students/4-2a.js" class="for_students">4-2a.js</a>) notice how I make the rectangles (they are HTML element), and I can add an <code>onclick</code> handler for them. In this case, the handler &ldquo;toggles&rdquo; a CSS class - which tells the browser to apply a style to the element (the style is defined in the html file).</p>
+<p>With Canvas, associating an event with each rectangle is much trickier, 
+because the rectangles are not elements. Other than the function call, there is no &ldquo;rectangle&rdquo; (object or element) that we can associate the click  with.
+The only element is the
+Canvas element itself!</p>
+<p>When the Canvas element receives a mouse click event we need to figure out
+what to do with it. 
+We need to figure out where the mouse is, and then check to see if it is
+in some rectangle, and if it is, 
+do the appropriate thing.</p>
+<p>To make this easier, we'll change how we write the code.
+If you look at the drawing function for the previous example,
+the rectangles are not actually represented (except in the code).
+This time, we'll make objects for each rectangle so we'll have a list
+of them. We'll use this list for drawing, and we'll also use this
+list for doing other things.</p>
+<p>The list of objects is sometimes called a <strong>display list</strong>.</p>
+<iframe src="../../for_students/4-2b.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The code for this (<a href="../../for_students/4-2b.js" class="for_students">4-2b.js</a>) is a bit more complicated than for the SVG version, 
+and it is worth reading through to make sure that you understand.
+Especially, since it uses some JavaScript tricks.</p>
+<p>The basic idea is that we need to make an object for each rectangle,
+and keep a list (our display list) of these objects. When we draw, we draw
+each object on the list. When we get an event, we look at each object on the list to see which one should get the event.</p>
+<p>You can see the line that defines <code>box2rects</code> as our display list.
+The rectangles are stored
+as JavaScript objects - which might seem a little weird if you're
+used to objects in languages like Java or C++. These are generic
+objects - we never define a class. We just stick the member values
+we want into them. So, for example, the line:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75af00">box2rects</span><span style="color:#111">.</span><span style="color:#75af00">push</span><span style="color:#111">(</span><span style="color:#111">{</span><span style="color:#d88200">&#34;x&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span><span style="color:#d88200">&#34;y&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">35</span><span style="color:#111">,</span><span style="color:#d88200">&#34;w&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span><span style="color:#d88200">&#34;h&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span><span style="color:#d88200">&#34;color&#34;</span><span style="color:#f92672">:</span><span style="color:#d88200">&#34;black&#34;</span><span style="color:#111">,</span><span style="color:#d88200">&#34;clicked&#34;</span><span style="color:#f92672">:</span><span style="color:#00a8c8">false</span><span style="color:#111">}</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></div>
+makes a new rectangle object (with <code>x=0</code>, <code>y=35</code>, etc.) and puts it
+at the end of the <code>box2rects</code> array. You might notice that I keep an extra 
+piece of information about each rectangle (whether or not its been clicked).</p>
+<p>Once we have the display list, it is relatively straightforward to use it.
+First, the function <code>drawRectList</code> makes a canvas drawing call for each rectangle on the list.</p>
+<p>For event handling, we have one event handler for the
+Canvas element. You can see where we attach it at this line (102):
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;box2canvas&#34;</span><span style="color:#111">)</span><span style="color:#111">.</span><span style="color:#75af00">onclick</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">(</span><span style="color:#75af00">event</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</code></pre></div>
+which attaches a function as the <code>onclick</code> handler for the canvas. 
+We get information about the <code>event</code> as a parameter for this function.
+This event structure has the position of the mouse (at the time of the click event) in it, however, the position is relative to the window. We want to know where the click is relative to the canvas, so we need to subtract the position of the upper left corner:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#00a8c8">let</span> <span style="color:#75af00">x</span> <span style="color:#f92672">=</span> <span style="color:#75af00">event</span><span style="color:#111">.</span><span style="color:#75af00">clientX</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">let</span> <span style="color:#75af00">y</span> <span style="color:#f92672">=</span> <span style="color:#75af00">event</span><span style="color:#111">.</span><span style="color:#75af00">clientY</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">let</span> <span style="color:#75af00">box</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#75af00">event</span><span style="color:#111">.</span><span style="color:#75af00">target</span><span style="color:#111">)</span><span style="color:#111">.</span><span style="color:#75af00">getBoundingClientRect</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">x</span> <span style="color:#f92672">-=</span> <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">left</span><span style="color:#111">;</span>
+<span style="color:#75af00">y</span> <span style="color:#f92672">-=</span> <span style="color:#75af00">box</span><span style="color:#111">.</span><span style="color:#75af00">top</span><span style="color:#111">;</span>
+</code></pre></div>
+This is important since we stored the positions of the rectangles relative to the canvas.
+The function <code>clickRectList</code> then checks this position against all of the rectangles.</p>
+<p>Fortunately, all of the objects are rectangles, and checking to see if the mouse position is inside of them is easy.</p>
+<p>This code is a little bit tricky - so take the time to understand it. We're going to ask you to make your own version of it on the next page.</p>
+<h2 id="box-3-interaction-without-events">Box 3: Interaction without Events</h2>
+<p>As long as we have an animation loop running, we can get by without
+events for some things by polling: checking the input device on
+every iteration.</p>
+<iframe src="../../for_students/4-3a.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Make sure you understand that example (including transparency), but here's a different version (try clicking):</p>
+<iframe src="../../for_students/4-3b.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Be sure to understand how this works - including how we know if the mouse is pressed.
+Notice how each rectangle not only stores it's position, but also its velocity.
+And also notice that rectangles do get removed (when they get to the edge) - we don't just keep making more.</p>
+<p>You will be required to use all of these ideas on the next page.</p>
+<h2 id="summary-interaction-and-animation-with-canvas">Summary: Interaction and Animation with Canvas</h2>
+<p>There are a few big ideas on this page:</p>
+<ol>
+<li>We make <em>display lists</em> to represent graphics objects. If the underlying API does not do it for us, we have to manage it ourselves.</li>
+<li>The web browser likes to work in an event-driven model. If we want to do things in a polling (animation-loop) style, we have to adapt.</li>
+</ol>
+<p>These are concepts we'll use a lot as we make more complicated graphics programs.</p>
+<p>Make sure you understand the code! It not only shows the concepts, but it also uses a lot of JavaScript idioms.</p>
+<p>On <a href="../../docs/5/" class="Next__Page">Next: Try Canvas Programming </a> we'll let you try doing some of this stuff on your own.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Selected"> 4: Animation and Interaction with Canvas </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

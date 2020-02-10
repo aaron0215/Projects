@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- the style sheet and scripts are placed right in the HTML file
+    generally not a good idea, but this is so simple
+-->
+<html>
+
+<head>
+    <style>
+        .lightbluewithborder {
+            fill: #CCF;
+            stroke: #00F;
+            stroke-width: 4px;
+        }
+        .lightredwithborder {
+            fill: #FCC;
+            stroke: #F00;
+            stroke-width: 2px;
+        };
+               
+    </style>
+</head>
+
+<body>
+<p>
+    <div>
+        <svg id="svg1" width="150px" height="100px" style="border:2px solid black">
+            <rect id="svgrect1" x="30" y="30" width="30" height="30" fill="#F00"></rect>
+            <rect id="svgrect2" x="90" y="50" width="30" height="30" class="lightbluewithborder"></rect>
+        </svg>
+        <svg id="svg2" width="150px" height="100px" style="border:2px solid black">
+            <rect id="svgrect3" x="30" y="30" width="30" height="30" class="lightbluewithborder"></rect>
+            <rect id="svgrect4" x="90" y="50" width="30" height="30" class="lightbluewithborder"></rect>
+        </svg>
+    </div>
+</p>
+
+<!-- putting the code here so it is close to the HTML -->
+<script type="module">
+window.onload = function() {
+    // the rectangles can receive events (like onclick) just like any other element
+    let r1color=1;      // which color is it
+    let colors=[ "red", "green", "blue", "goldenrod"];
+    let rect1 = document.getElementById("svgrect1")
+    const svgns = "http://www.w3.org/2000/svg";
+    rect1.onclick = function() {
+        rect1.setAttribute("fill",colors[r1color++ % 4]);
+    }
+
+
+    let svgrect4 = document.getElementById("svgrect4");
+    svgrect4.onmouseenter = function(event) {
+        // manipulate the list of classes
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+        svgrect4.classList.add("lightredwithborder");
+    };
+    svgrect4.onmouseleave = function(event) {
+        // for practice, rather than referring to "svgrect4", I will make
+        // this event handler refer to its target object
+        // https://developer.mozilla.org/en-US/docs/Web/API/Event/target
+        event.target.classList.remove("lightredwithborder");
+        // if you're using TypeScript type checking in Visual Studio Code
+        // https://graphics.cs.wisc.edu/WP/cs559-sp2019/typed-js/
+        // you will notice that there is a type error on that line:
+        // the EventTarget doesn't have a classList!
+        // however, we know that, in this case, the event target is an HTML
+        // element (the rect), so we can ignore the error - or better, use
+        // a cast
+        // /** @type {HTMLElement} */(event.target).classList.remove("lightredwithborder");
+    };
+}
+</script>
+</body>
+</html>

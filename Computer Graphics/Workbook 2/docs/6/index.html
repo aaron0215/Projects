@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Where did I draw</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>There is one detail we glossed over: with either Canvas or SVG, we referred to positions (such as the center of a circle, or corner of a rectangle) using two numbers. What do these mean?</p>
+<p>Notice that they don't always mean the same thing: here are two SVG elements, each with a circle at position (30, 30).
+Look in the HTML (<a href="../../for_students/6-1.html" class="for_students">6-1.html</a>) - you'll see the exact same line is repeated twice.
+Yet the two circles aren't in the same place.
+You can see both of them on the page.</p>
+<iframe src="../../for_students/6-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>It should be obvious that we interpret position x=30, y=30 differently in each one.</p>
+<p>For SVG and Canvas, we interpret coordinates (x,y pairs) as follows:</p>
+<ul>
+<li>The origin (0,0) is in the top left corner of the element.</li>
+<li>The x value measures the distance to the right, starting at the origin. Each unit, is one &ldquo;pixel&rdquo; (more on that in a moment). So x=5 means move 5 &ldquo;web pixels&rdquo; to the right from the left edge of the element.</li>
+<li>The y value measures the distance downward from the top, starting at the origin. Note that this is different than what we typically do in math classes, where the origin is at the bottom and y goes upwards. Again, each unit of y is one &ldquo;pixel&rdquo;.</li>
+</ul>
+<p>These three parts (where is the origin, how to interpret x, how to interpret y) are critical - if we don't know them, we cannot interpret x, y numbers as places to draw! Even the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">Mozilla (Official) Canvas Tutorial: Drawing Shapes</a> starts with this.</p>
+<p>We call this information about how to interpret coordinates a <strong>coordinate system</strong>. The official tutorial uses the term &ldquo;coordinate space&rdquo;. A key idea in computer graphics is that we need to understand coordinate systems and always try to work in a convenient coordinate system. For example, when drawing, having a coordinate system relative to the current element we're drawing in is very convenient. Having to talk about things relative to the position on the screen would be inconvenient. We'd have to move everything if the page was scrolled or the window was moved.</p>
+<p>We can see an example of inconsistent coordinate systems when we handled the mouse on <a href="../../docs/4/">Page4(Animation and Interaction with Canvas)</a>. Mouse coordinates are given relative to the window. We need to convert those coordinates to the Canvas by figuring out where the canvas is in the window!</p>
+<p>In class, we will see how to work with coordinate systems mathematically. The trick will be to use matrices to represent coordinate systems, which requires us to use vector algebra. To make sure you're ready for that, please read up on some vector algebra basics (it should be a review from your math classes).</p>
+<p>Specifically:</p>
+<ul>
+<li>read the <a href="https://graphics.cs.wisc.edu/WP/tutorials/points-vectors-and-coordinate-systems-why-are-points-and-vectors-different/">CS559 Tutorial: Points, Vectors, Coordinate System Note</a> to get a sense of the terms we are using</li>
+<li>if you aren't fluent with matrices and vectors (or, if you want a refresher), we recommend reading through chapters 1, 2 and 4 of Practical Linear Algebra (available at the <a href="https://search.library.wisc.edu/catalog/9911163667202121">Practical Linear Algebra at the UW Library</a>. Chapters <a href="https://canvas.wisc.edu/files/10881405/">pla_chapter_1.pdf</a>, <a href="https://canvas.wisc.edu/files/10881401/">pla_chapter_2.pdf</a> and <a href="https://canvas.wisc.edu/files/10881402/">pla_chapter_4.pdf</a> are also available on Canvas.</li>
+</ul>
+<p>You may have noticed from this week's assignment that we will be doing non-trivial JavaScript programming. If you feel like you need to accelerate your learning, see the <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/javascript/">CS559 JavaScript page</a>, specifically the &ldquo;Advice on Learning JavaScript&rdquo; section.</p>
+<p>This is the last page of the workbook.
+Please make sure you don't forget to edit the <code>README.md</code> and to commit and push all your work!</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Selected"> 6: Where did I draw </li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Drawing with Canvas</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<script src="../../for_students/2.js" type="module"></script>
+<p>Now that we understand that Canvas is an immediate mode graphics API,
+we can look more at what commands it gives us for drawing.</p>
+<p>Canvas provides a rich set of options for creating shapes and coloring
+and styling them. We won't talk about all of them here, and only cover
+the basic options. Beyond that, you are encouraged to go out onto the
+web to read and try things on your own.</p>
+<p>We recommend reading this page first and then going on to
+other web resources, some of which are listed at the end of this page.
+We'll explain some of the concepts, and then point you to things
+that give details.</p>
+<p>This page, rather than using embedded HTML files, puts all of the canvas right onto the page. All of the drawing code is in <a href="../../for_students/2.js" class="for_students">2.js</a> - from the comments, you should be able to figure out what pieces of code go with which of the canvas elements.</p>
+<p>You might wonder why we don't use &ldquo;live code boxes&rdquo; where the
+actual code that gets run appears on the page itself and
+you can read and tinker with it in place. Most of the better
+tutorials on the web do this. And its great since the code
+is right there in the text, and it is really easy to tinker with.
+For CS559, however, we very quickly get to more complex programs where you will want to use &ldquo;real tools&rdquo;.
+So you should get used to that with the simple examples and see from the very start how we structure programs.
+You should also be able to use the debugger.</p>
+<p>But this means that (1) you will actually have to go looking at the source code files, and (2) when we do put a snippet of code on a web page, it will be &ldquo;marked up&rdquo; as HTML and not interactive.</p>
+<h2 id="review-the-basics">Review the Basics</h2>
+<p>On <a href="../../docs/1/">Page1(Web Graphics APIs)</a> we saw a few simple examples. The simplest one was this:</p>
+<p><canvas id="box1canvas" height="100px" width="150px"></canvas></p>
+<p>Understanding this is quite important. Be sure to find the code in <a href="../../for_students/2.js" class="for_students">2.js</a>. This is the actual drawing code (without the comments):
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span>    <span style="color:#00a8c8">let</span> <span style="color:#75af00">canvas1</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;canvas1&#34;</span><span style="color:#111">)</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>    <span style="color:#00a8c8">let</span> <span style="color:#75af00">context1</span> <span style="color:#f92672">=</span> <span style="color:#75af00">canvas2</span><span style="color:#111">.</span><span style="color:#75af00">getContext</span><span style="color:#111">(</span><span style="color:#d88200">&#34;2d&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span>    <span style="color:#75af00">context1</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;#F00&#34;</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span>    <span style="color:#75af00">context1</span><span style="color:#111">.</span><span style="color:#75af00">fillRect</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></div></p>
+<p>Line by line:</p>
+<ol>
+<li>Line 1 gets the <code>canvas</code> element from the DOM. The element is just like any other HTML element.</li>
+<li>Line 2 gets the <strong>context</strong> object out of the Canvas element. The context object stores all of the <em>state</em> that we need for drawing - things like where we will draw, what the current color to draw is, partially finished objects, etc. At a practical level, most of the &ldquo;drawing commands&rdquo; are methods of this object.</li>
+<li>Line 3 sets the color for filling objects. Canvas is a <em>stateful</em> drawing model. For example, we pick a color and then we draw with that color. In contrast, a stateless drawing model would pass everything we need to know to draw to the actual drawing command.</li>
+<li>Line 4 actually draws the rectangle. It uses the &ldquo;current state&rdquo; of the context (such as the color we set on the previous line). Conceptually, the square is drawn immediately - changing the pixels on the screen. After the function completes, there is no memory that these pixels should be associated with a rectangle. The only representation of the rectangle is in the code. In practice, the drawing may happen asynchronously - we might not see the changes in the pixels until the system gets around to it.</li>
+</ol>
+<p>You can look at the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage">Mozilla (Official) Canvas Tutorial: Getting Started</a> 
+(recommended - but optional) to get more details. You can see a few differences - these are worth pointing out:</p>
+<ol>
+<li>They are concerned with &ldquo;fallback content&rdquo; - if you're a real web developer, you need to be worried about what happens if someone uses an old browser. For class, we assume that everyone who looks at your program will have a modern, compatible web browser.</li>
+<li>They put the drawing code into an <code>onload</code> event handler for the Canvas, whereas we put the handler into the <code>onload</code> event for the entire page. Either way, we cannot draw into the canvas element until it has been created. For us, we wait until the entire page (including the canvas element) has been created.</li>
+</ol>
+<h2 id="insides-and-outsides">Insides and Outsides</h2>
+<p>You may have noticed that when we drew the rectangle, we &ldquo;filled&rdquo; its inside with red color (<code>#F00</code>).</p>
+<p>In Canvas, we can apply styles (like colors) to both the insides and outsides of shapes (like rectangles). The inside is the &ldquo;fill&rdquo; and the outside is the &ldquo;stroke&rdquo; (as in, you make a stroke with a pen to draw the outline or boundary of a shape).</p>
+<p>With Canvas, we need to do the stroke and fill separately. They are different commands, and get their styles from different properties. Here are some examples. Look at the JavaScript code (you can find it in <a href="../../for_students/2.js" class="for_students">2.js</a> starting at around line 38 - look for the comment &ldquo;Example 2 (Insides and Outsides) - Squares with style&rdquo; )!</p>
+<p><canvas id="box2canvas1" width="240px" height="90px"></canvas></p>
+<p>You can look at the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors">Mozilla (Official) Canvas Tutorial: Styles</a> to see more about what styles are available (including non-constant fills).</p>
+<p>There's another key concept hidden in that example.
+When you set a drawing state, it stays for the next object.
+So, for example, when square 3 in the previous example set dashed lines,
+the next square also got it (whether it wanted it or not).
+In the simple example, we can see what is going on - but in a more
+complex example, the state might get set by some code somewhere very different.</p>
+<p>Since the green square didn't know what happened before it, if it wants
+something specific, it has to reset all of the different pieces of the
+state!</p>
+<p>Instead, a better idea is to have drawing an object &ldquo;clean up&rdquo; after itself.
+If we set some state to draw an object, we set it back before going on to the
+next one. Unless we're sure it wants our changes.
+To simplify this convention, stated APIs (like Canvas) allow us to &ldquo;save&rdquo; and &ldquo;restore&rdquo;
+the state. Observe (and look at the source code!):</p>
+<p><canvas id="box2canvas2" width="240px" height="90px"></canvas></p>
+<p>Saving and restoring works like a stack: if you save twice, it makes a stack of the two saves. Each restore takes something else off of the stack.</p>
+<p><canvas id="box2canvas3" width="290px" height="90px"></canvas></p>
+<p>Notice how this leads to nesting, or &ldquo;hierarchy&rdquo;. We will use this concept (save/restore with a stack) for many things in graphics.</p>
+<h2 id="drawing-order-and-transparency">Drawing Order and Transparency</h2>
+<p>If rectangles (or any shape, for that matter) overlap, the shape that is drawn last covers over anything that was drawn before it. This is like painting with thick paint - we see the last thing drawn. Here is an example (in <a href="../../for_students/2.js" class="for_students">2.js</a> starting at around line 127):</p>
+<p><canvas id="box3canvas1" height="100px" width="250px"></canvas></p>
+<p>Of course, if we don't fill, then we don't cover over things inside the rectangle.</p>
+<p>Drawing order even effects commands that draw the same rectangle (remember, we draw the stroke and the fill separately). The stroke and fill share some of the same area. Since the stroke is centered on the line around the filled area, the fill covers half the stroke. Here is an example where we switched the order of stroke and fill:</p>
+<p><canvas id="box3canvas2" height="100px" width="160px"></canvas></p>
+<p>All of our colors so far have been opaque - they cover over what is behind them. We can also make semi-transparent colors. That is, the color lets through some of what's behind it. To do this, we extend our colors with an extra number: the opacity (or alpha). In addition to an amount of red, green, and blue, we add a forth number that is the amount that it covers what is behind it. By default, this is 100% (or 255/255), so things are opaque. But most places where we specify 3 numbers, we can specify a forth - so to make red that only blocks 50% of what it covers, we can say <code>#FF00007F</code> (where <code>7F</code> is 127, or about half of 255).</p>
+<p>Remember that drawing order matters - the transparent thing covers what was there before it. Things drawn afterwards will cover the transparent thing. Also, the transparent things will let the background (white) through if that is what they cover.</p>
+<p>Here is a simple example:</p>
+<p><canvas id="box3canvas3" height="240px" width="260px"></canvas></p>
+<p>We are using the simple math for transparency (it's called alpha-blending).
+There are more ways to combine the colors.
+Canvas supports many of them, but we might not get to learn about all of them in class.</p>
+<p>Note that in the code, I specified colors as <code>rgba(255,0,0,.5)</code> rather than <code>#FF00007F</code>.
+Also, notice that the stroke can be transparent, and we can have transparent dark and light colors.</p>
+<h2 id="shapes-besides-rectangles-paths">Shapes Besides Rectangles (Paths)</h2>
+<p>Canvas has 2 kinds of shapes: rectangles, and everything else. There are also images and text, which can be considered shapes, too.</p>
+<p>To make a path based shape, you define a &ldquo;path&rdquo; - which is basically the outline of the shape, and then you can stroke and fill that. Just as the rectangle had <code>fillRect</code> and <code>strokeRect</code> paths have <code>stroke</code> and <code>fill</code>. The biggest difference is that rather than telling stroke and fill what the shape is, it uses the <em>current path</em>. That is, the current path is part of the context, the same way things like fill color and line width are.</p>
+<p>The official documentation is the best place to look <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">Mozilla (Official) Canvas Tutorial: Drawing Shapes</a>. You can skip the section on &ldquo;Bezier and quadratic curves&rdquo; for now - we'll learn about them in a few weeks. The parts about <code>Path2D</code> and <code>SVG paths</code> you can skip as well.</p>
+<p>Make sure you understand how to make paths, and use them to draw with Canvas. And note that to make a circle, you need to draw an arc that has <code>2*Math.PI</code> radians of arc to it.</p>
+<h2 id="summary">Summary</h2>
+<p>Now we've seen the basics of drawing with Canvas. On the <a href="../../docs/3/" class="Next__Page">Next Page</a>, you'll
+get to try it out.</p>
+<p>From this page, make sure you understand the concepts (like drawing state).</p>
+<p>You will want to learn more about Canvas drawing, so you can make more interesting pictures.
+Some of the things (like curves and transformations) we'll introduce in the coming weeks
+as we introduce the graphics concepts in class. For now, focus on making shapes and giving
+them styles.</p>
+<p>Here are some resources to look at. You don't have to read them all, but do read some beyond just this tutorial.</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Mozilla (Official) Canvas API Documentation</a>
+This is the &ldquo;official&rdquo; documentation. Everything is in here, somewhere. It is actually quite well written and well organized.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial">Mozilla (Official) Canvas Tutorial (top level)</a> This is part of #1. It very quickly gets beyond the basics. We mainly need the basics. Many of the pages are very useful such as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">Mozilla (Official) Canvas Tutorial: Drawing Shapes</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors">Mozilla (Official) Canvas Tutorial: Styles</a>.</li>
+<li><a href="http://cheatsheetworld.com/programming/html5-canvas-cheat-sheet/">Canvas Cheat Sheet: </a> A concise page that reminds you of the different things you can do with Canvas.</li>
+<li><a href="https://joshondesign.com/p/books/canvasdeepdive/title.html">HTML Canvas Deep Dive: </a> This is a &ldquo;book length&rdquo; tutorial on web graphics program (it even gets to 3D stuff). The <a href="https://joshondesign.com/p/books/canvasdeepdive/chapter01.html">first chapter</a> covers a lot of the basic stuff.</li>
+</ol>
+<p>Ok, now move on to <a href="../../docs/3/" class="Next__Page">Next: Canvas Drawing: Your Turn </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Selected"> 2: Drawing with Canvas </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

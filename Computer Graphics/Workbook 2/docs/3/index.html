@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Canvas Drawing: Your Turn</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Now that you've learned to draw, you'll get to draw something!</p>
+<p>There are two exercises - you must make a picture for each.
+In the first one, you have to make the picture you're asked for.
+In the second one, you can make anything you want.</p>
+<p>You do not need to use Canvas concepts that we haven't learned about yet (transformations or curves). You can use images or text if you want. If you use an image file, make sure you add it to the GitHub repo!</p>
+<p>You should not use the Canvas SVG Path functionality (where you put SVG into Canvas - this is not the same as Canvas path that you should use).</p>
+<h2 id="box-exercise-1-a-simple-picture">Box (Exercise) 1: A Simple Picture</h2>
+<p>Make a picture that contains:</p>
+<ol>
+<li>a circle</li>
+<li>a triangle</li>
+<li>a capsule (half circles connected by straight lines)</li>
+<li>a sawtooth / mountain (two triangles sticking out of a rectangle)</li>
+</ol>
+<p>For each, have a solid line border and a filled color.</p>
+<p>Try to make it look like this example. Note: This is made using SVG. You don't need to read the SVG, and in particular, don't copy the paths. You don't have to match it exactly, but get the 4 basic shapes.</p>
+<svg width="225px" height="175px">
+    <circle cx="50" cy="50" r="25" style="width:3; fill: #F8E; stroke:#846; stroke-width:5"></circle>
+    <polygon points="25,150, 75,150, 50,110" style="stroke-width:5; fill:sandybrown; stroke:darkgoldenrod" />
+    <path d="M 125 25 L 175 25 A 25 25 0 0 1 175 75 L 125 75 A 25 25 0 0 1 125 25 Z" style="stroke:darkred; stroke-width: 5; fill:lightpink" />
+    <path d="M 100 150 L 200 150 L 200 125 L 175 100 L 150 125 L 125 100 L 100 125 Z" style="stroke:black; fill:gray; stroke-width:5" />
+</svg>
+<p>Create the picture using 2D Canvas drawing, by editing the <a href="../../for_students/3-1.js" class="for_students">3-1.js</a> file that appears on <a href="../../for_students/3-1.html" class="for_students">3-1.html</a> (and shown in the box). The id of the canvas element is <code>canvas1</code>.</p>
+<iframe src="../../for_students/3-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Rubric Exercise 3-1 - 20pts</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      Exercise 3-1 - 20pts</p>
+<ul>
+<li>5 points for making each shape</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<h2 id="box-exercise-2-your-own-picture">Box (Exercise) 2: Your own Picture</h2>
+<p>Make any picture you want to show off how well you've learned Canvas. Make it by editing the <a href="../../for_students/3-2.js" class="for_students">3-2.js</a> file which is used in <a href="../../for_students/3-2.html" class="for_students">3-2.html</a> (and shown in the box). The Canvas element has id &ldquo;canvas1&rdquo; and size 500x500.</p>
+<p>You can draw anything you want. But please show off that you know how to: use styles, use transparency, use drawing order, and use complicated shapes. The grader will check that Canvas has some of those things.</p>
+<p>Also, you must &ldquo;color in the lines&rdquo; - don't change the HTML file (the canvas is 500x500). And just make a static picture - no interaction or animation. We'll learn about that on the next page. This is not the end of this workbook - be sure to go on to the other pages when you're done.</p>
+<p>There is a chance for <strong>bonus points</strong> if you make a picture that is particularly creative and shows off that you can use all the Canvas features we discussed.</p>
+<iframe src="../../for_students/3-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe> 
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Rubric Exercise 3-2 - 17pts</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>5 points for making a picture</li>
+<li>5 points for shapes that aren't rectangles</li>
+<li>5 points for transparency (must be obvious from looking at the picture)</li>
+<li>(bonus) 2 points for making a cool picture (grader's discretion)</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<p>Now you can go on to <a href="../../docs/4/" class="Next__Page">Page 4</a>.</p>
+<a href="../../docs/4/" class="Next__Page">Next: Animation and Interaction with Canvas </a>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Selected"> 3: Canvas Drawing: Your Turn </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

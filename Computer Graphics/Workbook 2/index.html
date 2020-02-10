@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="generator" content="Hugo 0.61.0" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">CS559 Workbook 2: Graphics APIs</h1>
+	</header>
+	<div class="content main__content clearfix">
+		<h1 id="workbook-2---graphics-apis-and-drawing-basics">Workbook 2 - Graphics APIs and Drawing Basics</h1>
+<p>Remember to look at these web pages using a local web server!
+For more information on using a local server, see the <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/tools/">Tools</a> page.</p>
+<h2 id="goals-of-this-workbook">Goals of this Workbook</h2>
+<ol>
+<li>To introduce the idea of object-based graphics as opposed to image-based graphics</li>
+<li>To show the two different types of graphics APIs, immediate mode and retained mode</li>
+<li>To give you experience programming with the Canvas API that web browsers provide</li>
+<li>To give you exposure to SVG, which we will look at more in the future</li>
+<li>To see how the event and animation loop models introduced in the previous workbook are used in graphics</li>
+<li>To get more practice with reading and writing JavaScript programs</li>
+</ol>
+<h2 id="what-you-should-do-with-this-workbook">What you should do with this Workbook</h2>
+<p>This workbook assumes you've already done the previous week's workbook, and are familiar with the mechanics of doing assignments and turning them in using GitHub, as well as looking at web pages with JavaScript programs. This time, there will be a lot less reading the HTML source.
+In fact, some of the HTML source of this and the following workbooks are generated automatically, so they might be hard to read and follow.
+Of course, you are still welcome to look at them.
+All the relevant HTML source files and JavaScript programs are stored in the <code>for_students/</code> folder.
+This includes files that need to be modified for the exercises, but also source files that you should read and understand to learn about web programming.
+We will ask you to make changes to some of the programs, and also write some of your own.</p>
+<p>Remember that you are required to edit the <code>README.md</code> file.</p>
+<p>This workbook also has links to required readings. Make sure you read them.
+Even if you don't need it to complete the workbook assignment, you will need the
+information for other parts of class (for example, to understand lecture or pass the quiz).</p>
+<p>This workbook has 6 pages total. Be sure to read the 6th page (it is after the programming exercises).</p>
+<h2 id="exercises">Exercises</h2>
+<p>The programming assignments in this workbook at on <a href="./docs/3/">Page3(Canvas Drawing: Your Turn)</a> and <a href="./docs/5/">Page5(Try Canvas Programming)</a>, but I recommend you read through the workbook in order.</p>
+<h2 id="readings">Readings</h2>
+<p>In addition to the pages and code of the workbook, there are a number of things you will be asked to read. It may work best to read the workbook, and go to the external readings when they come up.</p>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">The readings (in order of appearance):</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>(optional) Chapter 1 of <em>Foundations of Computer Graphics</em> <a href="https://canvas.wisc.edu/files/11034173/">FCG4_Ch01.pdf</a></li>
+<li><a href="https://graphics.cs.wisc.edu/WP/tutorials/image-based-graphics-vs-object-based-graphics/">CS559 Tutorial: Image-Based vs. Object-Based Graphics</a></li>
+<li><a href="http://graphics.cs.wisc.edu/WP/tutorials/color-initial-answers-to-a-practical-question">CS559 Color Tutorial</a></li>
+<li>Readings about SVG are for later in the semester, but you could look at <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/08/30/getting-started-with-svg/">CS559 SVG Tutorial Part 1: Getting Started with SVG</a> if  you are curious</li>
+<li><a href="./docs/2/">Page2(Drawing with Canvas)</a> gives a number of references on Canvas, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial">Mozilla (Official) Canvas Tutorial (top level)</a> is the starting point</li>
+<li><a href="https://graphics.cs.wisc.edu/WP/tutorials/points-vectors-and-coordinate-systems-why-are-points-and-vectors-different/">CS559 Tutorial: Points, Vectors, Coordinate System Note</a></li>
+<li>(optional) If you need a refresher on Linear Algebra, Chapters <a href="https://canvas.wisc.edu/files/10881405/">1</a>, <a href="https://canvas.wisc.edu/files/10881401/">2</a> and <a href="https://canvas.wisc.edu/files/10881402/">4</a> of <em>Practical Linear Algebra</em> are a good place to get it</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<h2 id="rubric">Rubric</h2>
+<p>Note that 85 points are relatively straightforward, and 15 points that are harder. Getting better than an AB will require doing some harder things (in addition to doing the AB stuff).</p>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Expand</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>35pts for correctly turning in an assignment with a proper readme</li>
+<li>Exercise 3-1 - 20pts - 5 points for making each shape</li>
+<li>Exercise 3-2 - 17pts
+<ul>
+<li>5 points for making a picture</li>
+<li>5 points for shapes that aren't rectangles</li>
+<li>5 points for transparency (must be obvious from looking at the picture)</li>
+<li>2 points for making a cool picture (grader's discretion)</li>
+</ul>
+</li>
+<li>Exercise 5-1 - 15pts
+<ul>
+<li>5 points for making circles appear when the mouse is clicked</li>
+<li>4 points for having the circles change color when the mouse is over them</li>
+<li>4 points for having the circle change their color back when the mouse leaves them</li>
+<li>2 points for having the circle change color when clicked (bonus points), with the hover behavior still working</li>
+</ul>
+</li>
+<li>Exercise 5-2 - 13pts (note this is a harder exercise - use it to get to an A or A+ after getting 85+ points above)
+<ul>
+<li>2pts user clicks mouse, object shoots from the bottom to that position</li>
+<li>2pts object explodes into small pieces when it gets to position</li>
+<li>2pts explosions fade out (or disappear) after a distance</li>
+<li>2pts multiple fireworks at once (if user clicks quickly)</li>
+<li>1pt random fireworks in addition to user clicks</li>
+<li>1pt fireworks start from random locations at bottom</li>
+<li>2pt projectile motion</li>
+<li>1pt something else creative</li>
+</ul>
+</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<h2 id="due-date">Due Date</h2>
+<p>This workbook is due on Monday, February 3rd.</p>
+<p>Don't forget to commit and push your work back to GitHub when you are done!</p>
+<h2 id="get-started">Get Started&hellip;</h2>
+<p>It all starts on <a href="./docs/1/">Page1(Web Graphics APIs)</a>.</p>
+
+	</div>
+    <ul>
+    
+    
+    </ul>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 2: Graphics APIs) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

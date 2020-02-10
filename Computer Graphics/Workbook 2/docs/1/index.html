@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Web Graphics APIs</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>The kind of graphics we will be doing is 
+&ldquo;object-based&rdquo; or &ldquo;vector&rdquo; or &ldquo;primitive-based&rdquo; graphics, as opposed
+to &ldquo;image-based&rdquo; graphics (sometimes called &ldquo;raster&rdquo; graphics, but that is a historical term).
+Read <a href="https://graphics.cs.wisc.edu/WP/tutorials/image-based-graphics-vs-object-based-graphics/">CS559 Tutorial: Image-Based vs. Object-Based Graphics</a> about the differences.
+The tutorial is from 2014, but it still applies.
+Except that this year in class, we won't be doing much image-based graphics.
+You still need to know the difference.</p>
+<p>For most of this class, we will be doing non-image-based graphics. 
+The other category is harder to name. One term we can use is &ldquo;object-based&rdquo;,
+but the basic idea is that we create pictures not by describing the color
+of each pixel (as image-based graphics would do), but rather by using
+a set of &ldquo;primitives&rdquo; (basic objects) that we put together to make pictures.</p>
+<p>Even though our display is ultimately an image, the APIs allow us to program in terms 
+of objects/primitives. Something else (the implementation of the APIs) takes care of
+converting the objects to the image-based representation. This process of &ldquo;coloring the pixels&rdquo;
+is called rendering (although, sometimes the term rendering is reserved for the more 
+specific version of converting 3D scenes to images).</p>
+<p>For doing object-based (2D) graphics on web pages, there are two main APIs: <em>Canvas</em> and <em>SVG</em>.
+In class, we'll mainly be using Canvas, but we will look at SVG as well.
+For the purpose of this workbook, SVG is important because it represents a
+very different kind of API than Canvas. They both do similar things, 
+but they do it in very different ways.</p>
+<p>The distinction we can make for graphics APIs is between <em>immediate</em> vs. <em>retained</em> mode.</p>
+<ul>
+<li>
+<p><strong>Immediate</strong> mode APIs draw immediately. When you make a function call to create, for example, a rectangle, the rectangle gets drawn immediately. The system colors the pixels right away. In practice, you may not see the changes immediately (more on that in a bit). But, when you make a drawing call (like to the rectangle function), conceptually, the system colors the pixels. It forgets why it colored the pixels after it's done. <em>Canvas</em> is an immediate mode API.</p>
+</li>
+<li>
+<p><strong>Retained</strong> mode APIs create a list of objects that are drawn on demand. Function calls create objects in some storage (e.g., a list of objects), and eventually this list is drawn. The system remembers the objects, and refers to these when coloring the pixels. <em>SVG</em> is a retained mode API. Retained mode APIs are sometimes called <em>display-list</em> APIs since they keep a list of things to display.</p>
+</li>
+</ul>
+<p>This distinction will become clearer as we work through some examples.</p>
+<h2 id="box-1-graphics-elements">Box 1: Graphics Elements</h2>
+<p>Web pages are made up of elements - like paragraphs, headings, and buttons, we learned about that in the previous workbook.</p>
+<p>To do graphics, we make special elements that give us a rectangular region that
+we can draw in.
+For the Canvas API (and actually some other APIs), we create &ldquo;canvas&rdquo; elements
+using the <code>canvas</code> tag.
+For SVGs, we create &ldquo;svg&rdquo; elements using the SVG tag.</p>
+<p>Here's an example with one of each, side by side - <a href="../../for_students/1-1.html" class="for_students">1-1.html</a>:</p>
+<iframe src="../../for_students/1-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Note that these are normal HTML elements. We can give them ids (and classes),
+as well as styling them (here they have red borders).
+In fact, we can use CSS to style them.</p>
+<p>By themselves, these elements are pretty boring - we need to write some
+JavaScript to make them more interesting by drawing something in the box.
+SVGs will have an alternative, but we'll get to that later.</p>
+<h2 id="box-2-drawing-2-ways">Box 2: Drawing 2 Ways</h2>
+<p>Now I am going to use those same boxes, but draw in them.
+The HTML is basically the same as box 1.
+The difference is that the JavaScript is going to add a rectangle to each.
+Be sure to go look at the JavaScript in <a href="../../for_students/1-2.js" class="for_students">1-2.js</a>, which gets loaded at the end of the HTML file <a href="../../for_students/1-2.html" class="for_students">1-2.html</a>.</p>
+<p>Note that the code gets run after the window is done loading (we attached a function to <code>window.onload</code>). This is important: we need to make sure that the elements we are going to draw into are created before we can draw into them.</p>
+<iframe src="../../for_students/1-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The canvas code (with comments removed) looks like:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">let</span> <span style="color:#75af00">canvas</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;canvas1&#34;</span><span style="color:#111">)</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">let</span> <span style="color:#75af00">context</span> <span style="color:#f92672">=</span> <span style="color:#75af00">canvas</span><span style="color:#111">.</span><span style="color:#75af00">getContext</span><span style="color:#111">(</span><span style="color:#d88200">&#39;2d&#39;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;#F00&#34;</span><span style="color:#111">;</span>
+<span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillRect</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#ae81ff">30</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>On line 1, we find the canvas element (that we have given the id &ldquo;canvas1&rdquo; when we made it in <a href="../../for_students/1-2.html" class="for_students">1-2.html</a>). We need to find the element to draw in it.</p>
+<p>On line 2, we pull the <code>context</code> object from the element - this is the object that actually takes care of drawing.</p>
+<p>On line 3, we set the color that we are going to draw (the <code>fillStyle</code>). If you don't remember why <code>#F00</code> is red, please review <a href="http://graphics.cs.wisc.edu/WP/tutorials/color-initial-answers-to-a-practical-question">CS559 Color Tutorial</a>.</p>
+<p>On line 4, we actually draw the filled rectangle. The first 30,30 means put the top left corner 30 units to the right and 30 units down from the top of the element, and make the square be 30 units wide and 30 units high. In both SVG and Canvas,
+Y is measured downwards - this is different than you might be
+used to from math classes. We'll come back to talk about this later.</p>
+<p>The <code>fillRect</code> function draws the rectangle &ldquo;immediately&rdquo; - it colors the pixels in the element. No rectangle is actually remembered - once the function is done, all that's left is the pixels. The browser might not show you things immediately (it might wait to see if other things will be drawn). It might seem obvious, but <code>fillRect</code> draws with the &ldquo;current color&rdquo; (that we had set with the <code>fillStyle</code> variable).</p>
+<p>The SVG example works very differently. This is slightly simplified (you can see the actual code in <a href="../../for_students/1-2.js" class="for_students">1-2.js</a> which has comments that explain the missing details).</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">let</span> <span style="color:#75af00">svg</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;svg1&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">let</span> <span style="color:#75af00">square</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">createElementNS</span><span style="color:#111">(</span><span style="color:#d88200">&#39;rect&#39;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">square</span><span style="color:#111">.</span><span style="color:#75af00">setAttribute</span><span style="color:#111">(</span><span style="color:#d88200">&#34;x&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;30&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">square</span><span style="color:#111">.</span><span style="color:#75af00">setAttribute</span><span style="color:#111">(</span><span style="color:#d88200">&#34;y&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;30&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">square</span><span style="color:#111">.</span><span style="color:#75af00">setAttribute</span><span style="color:#111">(</span><span style="color:#d88200">&#34;width&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;30&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">square</span><span style="color:#111">.</span><span style="color:#75af00">setAttribute</span><span style="color:#111">(</span><span style="color:#d88200">&#34;height&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;30&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">square</span><span style="color:#111">.</span><span style="color:#75af00">setAttribute</span><span style="color:#111">(</span><span style="color:#d88200">&#34;fill&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;#F00&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">svg</span><span style="color:#111">.</span><span style="color:#75af00">appendChild</span><span style="color:#111">(</span><span style="color:#75af00">square</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Just like with canvas, we start by getting the element we're drawing in (with id <code>svg1</code>) on line 1. Line 2 is where things get very different: note that we make an element in the DOM - just like we would make a button or piece of text or any other HTML element. The rectangle is a <code>rect</code> element - part of the HTML page, just like any other element. Once we've created this element, it stays around. We can set its properties (its position, size and color), and we can add it as part of the SVG element (on line 8).</p>
+<p>Note the contrast: with SVG, we made a rectangle object that stays around (since SVG is a <em>retained</em> API - we retain the objects). With Canvas, once we draw and color the pixels, the rectangle only exists to the extent that the pixels are colored.</p>
+<p>For this simple example, there isn't much difference.</p>
+<h2 id="box-3-moving-squares">Box 3: Moving Squares</h2>
+<p>Here's a more interesting example that shows the difference between Canvas and SVG&hellip;</p>
+<iframe src="../../for_students/1-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Again, look at the code (since this is box 3 of page 1, it's <a href="../../for_students/1-3.js" class="for_students">1-3.js</a>). You should recognize the <em>animation loop</em> using <code>requestAnimationFrame</code> from the previous workbook.</p>
+<p>For each frame, we update the position of the rectangle (variable <code>newX</code> is set by reading the clock). But how we cause the square to appear in the new place is completely different.</p>
+<p>For SVG, we simple need to change the position of the square we had created earlier.</p>
+<p>With Canvas, there is no &ldquo;earlier square&rdquo; (since it was immediately turned to pixels). To draw a square in a new place, we need to draw a new square. But before that, we need to get rid of any old stuff (by clearing the picture using <code>clearRect</code>). Then we draw a new blue square.</p>
+<p>This example hopefully highlights the difference between the <em>immediate</em> mode
+API (Canvas) and the <em>retained</em> mode API (SVG).
+In retained mode, the primitives (in this case the square) are
+represented as data. To move them, we change the data structure.
+In immediate mode, the primitives are drawn - they are only represented
+in the code. To animate things, we need to erase the picture and re-draw
+the picture.</p>
+<p>In some ways, immediate mode is easier: we draw what we want, when we
+want. We can use whatever data structures we want to represent things.
+In other ways, retained mode is easier: we can create objects, and then
+alter them as needed.</p>
+<h2 id="box-4-understanding-svg">Box 4: Understanding SVG</h2>
+<p>We'll come back and look at SVG more later in the semester. The rest of this workbook focuses on Canvas. If you're curious, you could start with <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/08/30/getting-started-with-svg/">CS559 SVG Tutorial Part 1: Getting Started with SVG</a> and <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/04/svg2-coordinate-systems/">CS559 SVG Tutorial Part 2: Coordinate Systems</a>, but those aren't needed until later.</p>
+<p>But for now, I want to emphasize the basic idea of SVG: each graphics object
+(like the square) is an HTML element in the DOM - just the same as
+anything else (paragraphs, buttons, scripts, &hellip;).
+Adding the rectangle to the SVG element is just like adding a button
+to a paragraph.</p>
+<p>Many of the things we can do with &ldquo;normal&rdquo; HTML elements (like text or button) can be done with the SVG graphics elements (like rectangles). 
+We can do the same basic things: assign them an id, give them classes,
+use style sheets, etc. We can even create them right in the HTML using
+tags. They generate events just like many other kinds of HTML elements.
+Try moving the mouse over the rectangle on the right, or clicking the red rectangle. Then
+look into the JavaScript to see that this works just like any other event.</p>
+<p>In <a href="../../for_students/1-4.html" class="for_students">1-4.html</a>, I've made the initial picture right in the HTML file. Note how I color the rectangles using a style sheet (although the style sheet is right inside the HTML file). Understand why some rectangles are blue. Notice how I respond to the events on the rectangles (the rightmost one gets enter and leave events - the leftmost one gets click events).</p>
+<iframe src="../../for_students/1-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>We'll come back to SVG, but from this box, note how we can create SVG elements right in our HTML, refer to them from JavaScript, and attach events to them.</p>
+<h2 id="summary-two-apis">Summary: Two APIs</h2>
+<p>On this page, you got to see two different ways to do graphics
+on web pages. One using <em>Canvas</em> (an immediate mode API), and the
+other using <em>SVG</em> (a retained mode API).</p>
+<p>We'll learn to draw something more interesting than a rectangle
+using Canvas in the next pages.</p>
+<a href="../../docs/2/" class="Next__Page">Next: Drawing with Canvas </a>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Selected"> 1: Web Graphics APIs </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

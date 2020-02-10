@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Try Canvas Programming</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<h1 id="page-5-try-canvas-programming">Page 5: Try Canvas Programming</h1>
+<p>This page has two programming exercises.</p>
+<p>The second one is more challenging, but is worth less points. You should only try it after completing the rest of the workbook. Think of it as a way to get from an AB to an A or A+. We used to call these &ldquo;bonus points&rdquo;.</p>
+<p>You should do these exercises by editing the files <a href="../../for_students/5-1.js" class="for_students">5-1.js</a> and <a href="../../for_students/5-2.js" class="for_students">5-2.js</a>.</p>
+<h2 id="box-1-canvas-event-programming">Box 1: Canvas Event Programming</h2>
+<p>In the Canvas element box (with id <code>box1canvas</code>), please implement the following behavior:</p>
+<ol>
+<li>
+<p>When the user clicks in the element, a circle appears under the mouse.
+Circles get added, so the user can make lots of circles.</p>
+</li>
+<li>
+<p>If a circle is under the mouse, it changes color. The circle changes color back to its original color when the mouse leaves.</p>
+</li>
+<li>
+<p>(bonus - more work for less points) If you click on a circle, it changes its color, but it still must be affected by mouse over.</p>
+</li>
+</ol>
+<p>If you do parts 1 and 2 (which everyone should do), (these colors are examples): when you click, a green circle appears; when the mouse enters a green circle, it changes to yellow, when it leaves the yellow circle it changes back to green. In part 3, if you click on a yellow circle (if you try to click on a green circle, it would change to yellow when you enter), it may change to red. The red circle would change to orange (or yellow) when the mouse enters it, but would change back to red, not green, when the mouse leaves. Of course, you need to let the user make lots of circles - and they should all work correctly.</p>
+<p>All of your code for this exercise should go into the file <a href="../../for_students/5-1.js" class="for_students">5-1.js</a>.
+We've started things for you.</p>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Hints</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>The examples on <a href="../../docs/4/">Page4(Animation and Interaction with Canvas)</a> should give you lots of ideas. Those did rectangles, not circles. But a lot of other things are the same.</li>
+<li>You will need to keep a list of circles, so you can check if the mouse is inside of them</li>
+<li>You can do this in a purely event driven style (using <code>onclick</code> and <code>onmousemove</code>) or with an animation loop</li>
+<li>You can make the circles all the same size (pick a radius - like 10 pixels)</li>
+<li>You can decide if the mouse is over a circle by checking to see if the distance between the mouse and the center of the circle is less than the circle's radius</li>
+<li>Making the behavior correct at the edge of the box is hard, since you may not get <code>mousemove</code> events when the mouse is outside the box. Don't worry if the mouse behavior isn't correct outside of the canvas.</li>
+<li>Get part 1 to work first (making circles on click). Then get part 2 to work.</li>
+<li>Getting the mouse position relative to the element requires knowing where the element is. Read the example code on <a href="../../docs/4/">Page4(Animation and Interaction with Canvas)</a> to see a way to do this.</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<iframe src="../../for_students/5-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Rubric for Exercise 5-1 - 15pts</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>5 points for making circles appear when the mouse is clicked</li>
+<li>4 points for having the circles change color when the mouse is over them</li>
+<li>4 points for having the circles change their color back when the mouse leaves them</li>
+<li>2 points for having the circles change color when clicked (bonus points), with the hover behavior still working</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<h2 id="exercise-2-fireworks">Exercise 2: Fireworks</h2>
+<p>And put all your code into <a href="../../for_students/5-2.js" class="for_students">5-2.js</a>. You can edit <a href="../../for_students/5-2.html" class="for_students">5-2.html</a> if you want to, but you shouldn't need to.</p>
+<p>Your job is to make something that looks like simple fireworks.</p>
+<ol>
+<li>When the user clicks the mouse in the rectangle, a circle starts at the bottom edge of the screen and travels to the mouse position.</li>
+<li>When the circle gets to the position of the click, it changes to a bunch of small squares that start moving outward from that position. They move until they get to the edge of the screen (or they can &ldquo;fade out&rdquo;) after a while.</li>
+<li>You need to be able to have multiple fireworks happening at the same time (the user should be able to click to shoot a new one before the first one is done).</li>
+</ol>
+<p>You can start simple and add extra, more complex things:</p>
+<ul>
+<li>have the circles start at random locations on the ground (but make sure they &ldquo;explode&rdquo; at the mouse positions)</li>
+<li>add some random fireworks in addition to the ones created by clicks</li>
+<li>randomize the colors (so each firework is a different color)</li>
+<li>make things follow projectile motion (have downward acceleration due to gravity)</li>
+<li>or other creative things (although, the &ldquo;shooting at the mouse position and having it explode there&rdquo; is a requirement)</li>
+</ul>
+<iframe src="../../for_students/5-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Rubric for Exercise 5-2 - 13pts</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      (note this is a harder exercise - use it to get to an A or A+)</p>
+<ul>
+<li>2pts user clicks mouse, object shoots from bottom to that position</li>
+<li>2pts object explodes into small pieces when it gets to position</li>
+<li>2pts explosions fade out (or disappear) after a distance</li>
+<li>2pts multiple fireworks at once (if user clicks quickly)</li>
+<li>1pt random fireworks in addition to user clicks</li>
+<li>1pt fireworks start from random locations at bottom</li>
+<li>2pt projectile motion</li>
+<li>1pt something else creative</li>
+</ul>
+    </div>
+  </label>
+</div>
+
+<h2 id="summary-canvas-exercises">Summary: Canvas Exercises</h2>
+<p>That's the main programming part for this week, however, on <a href="../../docs/6/" class="Next__Page">Next: Where did I draw </a> we
+have one last detail to discuss.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Animation and Interaction with Canvas </a></li>
+        <li class="Side__Item Side__Selected"> 5: Try Canvas Programming </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Where did I draw </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

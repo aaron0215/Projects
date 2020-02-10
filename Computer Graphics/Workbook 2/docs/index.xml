@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Workbook 2: Graphics APIs</title>
+    <link>/docs/</link>
+    <description>Recent content in Docs on Workbook 2: Graphics APIs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Jan 2020 11:05:55 -0600</lastBuildDate>
+    
+	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web Graphics APIs</title>
+      <link>/docs/1/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:35 -0600</pubDate>
+      
+      <guid>/docs/1/</guid>
+      <description>The kind of graphics we will be doing is &amp;ldquo;object-based&amp;rdquo; or &amp;ldquo;vector&amp;rdquo; or &amp;ldquo;primitive-based&amp;rdquo; graphics, as opposed to &amp;ldquo;image-based&amp;rdquo; graphics (sometimes called &amp;ldquo;raster&amp;rdquo; graphics, but that is a historical term). Read CS559 Tutorial: Image-Based vs. Object-Based Graphics about the differences. The tutorial is from 2014, but it still applies. Except that this year in class, we won&#39;t be doing much image-based graphics. You still need to know the difference.
+For most of this class, we will be doing non-image-based graphics.</description>
+    </item>
+    
+    <item>
+      <title>Drawing with Canvas</title>
+      <link>/docs/2/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:47 -0600</pubDate>
+      
+      <guid>/docs/2/</guid>
+      <description>Now that we understand that Canvas is an immediate mode graphics API, we can look more at what commands it gives us for drawing.
+Canvas provides a rich set of options for creating shapes and coloring and styling them. We won&#39;t talk about all of them here, and only cover the basic options. Beyond that, you are encouraged to go out onto the web to read and try things on your own.</description>
+    </item>
+    
+    <item>
+      <title>Canvas Drawing: Your Turn</title>
+      <link>/docs/3/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:49 -0600</pubDate>
+      
+      <guid>/docs/3/</guid>
+      <description>Now that you&#39;ve learned to draw, you&#39;ll get to draw something!
+There are two exercises - you must make a picture for each. In the first one, you have to make the picture you&#39;re asked for. In the second one, you can make anything you want.
+You do not need to use Canvas concepts that we haven&#39;t learned about yet (transformations or curves). You can use images or text if you want.</description>
+    </item>
+    
+    <item>
+      <title>Animation and Interaction with Canvas</title>
+      <link>/docs/4/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:51 -0600</pubDate>
+      
+      <guid>/docs/4/</guid>
+      <description>Page 4: Animation and Interaction with Canvas Back on Page1(Web Graphics APIs), we saw animation with Canvas and SVG, and interaction with SVG. Now we will look at animation and interaction with Canvas in more detail.
+The tricky thing is that with Canvas, we don&#39;t store the objects. That means we don&#39;t have anything to change - it&#39;s up to the program to keep track of things and adjust them accordingly, and we need to redraw everything.</description>
+    </item>
+    
+    <item>
+      <title>Try Canvas Programming</title>
+      <link>/docs/5/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:53 -0600</pubDate>
+      
+      <guid>/docs/5/</guid>
+      <description>Page 5: Try Canvas Programming This page has two programming exercises.
+The second one is more challenging, but is worth less points. You should only try it after completing the rest of the workbook. Think of it as a way to get from an AB to an A or A+. We used to call these &amp;ldquo;bonus points&amp;rdquo;.
+You should do these exercises by editing the files 5-1.js and 5-2.js.
+Box 1: Canvas Event Programming In the Canvas element box (with id box1canvas), please implement the following behavior:</description>
+    </item>
+    
+    <item>
+      <title>Where did I draw</title>
+      <link>/docs/6/</link>
+      <pubDate>Tue, 21 Jan 2020 11:05:55 -0600</pubDate>
+      
+      <guid>/docs/6/</guid>
+      <description>There is one detail we glossed over: with either Canvas or SVG, we referred to positions (such as the center of a circle, or corner of a rectangle) using two numbers. What do these mean?
+Notice that they don&#39;t always mean the same thing: here are two SVG elements, each with a circle at position (30, 30). Look in the HTML (6-1.html) - you&#39;ll see the exact same line is repeated twice.</description>
+    </item>
+    
+  </channel>
+</rss>
