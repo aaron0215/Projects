@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="common.css" />
+</head>
+
+<body>
+    <p>
+        First, we'll make a hand - we'll put the origin of its coordinate system at the base of the hand where it
+        attaches to the wrist.
+    </p>
+    <canvas id="canvas1" width="200" height="100"></canvas>
+    <p>
+        Now, we'll make the wrist bone. The center of the coordinate system is the elbow. The wrist joint is at the end
+        of the bone - so that's where we'll place the hand (by translating it to the right place). We'll also rotate the
+        handle by the wrist joint angle.
+    </p>
+    <canvas id="canvas2" width="200" height="100"></canvas>
+    <p>
+        Now, we'll make the upper arm bone. The center of the coordinate system is the shoulder. The elbow joint is at
+        the end of the upper arm bone. We'll place the wrist at the elbow (by translation) and rotate the elbow by the
+        joint angle.
+    </p>
+    <canvas id="canvas3" width="200" height="100"></canvas>
+    <p>
+        Now, we'll make the Torso. It's center is at the waist. The right shoulder is at the top right of the torso.
+        That's where the arm gets attached.
+    </p>
+    <canvas id="canvas4" width="200" height="150"></canvas>
+    <p>
+        Try changing the joint angles with the sliders below. Notice that when a bone moves, the other things in its
+        coordinate system (the parts connected to it) move as well. Because we are only changing the rotations, the
+        parts stay connected. Remember that each of the pictures is in a different coordinate system.
+    </p>
+    <input id="slider1" type="range" min="-1" max="1" step=".05" />
+    <input id="slider2" type="range" min="-1" max="1" step=".05" />
+    <input id="slider3" type="range" min="-1" max="1" step=".05" />
+
+    <script src="4-4.js" type="module"></script>
+</body>
+
+</html>

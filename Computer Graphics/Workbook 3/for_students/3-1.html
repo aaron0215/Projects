@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="common.css" />
+</head>
+
+<body>
+    <p>
+        Translate: <input id="slider1" type="range" min="0" max="50" step="1" />
+        <input type="text" id="text1" value="FILL" readonly />
+    </p>
+    <p>
+        Scale: <input id="slider2" type="range" min="0" max="3" step=".1" />
+        <input type="text" id="text2" value="FILL" readonly />
+    </p>
+    <p>
+        Scale then translate:
+    </p>
+    <canvas id="canvas1" width="160" height="60"></canvas>
+    <p>
+        Translate then scale:
+    </p>
+    <canvas id="canvas2" width="160" height="60"></canvas>
+
+    <script src="3-1.js" type="module"></script>
+</body>
+
+</html>

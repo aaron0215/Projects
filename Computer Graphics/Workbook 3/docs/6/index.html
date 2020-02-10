@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Quadcopter Exercise</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="box-1-exercise-4-quadcopter">Box 1: Exercise 4, Quadcopter</h2>
+<iframe src="../../for_students/6-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>To try out hierarchical modeling and animation, you will make a QuadCopter. Since we're still doing 2D, we'll make a top view. This is a hierarchical model: the QuadCopter moves around (and turns) and has 4 propellers that stay attached, but spin around. You can make it fancier if you like. You can see an example from the 2015 class below.</p>
+<p>Some requirements:</p>
+<ol>
+<li>Your QuadCopter can be simple in shape, but it must have a front, and 4 arms that the rotors attach to.</li>
+<li>The propellers can be simple, but them must have an obvious center that they spin around.</li>
+<li>You scene must have a QuadCopter that travels in a circle and points forward as it goes around the circle. (yes, real quadcopters do not need to face their direction of travel - but for this, the quadcopter has to face where it is going)</li>
+<li>The propellers must spin.</li>
+<li>Your quadcopter must be done using Canvas, and put into a Canvas element on this page. You can use the above canvas with id <code>canvas1</code> on this page for it.</li>
+</ol>
+<p>We have asked students to do variants of this assignment in the past. So, if you look around, you will find the old assignment, and even old example code. We can't stop you from looking at them.</p>
+<p>In fact here's the <a href="http://graphics.cs.wisc.edu/WP/cs559-fall2015/2015/09/03/programming-assignment-2/">2015 Quadcopter Assignment</a>, and the <a href="http://graphics.cs.wisc.edu/Courses/559-f2015/Examples/QuadCopter/quad.html">2015 Quadcopter Example</a>.</p>
+<p>You can look at the old program to get an idea of what to do for this assignment. The front of the quadcopter is flatter than the back - so it does have a front. The propellers spin at different rates - but not in a meaningful way. Real quadcopters control themselves by varying the speeds of the rotors.</p>
+<p>We discourage you from trying to read the old code. It's done in a weird way (archaic JavaScript - creating classes by hacking the prototype), uses drawing features we haven't learned in class (Bezier curves), and is written in a weird way to account for future features. You're better off figuring out how to do it yourself.</p>
+<p>The old assignment was actually more open ended (you didn't have to make a QuadCopter - that's just what this version does). For your assignment, you need to make a quadcopter (or some &ldquo;vehicle&rdquo; with &ldquo;4 spinning parts&rdquo;).</p>
+<p>Your code must be in <a href="../../for_students/6-1.html" class="for_students">6-1.html</a> and <a href="../../for_students/6-1.js" class="for_students">6-1.js</a>. We've given you the beginnings of a <code>window.onload.</code> You must use <code>window.requestAnimationFrame</code> correctly. You learned about this in previous workbooks, and the code should give you plenty of examples. You may use features of Canvas that we have not learned about in class yet (like Bezier curves), but you do not have to.</p>
+<h2 id="beyond-the-basics">Beyond the Basics</h2>
+<p>The list above is for a complete assignment to get the regular points for this exercise (20). Basically, you need to make one quadcopter that moves in a circle with propellers that spin. You may earn up to 8 bonus points by adding additional features.</p>
+<ol>
+<li>Have multiple quadcopters (1pt)</li>
+<li>Have quadcopters that fly in a complex paths (at least one should still fly in a circle). (1-3pts)</li>
+<li>Make cool looking quadcopters (1-2pts).</li>
+<li>Provide some kind of interaction (e.g., let the user fly a quadcopter with the keyboard). You can add controls to the HTML, or respond to events in the Canvas. If the user is supposed to do something, make sure that the HTML has instructions above the Canvas. (1-3pts)</li>
+<li>Make the quadcopters &ldquo;do something&rdquo;. You could have people that the quadcopter flies to and rescues - they could wave their arms to flag it down (more articulated motion!). (1-3pts)</li>
+<li>Make other articulated objects in the scene. (1-2pts)</li>
+</ol>
+<p>Note: for each of these, it is the grader's discretion how many points you get. Also, no matter how much you do, we will only add at most 8 bonus points.</p>
+<p>Remember that the main learning goal of the assignment is hierarchical modeling using transformations with parts.</p>
+<p>Be sure to explain in your readme <strong>and in the text of the html file</strong> if there are any bonus point features - especially if they are not obvious (things we should watch for, interactions we can try, &hellip;).</p>
+<p>Remember: bonus points are harder to get than regular points. Be sure to get those first. For example, if you make a quadcopter do something more complex than flying in a circle, you should also have one that flies in a circle.</p>
+<h2 id="rubric">Rubric</h2>
+<p>5 points each (20 total) for the main features:</p>
+<ol>
+<li>A quadcopter body with a front and 4 places for propellers</li>
+<li>4 propellers spinning around correctly</li>
+<li>Quadcopter travels in a circle</li>
+<li>Quadcopter points forwards (turns) as it goes around the circle.</li>
+</ol>
+<p>Up to 8 bonus points for additional features.</p>
+<h2 id="after-this-page">After this page</h2>
+<p>There is one <a href="../../docs/7/">more page</a> with another exercise on it.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 3: Transformations)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Translate Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Composition </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Rotation </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Hierarchy </a></li>
+        <li class="Side__Item Side__Selected"> 6: Quadcopter Exercise </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+canvas {
+    border: 1px solid black;
+}
+
+svg {
+    border: 1px solid black;
+}
+
+input[type=text] {
+    width: 50px;
+}
+
+input[type=range] {
+    width: 100px;
+}

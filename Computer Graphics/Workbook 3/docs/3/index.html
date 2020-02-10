@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Composition</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Now that we've learned <code>scale</code> and <code>translate</code>, let's try to put them together!</p>
+<p>The idea of putting transformations together is a very important part of computer graphics. It's important to understand it in the simple case (scale and translate), so that when we get to more complex transformations and more complex combinations, you will be able to appreciate what is happening.</p>
+<p>As a reminder, you should be looking at the code for each of these examples.</p>
+<h2 id="box-1-scale-and-translate">Box 1: Scale and Translate</h2>
+<p>We can apply transformations one after the other. For example, here we can scale (in the X direction) and then translate (also in the X direction). This box is <a href="../../for_students/3-1.html" class="for_students">3-1.html</a> and <a href="../../for_students/3-1.js" class="for_students">3-1.js</a>.</p>
+<iframe src="../../for_students/3-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Notice the difference in behavior. If we translate first, then the scale only applies to the object (we stretch the coordinate axes after we've moved the origin). If we scale first, then the translation applies in that stretched coordinate system.</p>
+<p>We can think about this as functions being applied to positions (transformation). Let the position of the point be <code>x</code>, the translation be <code>t</code> and the scale be <code>s</code>. The translate transformation is <code>T(x,y) =&gt; (x+t,y)</code>, and the scale transformation is <code>S(x,y) =&gt; (sx,y)</code>.</p>
+<p>If we translate first, and then scale it is <code>T(S(x,y)) = T(sx,y) = sx+t,y</code>.</p>
+<p>If we scale first, and then translate then it is <code>S(T(x,y)) = S(x+t,y) = sx+st,y</code>.</p>
+<p>Remember, that translate and scale apply to the <em>coordinate system.</em> The coordinate system then effects the points, because the points are interpreted in the coordinate system. To use the pen and paper analogy, the transformation commands (translate and scale) move and stretch the paper we draw on.</p>
+<p>We can view the operations as applying to the points, but this requires us to read <em>backwards</em>. If we translate then scale, that means first scale the object then move it. If we scale then translate, we can think about first moving the object, then scaling the object (in its new position).</p>
+<h2 id="box-2-scale-about-the-center">Box 2: Scale about the Center</h2>
+<p>Suppose we want to scale around the center of an object, not the center of the coordinate system.</p>
+<p>We could: move the object so its center is at the origin, scale it, then move the object back to its original position.</p>
+<iframe src="../../for_students/3-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Here, the center of the square is at <code>(40,40)</code>. So we need to <code>translate(-40,-40)</code> to place its center at the origin, then scale, then do a translation to put the center back where it belongs. But when we look at the code (<a href="../../for_students/3-2.html" class="for_students">3-2.html</a> and <a href="../../for_students/3-2.js" class="for_students">3-2.js</a>):</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">,</span> <span style="color:#ae81ff">40</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">scale</span><span style="color:#111">(</span><span style="color:#75af00">sc</span><span style="color:#111">,</span> <span style="color:#75af00">sc</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">40</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">40</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillRect</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span> <span style="color:#ae81ff">30</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></div>
+<p>Notice that the order of transforms is backwards. The transformation that applies first to the object is closest to the object. However, if we think of the transformations as being things that change the coordinate system, they occur in the correct order. We can read the code as: (1) move the center of the coordinate system to where the center of the object will be; (2) scale the coordinate system; (3) move the center of the coordinate system back so that the object's center position is where the object's center position should be.</p>
+<p>Note that we cannot do a save/restore to undo the first translation because that would also get rid of the scale.</p>
+<h2 id="box-3-exercise-2-another-example">Box 3: Exercise 2, Another Example</h2>
+<p>The original box with a triangle function puts the box at the origin. Suppose we want to make a grid of them (on the same (20,20) spacing), but with the boxes being half size.</p>
+<iframe src="../../for_students/3-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Oh wait, the scale is missing :-) You need to fix the code - add the appropriate scaling, save and restore to make the lower box (canvas) <code>canvas2</code> look like the upper one.
+You can find this code in <a href="../../for_students/3-3.html" class="for_students">3-3.html</a> and <a href="../../for_students/3-3.js" class="for_students">3-3.js</a>.</p>
+<h2 id="box-4-do-a-flip">Box 4: Do a Flip!</h2>
+<p>With Canvas, we've gotten used to the idea that the coordinate system starts in the upper left corner, the x axis goes to the right and the y axis goes down. The initial coordinate system has the Y axis scaled such that one unit in the y coordinate is one &ldquo;html pixel&rdquo; downward, but we can change that using scale.</p>
+<p>In math classes, we usually put the origin in the lower left corner and have y going upwards. We can now change the coordinate system so that Canvas works like we're used to! We need to scale the y axis and translate the origin. Or we can translate the origin and scale the y axis.</p>
+<p>Here's three pictures - the first with the regular canvas coordinate system, the second scaling and translating, and the third translating and scaling. Read the code (<a href="../../for_students/3-4.html" class="for_students">3-4.html</a> and <a href="../../for_students/3-4.js" class="for_students">3-4.js</a>) and notice how the values for the translation change depending on the order. If you want, you can make a more interesting picture.</p>
+<iframe src="../../for_students/3-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<h2 id="box-5-exercise-3-one-more">Box 5: Exercise 3, One more!</h2>
+<p>In computer graphics, we often like to have a coordinate system with the origin in the center of the &ldquo;window&rdquo; (in our case, the Canvas we're working in), and the x and y coordinates ranging from -1 to 1. That way, we can draw things with the same coordinates no matter how big the window is.</p>
+<p>Unfortunately, this is a bad idea in Canvas for many reasons. One problem is that some browsers do some of the drawing using integer arithmetic. So, for this exercise, we'll go from -100 to 100 instead.</p>
+<p>You can create the coordinate system for canvas using a translation and a scale (in either order). In <a href="../../for_students/3-5.html" class="for_students">3-5.html</a> and <a href="../../for_students/3-5.js" class="for_students">3-5.js</a>, add something to the &ldquo;picture&rdquo; function to set the coordinate system so it goes from -100 to 100 in x and y. The picture is a diamond shape that touches the edges, a plus at the center, and a T near the top left. You should only add translate and scale commands to set the coordinate system. If you do it correctly, you will fill each of the boxes below in a similar way.</p>
+<iframe src="../../for_students/3-5.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p><strong>HINT:</strong> you can access <code>canvas.width</code> and <code>canvas.height</code>. You only need to add two lines of code to the <code>picture</code> function in function <code>part5</code>.</p>
+<h2 id="summary-composing-transformations">Summary: Composing transformations</h2>
+<p>Composing transformations is a key concept in computer graphics. It is important to understand it now, when the transformations are simple (2D translate and scale). In the future, the transformations will become more complex, but the basic idea of composition will be the same.</p>
+<p>In fact, on the <a href="../../docs/4/">next page</a>, we'll consider rotations - which might really make your head spin.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 3: Transformations)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Translate Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Selected"> 3: Composition </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Rotation </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Hierarchy </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Quadcopter Exercise </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

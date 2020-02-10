@@ -1,0 +1,80 @@
+<!-- here is a big, empty SVG! make it into something interesting! -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="600px" width="600px">
+    <!-- you can delete this big rectangle - it's just a placeholder -->
+    <rect x="0" y="0" height="600" width="600" fill="#4d2600" />
+    <!-- stars -->
+    <g id="stars">
+    <circle cx="50" cy="50" r="1" fill="white"/>
+    </g>
+    <use transform="translate(67,221)" xlink:href="#stars" />
+    <use transform="translate(93,110)" xlink:href="#stars" />
+    <use transform="translate(55,434)" xlink:href="#stars" />
+    <use transform="translate(127,521)" xlink:href="#stars" />
+    <use transform="translate(146,286)" xlink:href="#stars" />
+    <use transform="translate(198,307)" xlink:href="#stars" />
+    <use transform="translate(205,475)" xlink:href="#stars" />
+    <use transform="translate(216,246)" xlink:href="#stars" />
+    <use transform="translate(230,231)" xlink:href="#stars" />
+    <use transform="translate(252,127)" xlink:href="#stars" />
+    <use transform="translate(254,490)" xlink:href="#stars" />
+    <use transform="translate(277,527)" xlink:href="#stars" />
+    <use transform="translate(286,390)" xlink:href="#stars" />
+    <use transform="translate(307,198)" xlink:href="#stars" />
+    <use transform="translate(381,475)" xlink:href="#stars" />
+    <use transform="translate(390,252)" xlink:href="#stars" />
+    <use transform="translate(401,240)" xlink:href="#stars" />
+    <use transform="translate(421,490)" xlink:href="#stars" />
+    <use transform="translate(448,50)" xlink:href="#stars" />
+    <use transform="translate(521,146)" xlink:href="#stars" />
+    <use transform="translate(500,375)" xlink:href="#stars" />
+    <!-- ship body -->
+    <path d="M300,80 Q260,110 250,160 L350,160 Q340,110 300,80" fill="darkorange"/> 
+    <path d="M250,160 Q240,250 275,350 L325,350 Q360,250 350,160" fill="white" stroke="white" stroke-width="1"/>
+    <circle cx="300" cy="230" r="30" fill="lightsalmon"/>
+    <!-- shadow on window -->
+    <path d="M300,200 Q335,220 320,250 " fill="transparent" stroke="darkorange" stroke-width="5"/> 
+    <circle cx="300" cy="230" r="30" stroke="black" fill="transparent" stroke-width="6"/>
+    <g id="windowdot">
+    <circle cx="300" cy="200" r="2" fill="white"/>
+    </g>
+    <use transform="translate(20,8) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(30,30) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(22,50) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(0,60) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(-22,50) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(-30,30) " fill="white" xlink:href="#windowdot" />
+    <use transform="translate(-20,8) " fill="white" xlink:href="#windowdot" />
+    <!-- ship buttom -->
+    <polyline points="273 350 277 355 323 355 327 350" fill="black"/>
+    <!-- booster -->
+    <g id="booster">
+    <polyline points="260 300 235 320 235 340 268 330" fill="black"/>
+    <path d="M225,300 Q210,305 210,365 L240,365 Q240,305 225,300 Z" fill="darkorange" /> 
+    <polyline points="210 365 215 370 235 370 240 365" fill="black"/>
+    </g>
+    <use transform="translate(600,0) scale(-1,1)" xlink:href="#booster" />
+    <!-- trace of flame -->
+    <g id="trace">
+    <polyline points="215 370 210 600 240 600 235 370" fill="white"/>
+    </g>
+    <use transform="translate(75,0)" xlink:href="#trace" />
+    <use transform="translate(150,0)" xlink:href="#trace" />
+    <!-- smoke -->
+    <g id="smoke">
+    <ellipse cx="225" cy="500" rx="25" ry="10" fill="Gainsboro"/>
+    <circle cx="204" cy="504" r="8" fill="Gainsboro"/>
+    <circle cx="246" cy="504" r="8" fill="Gainsboro"/>
+    <circle cx="225" cy="510" r="13" fill="Gainsboro"/>
+    </g>
+    <use transform="translate(75,50)" xlink:href="#smoke" />
+    <use transform="translate(150,0)" xlink:href="#smoke" />
+    <!-- flame -->
+    <g id="flame">
+    <path d="M215,370 Q215,410 225,450 Q235,410 235,370 Z" fill="#ffc266"/> 
+    <path d="M218,370 Q218,380 225,420 Q232,380 232,370 Z" fill="orange"/> 
+    <path d="M220,370 Q220,370 225,390 Q230,370 230,370 Z" fill="#ff6633" /> 
+    </g>
+    <use transform="translate(150,0)" xlink:href="#flame" />
+    <use transform="translate(-150,-385) scale(2,2) " xlink:href="#flame" />
+    
+</svg>

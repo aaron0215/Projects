@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CS559 Workbook 3: Transformations on Workbook 3: Transformations</title>
+    <link>/</link>
+    <description>Recent content in CS559 Workbook 3: Transformations on Workbook 3: Transformations</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Jan 2020 22:09:06 -0600</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Translate Transformations</title>
+      <link>/docs/1/</link>
+      <pubDate>Mon, 27 Jan 2020 22:24:40 -0600</pubDate>
+      
+      <guid>/docs/1/</guid>
+      <description>In the previous workbook, we commented on the idea of a coordinate system. Recall that in Canvas and SVG, we interpret a coordinate (x,y) by starting at the top left corner of the canvas element and measuring x units (&amp;ldquo;html pixels&amp;rdquo;) to the right, and y units down.
+Each box on this page has an html file and a javascript file (so the first box is 1-1.html and 1-1.js).
+Box 1: The idea of transformation Let&#39;s start with a really simple example.</description>
+    </item>
+    
+    <item>
+      <title>Scale Transformations</title>
+      <link>/docs/2/</link>
+      <pubDate>Mon, 27 Jan 2020 22:24:44 -0600</pubDate>
+      
+      <guid>/docs/2/</guid>
+      <description>Last page, we learned about our first transformation, translate. Now, let&#39;s learn a second one: scale.
+Boxes 1 and 2: Scaling Up A scale transformation makes things bigger or smaller by multiplying all of the coordinates by some value.
+If we want to double the size of things, we multiply all the coordinates by two. If we want to halve the size of things, we multiply all coordinates by 1/2.</description>
+    </item>
+    
+    <item>
+      <title>Composition</title>
+      <link>/docs/3/</link>
+      <pubDate>Mon, 27 Jan 2020 22:24:47 -0600</pubDate>
+      
+      <guid>/docs/3/</guid>
+      <description>Now that we&#39;ve learned scale and translate, let&#39;s try to put them together!
+The idea of putting transformations together is a very important part of computer graphics. It&#39;s important to understand it in the simple case (scale and translate), so that when we get to more complex transformations and more complex combinations, you will be able to appreciate what is happening.
+As a reminder, you should be looking at the code for each of these examples.</description>
+    </item>
+    
+    <item>
+      <title>Rotation</title>
+      <link>/docs/4/</link>
+      <pubDate>Mon, 27 Jan 2020 22:24:50 -0600</pubDate>
+      
+      <guid>/docs/4/</guid>
+      <description>Time for the next transformation: Rotation. Spinning things around.
+Rotation will turn out to have all sorts of complexity to it - especially when we get to 3D.
+But the basic idea is simple: we spin an object around some point.
+Rotations are a rigid transformation: they do not change the distances between points. Translation is also a kind of rigid transformation.
+If translation is sliding the paper you&#39;re drawing on in some direction, scaling is stretching it, then rotation is turning it by some amount.</description>
+    </item>
+    
+    <item>
+      <title>Hierarchy</title>
+      <link>/docs/5/</link>
+      <pubDate>Mon, 27 Jan 2020 22:25:24 -0600</pubDate>
+      
+      <guid>/docs/5/</guid>
+      <description>Box 1: Arms and Legs Here&#39;s a little more complete version of the arm example:
+ This has so many parameters (one for the &amp;ldquo;root&amp;rdquo; position x,y and one for each angle) that the sliders are made with a loop! Try it out and see how each joint is connected to a slider. The code can be found in 5-1.html and 5-1.js.
+The place to focus on is the drawBody function (in 5-1.</description>
+    </item>
+    
+    <item>
+      <title>Quadcopter Exercise</title>
+      <link>/docs/6/</link>
+      <pubDate>Mon, 27 Jan 2020 22:25:27 -0600</pubDate>
+      
+      <guid>/docs/6/</guid>
+      <description>Box 1: Exercise 4, Quadcopter  To try out hierarchical modeling and animation, you will make a QuadCopter. Since we&#39;re still doing 2D, we&#39;ll make a top view. This is a hierarchical model: the QuadCopter moves around (and turns) and has 4 propellers that stay attached, but spin around. You can make it fancier if you like. You can see an example from the 2015 class below.
+Some requirements:
+ Your QuadCopter can be simple in shape, but it must have a front, and 4 arms that the rotors attach to.</description>
+    </item>
+    
+    <item>
+      <title>SVG Exercise</title>
+      <link>/docs/7/</link>
+      <pubDate>Mon, 27 Jan 2020 22:25:31 -0600</pubDate>
+      
+      <guid>/docs/7/</guid>
+      <description>Box 1: Exercise 5, SVG  Above is a big SVG that is empty. It is 7-1.html and 7-1.svg. Fill it in with an interesting picture (by editing that file).
+You should make the picture by hand, i.e., edit the SVG in a text editor. Do not create or edit the picture in a picture editing tool (like Illustrator or InkScape).
+Your picture should make use of hierarchical modeling. It should have groups, transformations, and instancing.</description>
+    </item>
+    
+  </channel>
+</rss>

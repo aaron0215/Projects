@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Translate Transformations</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>In the previous workbook, we commented on the idea of a coordinate system.
+Recall that in Canvas and SVG, we interpret a coordinate (x,y) by starting at the top left corner of the canvas element and measuring x units (&ldquo;html pixels&rdquo;) to the right, and y units down.</p>
+<p>Each box on this page has an html file and a javascript file (so the first box is <a href="../../for_students/1-1.html" class="for_students">1-1.html</a> and <a href="../../for_students/1-1.js" class="for_students">1-1.js</a>).</p>
+<h2 id="box-1-the-idea-of-transformation">Box 1: The idea of transformation</h2>
+<p>Let's start with a really simple example.</p>
+<p>Let's draw a simple object: a square with a triangle inside of it. Notice that this shape involves two primitives (a square and a triangle), 7 &ldquo;points&rdquo; (the corners of the 2 polygons), and a whole bunch of pixels (all the pixels that get colored when things get drawn). This first box is <a href="../../for_students/1-1.html" class="for_students">1-1.html</a> and <a href="../../for_students/1-1.js" class="for_students">1-1.js</a>.</p>
+<iframe src="../../for_students/1-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The object is drawn with pretty simple code:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#00a8c8">function</span> <span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;goldenrod&#34;</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillRect</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;red&#34;</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">beginPath</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">moveTo</span><span style="color:#111">(</span><span style="color:#ae81ff">25</span><span style="color:#111">,</span> <span style="color:#ae81ff">25</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">lineTo</span><span style="color:#111">(</span><span style="color:#ae81ff">25</span><span style="color:#111">,</span> <span style="color:#ae81ff">35</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">lineTo</span><span style="color:#111">(</span><span style="color:#ae81ff">35</span><span style="color:#111">,</span> <span style="color:#ae81ff">30</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fill</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span style="color:#111">}</span>
+</code></pre></div></p>
+<p>Now, suppose that we want to move this shape around with a slider. We need to redraw it in different positions. We don't need to move all the pixels (since we figure them out from the points), but we do need to move all the points.</p>
+<p>Let's look me at two ways to do this. Be sure to look at the JavaScript file as well.</p>
+<h3 id="box-2-way-1-parametric-geometry">Box 2: Way 1, Parametric Geometry</h3>
+<p>The obvious way to do this is to just replace every position in our code with a parameter so we can move it around:</p>
+<iframe src="../../for_students/1-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#00a8c8">function</span> <span style="color:#75af00">drawTriSquareParameter</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">,</span> <span style="color:#75af00">xval</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;goldenrod&#34;</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillRect</span><span style="color:#111">(</span><span style="color:#ae81ff">20</span> <span style="color:#f92672">+</span> <span style="color:#75af00">xval</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">20</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;red&#34;</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">beginPath</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">moveTo</span><span style="color:#111">(</span><span style="color:#ae81ff">25</span> <span style="color:#f92672">+</span> <span style="color:#75af00">xval</span><span style="color:#111">,</span> <span style="color:#ae81ff">25</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">lineTo</span><span style="color:#111">(</span><span style="color:#ae81ff">25</span> <span style="color:#f92672">+</span> <span style="color:#75af00">xval</span><span style="color:#111">,</span> <span style="color:#ae81ff">35</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">lineTo</span><span style="color:#111">(</span><span style="color:#ae81ff">35</span> <span style="color:#f92672">+</span> <span style="color:#75af00">xval</span><span style="color:#111">,</span> <span style="color:#ae81ff">30</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">fill</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span style="color:#111">}</span>
+</code></pre></div>
+<p>Notice that we have to (carefully) change every <code>x</code> coordinate in the code to use a new x value. Each coordinate <code>(x,y)</code> is changed to <code>(x+xval,y)</code>. This box is <a href="../../for_students/1-2.html" class="for_students">1-2.html</a> and <a href="../../for_students/1-2.js" class="for_students">1-2.js</a>.</p>
+<h3 id="box-3-way-2-transformations">Box 3: Way 2, Transformations</h3>
+<p>Instead, rather than moving the points, we move the coordinate system.</p>
+<iframe src="../../for_students/1-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#00a8c8">function</span> <span style="color:#75af00">drawTriSquareTransform</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">,</span> <span style="color:#75af00">xval</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">save</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#75af00">xval</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span>    <span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span>    <span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">restore</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span style="color:#111">}</span>
+</code></pre></div>
+<p>This code deserves careful understanding, from the inside out. Look at <a href="../../for_students/1-3.html" class="for_students">1-3.html</a> and <a href="../../for_students/1-3.js" class="for_students">1-3.js</a>.</p>
+<ul>
+<li>Notice that it calls <code>drawTriSquare</code> - the original drawing code from the beginning which draws the shape at the &ldquo;default&rdquo; position. We don't need to change that code at all. It just draws things with the same coordinates as it used in the original example. When we switch to a different Canvas, we get a different coordinate system. We will move the coordinate system so that things end up in the right place.</li>
+<li>The line that says <code>translate(xval,0)</code> moves the origin of the coordinate system <code>xval</code> units along the X axis of the coordinate system. This means that things that are drawn will be drawn into this (updated) coordinate system. The coordinate (0,0) is no longer the top left corner of the Canvas: it is <code>xval</code> units to the right (since the X axis is going to the right in the original coordinate system).</li>
+<li>We encountered <code>save</code> and <code>restore</code> in the last Workbook 2. The coordinate system is part of the context (just like the styles we used in Workbook 2). We need to <code>save</code> the current context before we make changes so that we can return the context to its original state. Because <code>translate</code> tells how much to move the coordinate system, if we don't put it back to where we started, each time we apply the translation, the movements will add up.</li>
+</ul>
+<p>You can think about <code>translate</code> as applying an addition of the translation amount to each of the coordinates that are used for drawing. All drawing commands take coordinates and apply the &ldquo;current translation&rdquo; to it before using it. This is built in to all the drawing commands. Part of the context is to keep track of the &ldquo;current translation.&rdquo;</p>
+<p>More generally, translate is a specific type of <strong>transformation</strong>. A transformation is a function that takes a point and returns a new point. So, <code>translate(a,b)</code> can be thought of as a function <code>f(x,y) =&gt; (x+a,y+b)</code>. This function is applied to all coordinates when we're drawing.</p>
+<p>However, we can also think of <code>translate</code> (or any transformation) as changing the <em>coordinate system</em> that we use to interpret the coordinates for drawing. For various reasons (that may not be obvious until you've been doing graphics for a while), this is a more convenient way to think about things.</p>
+<h2 id="repeat_after_me">Box 4: Repeat after me&hellip;</h2>
+<p>Remember: <code>translate</code> moves the current coordinate system, relative to the current coordinate system. Understanding this idea is important. Try to understand it now, when we're dealing with a single, simple transformation (translation). Soon, we add more types.</p>
+<p>Because transformations (including translate) change the <em>current</em> coordinate system, they combine (this is known as <em>composition</em>). If you move the coordinate system to the right, and then you move it to the right again, you've moved it twice as much to the right.</p>
+<p>Also, because we can make many different coordinate systems, we can draw the same object multiple times. With translation, we can make it appear in different places. In the future, we can create other differences. Look at this example:</p>
+<iframe src="../../for_students/1-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">translate</span><span style="color:#111">(</span><span style="color:#ae81ff">40</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span style="color:#75af00">drawTriSquare</span><span style="color:#111">(</span><span style="color:#75af00">context</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></div>
+<p>Notice how in the code (<a href="../../for_students/1-4.html" class="for_students">1-4.html</a> and <a href="../../for_students/1-4.js" class="for_students">1-4.js</a>), the translations add (since we don't save and restore). We'll discuss this more below (Multiple Translations).</p>
+<p>This idea of re-using the same &ldquo;object&rdquo; over and over is known as <strong>instancing</strong>. Here, the object is only represented in code, since we're using an immediate mode API. Later, we'll see it in a retained mode API. Either way, we define it once, and re-use it over and over.</p>
+<p>You should notice that this example uses JavaScript modules. The triangle/square drawing code is in a separate file. This is a good opportunity to learn about them. Read about them in your favorite JavaScript book, or try <a href="https://github.com/nzakas/understandinges6/blob/master/manuscript/13-Modules.md">this chapter in Understanding ES6</a>.</p>
+<h2 id="box-5-using-transformations-for-convenient-coordinates">Box 5: Using Transformations for Convenient Coordinates</h2>
+<p>Right from the beginning we saw the advantages of working in convenient coordinates. The fact that we program in Canvas relative to the Canvas element (instead of the coordinate system of the window) means we don't need to worry about where on the screen the Canvas element is.</p>
+<p>Don't take this concept for granted: the ability to work in convenient coordinate systems is really important. It becomes <em>useful</em> because we can change coordinate systems easily.</p>
+<p>Often, it is useful to define objects such that the object origin is at 0,0. This way, all coordinates in the object's definition at relative to the object. When the object is placed into some other coordinate system, things will get moved appropriately.</p>
+<p>So, from the original example, you might notice that the &ldquo;object&rdquo; of the triangle in square is positioned at 20,20. The insides had to be positioned relative to that. We had to know 25,25 was the corner of the triangle.</p>
+<p>Instead, we have a convention that all objects are drawn with their origin at 0,0. This makes it easier to define objects, but also to use them. There is still a question of where the &ldquo;origin&rdquo; should be. For this example, we'll say it's the upper left of the square. So, we can do:</p>
+<iframe src="../../for_students/1-5.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>For this one, you have to go look at the code.
+You can find it in <a href="../../for_students/1-5.html" class="for_students">1-5.html</a> and <a href="../../for_students/1-5.js" class="for_students">1-5.js</a>.
+But make sure you understand why this one uses save and restore, while the previous example did not.</p>
+<h2 id="multiple-translations">Multiple Translations</h2>
+<p>We aren't limited to just one translation. After we do a first translation, we can do a second translation, and a third, and so forth.</p>
+<p>The way to think about this: the first translation moves the initial coordinate system. The second translation moves that coordinate system (the result of the first movement). The third translation moves that coordinate system. And so forth.
+Using the paper analogy, each translation moves the piece of paper from wherever it is. When we draw, we draw on the piece of paper wherever it is.</p>
+<p>We already took advantage of that in the code <a href="#repeat_after_me">above</a>, where we translated, drew something, translated again, drew some more. You can think of this as keeping your pen in the same place and moving the piece of paper.</p>
+<p>The process of combining transformations is called <strong>composition.</strong> When we apply one transformation after the other, the result is the composition of the two.</p>
+<p>When the transformations are translation, the composition process is simple: we just add things up. Since addition is commutative (remember that word from high school algebra?), the order that we do the additions (or translations) doesn't matter. However, this is not true for transformations in general. When we start to combine transformations we will see cases where order matters.</p>
+<h2 id="box-6-exercise-1-fix-the-code">Box 6: Exercise 1, Fix the code</h2>
+<p>The canvas has a triangle in it. When the button is pressed, the triangle should move to the right.
+When the button is released, the triangle should move to its original position. Right now, each time it jumps farther to the right!</p>
+<p>Understand why the initial code is wrong (it's in <a href="../../for_students/1-6.html" class="for_students">1-6.html</a> and <a href="../../for_students/1-6.js" class="for_students">1-6.js</a>) and does what it does.
+Fix it without using negative numbers. Note: if you move the mouse outside of the button, the <code>mouseup</code> event is missed. You don't have to fix that problem.</p>
+<iframe src="../../for_students/1-6.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>You should only change the <code>draw</code> function, and not use negative numbers.</p>
+<p>SPOILER HINT: (read this only after trying to fix it yourself). Remember that the translation is part of the drawing context. We need to worry about save and restore.</p>
+<p>Even if you needed the hint, the grader will check that you made this work correctly.</p>
+<h2 id="summary---transformations-and-coordinate-systems">Summary - Transformations and Coordinate Systems</h2>
+<p>Hopefully, you now have an idea of what we mean by using transformations to change the coordinate system.
+We only did simple changes (moving the coordinate system with <code>translate</code>), but we'll see some other transformations next, and why these things are so useful.</p>
+<p>On to <a href="../../docs/2/">page two</a>!</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 3: Transformations)</a></li>
+        <li class="Side__Item Side__Selected"> 1: Translate Transformations </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Composition </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Rotation </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Hierarchy </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Quadcopter Exercise </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

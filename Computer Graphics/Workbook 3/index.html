@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="generator" content="Hugo 0.62.2" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">CS559 Workbook 3: Transformations</h1>
+	</header>
+	<div class="content main__content clearfix">
+		<p>One of the most fundamental concepts in computer graphics is <em>transformations</em>.
+Transformations let us work in convenient coordinate systems, model complicated things by putting together parts, move things around without damaging their structure, animate things without changing their shape (or, changing their shape if we want), and many other things.</p>
+<p>Generally, the mathematics of transformations are taught first, and then we tell you what to use them for.</p>
+<p>Here it is going to be the other way round: we'll jump right in and use transformations to see why they are so useful. We'll write some programs that make use of transformations. Then, we'll look at what is happening &ldquo;under the hood&rdquo;.</p>
+<p>This workbook has a bunch of tutorial text and examples - make sure you understand them. Read the code!</p>
+<p>Pages 1, 3, 6 and 7 have required exercises on them. Pages 6 and 7 have bonus point opportunities.</p>
+<p>Don't forget about the <code>README.md</code>. And to commit and push to GitHub!</p>
+<h2 id="required-reading">Required Reading</h2>
+<p>These will be introduced in the context of the workbook pages.</p>
+<p><strong>Tutorials:</strong> the first was assigned already, the other will help you when you are required to write some SVG.</p>
+<ul>
+<li>The <a href="https://graphics.cs.wisc.edu/WP/tutorials/points-vectors-and-coordinate-systems-why-are-points-and-vectors-different/">CS559 Tutorial: Points, Vectors, Coordinate System Note</a> will help explain some of the terms we are using</li>
+<li>You will want to look at some of the tutotials on SVG: <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/08/30/getting-started-with-svg/">CS559 SVG Tutorial Part 1: Getting Started with SVG</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/04/svg2-coordinate-systems/">CS559 SVG Tutorial Part 2: Coordinate Systems</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/05/tutorial-svg3/">CS559 SVG Tutorial Part 3: Manipulating Primitives</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/06/svg4-groups-transforms-re-use-and-hierarchies/">CS559 SVG Tutorial Part 4: Groups, Transformations, Re-Use and Hierarchies</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/09/svg5-more-transforms-and-composition/">CS559 SVG Tutorial Part 5: Transformations and Composition</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/28/svg6-paths-and-beziers/">CS559 SVG Tutorial Part 6: Paths and Beziers</a>/</li>
+</ul>
+<p><strong>Textbook:</strong> In the textbooks, they discuss how to <em>use</em> transformations after the talk about the mathematical details of what they are. We're doing it in the other order. Also, the texts dive right into 3D. We're just doing 2D for now.</p>
+<p>You should read this chapter as part of this assignment, but you might want to read the workbook pages first:</p>
+<ul>
+<li><a href="https://canvas.wisc.edu/files/10881411/">Hart07-jan19.pdf</a> discusses hierarchical modeling. The second example is in 3D, so it may not make as much sense yet.</li>
+</ul>
+<p>If you want to read ahead a bit, next week's readings will cover the math of transformations. You will be required required to read <a href="https://canvas.wisc.edu/files/10881412/">FCG4_Ch06.pdf</a> (although, 6.1.6 is a more advanced topic that we won't discuss in class, and the 3D parts, including 6.2 we'll come back to later). You will also read Chapter 5 of Hart <a href="https://canvas.wisc.edu/files/10881406/">Hart05-jan19.pdf</a> - which covers the same material. It is important enough that you should see it twice, and each one adds extra details.</p>
+<p>BTW: you might want to look back at the <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/books/">Books Page</a> to remind yourself about how the textbooks work.</p>
+<h3 id="rubric-for-grading">Rubric for Grading</h3>
+<ul>
+<li>20 points for correctly turning in a file with a README</li>
+<li>Exercise 1 (page 1, box 6) - restore the triangle to original position when the &ldquo;Jump Right&rdquo; button is released (10 pts)</li>
+<li>Exercise 2 (page 3, box 3) - add appropriate transformations to make both images look the same (10 pts)</li>
+<li>Exercise 3 (page 3, box 5) - define the canvas coordinate systems as specified (10 pts)</li>
+<li>Exercise 4 (page 6, box 1) - make a quadcopter with four attached propellers that moves as specified (20 pts, + up to 8 bonus)</li>
+<li>Exercise 5 (page 7, box 1) - make an SVG picture using hierarchical modelling (15 pts, + up to 3 bonus for creativity)</li>
+</ul>
+<h3 id="bonus-points">Bonus Points</h3>
+<ul>
+<li>Exercise 4 (page 6, box 1) - additional quadcopter features (up to 8)</li>
+<li>Exercise 5 (page 7, box 1) - for a particularly creative solutions or a solution that uses additional SVG features (up to 3)</li>
+</ul>
+<h2 id="assessment">Assessment</h2>
+<p>The graders will check that you have done the required programs correctly. We'll use a local server for grading your workbooks.</p>
+<p>The grader will check that you have correctly done the <code>README.md</code> file, as well as filled in the exercises on pages 1, 3, 6 and 7. Remember to read through things carefully including the source code (mainly the JavaScript files). The code is part of the reading! You will learn how to do the programming parts (in part) by reading code. There are other readings linked on the different web pages.</p>
+<p>As you go through the workbook pages, feel free to tinker with the programs we have given you as a way to understand how they work!</p>
+<p>There are opportunities for bonus points on pages 6 and 7.</p>
+<h2 id="get-started">Get Started</h2>
+<p>Don't forget to commit and push often as you work!</p>
+<p>Get started on <a href="./docs/1/">Page1(Translate Transformations)</a>.</p>
+
+	</div>
+    <ul>
+    
+    
+    </ul>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 3: Transformations) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Translate Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Composition </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Rotation </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Hierarchy </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: Quadcopter Exercise </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

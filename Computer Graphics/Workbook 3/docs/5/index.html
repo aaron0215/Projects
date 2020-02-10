@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Hierarchy</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="box-1-arms-and-legs">Box 1: Arms and Legs</h2>
+<p>Here's a little more complete version of the arm example:</p>
+<iframe src="../../for_students/5-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>This has so many parameters (one for the &ldquo;root&rdquo; position x,y and one for each angle) that the sliders are made with a loop! Try it out and see how each joint is connected to a slider. The code can be found in <a href="../../for_students/5-1.html" class="for_students">5-1.html</a> and <a href="../../for_students/5-1.js" class="for_students">5-1.js</a>.</p>
+<p>The place to focus on is the <code>drawBody</code> function (in <a href="../../for_students/5-1.js" class="for_students">5-1.js</a>). It takes the parameters for the rotations and root positions, and draws the hierarchical figure.</p>
+<p>In this example, notice how some parts (the body) have multiple parts inside of them. Our hierarchical model is a <strong>tree.</strong> For the stick figure, the &ldquo;root&rdquo; is the body, which has 4 sub parts (the four limbs).</p>
+<p>If you look carefully, you will notice that the arms are actually the same code repeated (with a changed coordinate system by scaling the X axis to make it go the other direction). We could have made the two arms the same (they are <em>instances</em>).</p>
+<p>Because we can have instances (the same part used by multiple &ldquo;parent&rdquo; parts), hierarchical models are usually thought of as <em>directed acyclic graphs</em> (or <strong>DAGs</strong>). A DAG is the generalization of a display list. We discussed display lists in the previous workbook. A common term for a DAG that represents a hierarchical model is a <strong>scene graph.</strong></p>
+<p>Most retained mode APIs (including SVG and THREE.js, which we will use later in the class) support representing models as scene graphs. In Canvas, because it is immediate mode, we either need to represent the graph in our own data structures, or represent the graph <em>implicitly</em> in code. The latter is what the <code>drawBody</code> function does: you can see the hierarchy of parts, but we never create any data structures to represent them.</p>
+<h2 id="more-on-save-and-restore">More on Save and Restore</h2>
+<p>Hopefully, you noticed that we can do many saves and restores. When we restore, we get back to the most recent save. When we restore again, we go back to the save before that.</p>
+<p>We usually think about saving and restoring as a <strong>stack</strong>. Save pushes a copy of the current context onto the stack. Restore pops a context off the top of the stack and makes it the current context.</p>
+<p>An alternative way to think about this is that the &ldquo;current context&rdquo; (the one that we are using) is the context at the top of the stack. Save makes a copy of the current context and pushes it onto the top of the stack (so we start using that copy), while restore pops the top element off the stack and discards it (so the &ldquo;current context&rdquo; is now the element that is newly exposed on top of the stack). This is how many systems actually implement the &ldquo;context stacks&rdquo;.</p>
+<p>In Canvas, we call these operations <code>save</code> and <code>restore</code> and they act on a context. Many other immediate mode graphics systems have similar operations with a stack of contexts. Often the save operation is called <code>push</code> and the restore operation is called <code>pop</code> (which makes sense given what they do). Because the most important piece of context we save is the current coordinate system (or transformation), the stack of contexts is sometimes called a <strong>matrix stack</strong> because transformations are represented as matrices.</p>
+<p>All that is relevant because (1) you need to understand the concept of the stack; and (2) when you read code (or books) written for something other than Canvas, you will see stack terminology.</p>
+<p>Now you are ready to read <a href="https://canvas.wisc.edu/files/10881411/">Hart07-jan19.pdf</a>. The concepts were covered in the workbook (and code), but they are so important that its good for you to see them another way.</p>
+<h2 id="hierarchy-in-retained-mode">Hierarchy in Retained Mode</h2>
+<p>The matrix stack (save and restore) model is very procedural: it represents the hierarchical structure of the objects implicitly in the code. There is no representation of groups (unless your code has them). Things just get drawn with the current transformation (i.e., in the current coordinate system).</p>
+<p>In a retained mode system, the DAG (scene graph) is represented as an explicit data structure. Each part (graphics object) is an object (data structure object). Parts can contain lists of children (other parts that are inside of them). Children (usually) know who their parents are.</p>
+<p>There are two different ways that APIs represent hierarchies:</p>
+<ol>
+<li>
+<p>All objects can contain children, so each object has a list of other objects that are its children. A &ldquo;leaf&rdquo; node of the tree is simply an object that has no children. Objects need to take care of their own behavior, and then take care of their children. The DOM in the web browser is an example of such a system. Any element can have other elements as children: we can stick a button inside of a paragraph. There are some limitations, but more or less most elements can have other elements inside of them.</p>
+</li>
+<li>
+<p>Only special <em>group</em> objects contain children. Group objects have no shape themselves - they are just a holding place for other objects which may be shapes. Groups can contain other groups. SVG is an example of an API that uses groups to create hierarchy. THREE.js (which we will get to in a few weeks) is another system that uses groups.</p>
+</li>
+</ol>
+<p>In order to get used to the idea of using groups to create hierarchy, we'll practice with SVG.</p>
+<h2 id="box-2-groups-in-svg">Box 2: Groups in SVG</h2>
+<p>You may want to review what you learned about SVG from last weeks&rsquo; workbook. You may want to go back to the basic SVG tutorials <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/08/30/getting-started-with-svg/">CS559 SVG Tutorial Part 1: Getting Started with SVG</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/04/svg2-coordinate-systems/">CS559 SVG Tutorial Part 2: Coordinate Systems</a>. The <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial">Mozilla Tutorial</a> also works up from the basics to the more complicated things like transformations.</p>
+<p>In SVG, we can apply transformations (including rotation, translation and scale) to any object. We can also create special group objects that contain other objects. Of course, we can transform group objects (since we can transform any object).</p>
+<p>Please read the tutorials on SVG to see how groups and transformations work: <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/05/tutorial-svg3/">CS559 SVG Tutorial Part 3: Manipulating Primitives</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/06/svg4-groups-transforms-re-use-and-hierarchies/">CS559 SVG Tutorial Part 4: Groups, Transformations, Re-Use and Hierarchies</a>, <a href="https://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/09/09/svg5-more-transforms-and-composition/">CS559 SVG Tutorial Part 5: Transformations and Composition</a>.</p>
+<p>While we can put SVG right into our HTML files, it is often more convenient to just load from a file. Here's an example (loaded from <a href="../../for_students/5-2.html" class="for_students">5-2.html</a> and <a href="../../for_students/5-2.svg" class="for_students">5-2.svg</a>):</p>
+<iframe src="../../for_students/5-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>You can read more about how to place SVGs on web pages in the <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Adding_vector_graphics_to_the_Web">Mozilla (Official) Vector Graphics</a>. You'll see a lot about supporting old browsers that don't support SVG, which we don't need to worry about for class.</p>
+<p>We will put the SVGs in separate files so you don't have to go fishing in this long HTML
+file to find them. That SVG is <a href="../../for_students/5-2.svg" class="for_students">5-2.svg</a> and it shows how reversing the
+order of <code>translate</code> and <code>rotate</code> transformations gives different results. You can see in that example that we create a group, and we can re-use the group (instancing!).</p>
+<p>There is some weird stuff at the beginning of the <code>svg</code> file (the SVG element has <code>xmlns</code> attributes). This seems to be required when you load an SVG. Otherwise, the SVG file looks just like what we drop inside an HTML file. You can also load the svg file directly in the browser <a href="../../for_students/5-2.svg" class="for_students">5-2.svg</a>.</p>
+<p>On future pages, you will be asked to make your own svg picture.</p>
+<h2 id="summary-hierarchical-models">Summary: Hierarchical Models</h2>
+<p>Hopefully, you have gotten the idea of how we use hierarchical modeling to put complicated objects together. Next week, we'll learn about how transformations are implemented using linear algebra. But for now, we'll give you a chance to make some models on your own on the <a href="../../docs/6/">next pages</a>. Note: there are 2 more pages in this workbook, both with exercises!</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 3: Transformations)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Translate Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Composition </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Rotation </a></li>
+        <li class="Side__Item Side__Selected"> 5: Hierarchy </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Quadcopter Exercise </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

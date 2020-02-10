@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Rotation</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Time for the next transformation: Rotation. Spinning things around.</p>
+<p>Rotation will turn out to have all sorts of complexity to it - especially when we get to 3D.</p>
+<p>But the basic idea is simple: we spin an object around some point.</p>
+<p>Rotations are a <em>rigid</em> transformation: they do not change the distances between points. Translation is also a kind of rigid transformation.</p>
+<p>If translation is sliding the paper you're drawing on in some direction, scaling is stretching it, then rotation is turning it by some amount.</p>
+<h2 id="box-1-rotation">Box 1: Rotation</h2>
+<p>When you rotate, there is always one point that you spin around: the center of rotation. By convention, this is the center of the coordinate system.</p>
+<p>With Canvas, the rotation command measures the amount of rotation in radians, measured clockwise.</p>
+<iframe src="../../for_students/4-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The code for this example is in <a href="../../for_students/4-1.html" class="for_students">4-1.html</a> and <a href="../../for_students/4-1.js" class="for_students">4-1.js</a>.
+Of course, we can change coordinate systems to move the origin to the center of the window so we can see what is going on. Here, we are drawing the coordinate axes (x=0 and y=0) before we do the rotation. Make sure to look at the code to understand the change of coordinate system!</p>
+<p>Just like with scaling and translation, rotation can be viewed as either rotating the object or rotating the coordinate system.</p>
+<h2 id="box-2-center-of-rotation">Box 2: Center of Rotation</h2>
+<p>Just like with scaling, the center of rotation (the point that does not move) is at the center of the coordinate system.</p>
+<p>We often like to rotate about the center of an object - which means we need to change coordinate systems! We move the object so that the center (the point we want to rotate around) is at the origin of the coordinate system, we rotate, we then move the object back. We can view this as: move the coordinate system to the object's center, rotate the coordinate system, move the coordinate system back to where it came from. The latter may still feel weird to you, but since the commands operate on coordinate systems, the code will read in the correct direction.</p>
+<p>Here are a bunch of squares in different places, rotating around different centers. You should be able to guess what the code looks like, but you should read it anyway (<a href="../../for_students/4-2.html" class="for_students">4-2.html</a> and <a href="../../for_students/4-2.js" class="for_students">4-2.js</a>).</p>
+<iframe src="../../for_students/4-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Make sure you understand this!</p>
+<p>Making good use of center of rotation is an important tool in making objects that move correctly. It's also useful in positioning things.</p>
+<h2 id="box-3-an-actual-picture">Box 3: An Actual Picture</h2>
+<p>This time, we'll make something that you might actually want to make rotate: a simple windmill.</p>
+<iframe src="../../for_students/4-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The code for this example is in <a href="../../for_students/4-3.html" class="for_students">4-3.html</a> and <a href="../../for_students/4-3.js" class="for_students">4-3.js</a>.
+It isn't great landscape art, but it makes a few points.</p>
+<p>Most obviously is that it uses rotation to make the mills spin. But it also uses rotate to build the fans: we have code that makes one blade, and then we rotate that blade into 3 other places to make the 4 bladed fan. We talked about <em>instancing</em> on a prior page, but this is an example.</p>
+<p>Notice how the picture is built up from parts. The scene is made from windmills. The windmills are made from a body and a propeller. A propeller is made from four of blades. Each blade has two pieces.</p>
+<p>The idea of building up objects from parts is called <strong>hierarchical modeling</strong>. Any object is made up of other objects. Until at some point we get to primitives.</p>
+<p>Coordinate systems and transforms are critical for hierarchical modeling. Each object has its own coordinate system. When a part is placed inside of a containing object, a transformation is used to rotate, translate, and/or scale things into place. In the future, we will use other transformations, too.</p>
+<p>Hierarchical modeling makes it easier to build objects. It also makes it easier to change or animate objects - for example, by having the windmill fan as a separate piece, we can rotate it.</p>
+<p>Notice how the composition of transformations means that changes we make to a part get properly placed in the whole. The windmill fan rotates about its center. But that gets moved to the correct place on the windmill. And the windmill gets moved to the right place in the scene.</p>
+<h2 id="box-4-the-arm-bone-is-connected-to">Box 4: The arm bone is connected to&hellip;</h2>
+<p>Here's another example of hierarchical modeling: a stick figure arm. Each piece will be simple, but once we put them together, we can always improve how they look.</p>
+<iframe src="../../for_students/4-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The code for this example is in <a href="../../for_students/4-4.html" class="for_students">4-4.html</a> and <a href="../../for_students/4-4.js" class="for_students">4-4.js</a>. Be sure to read the code.
+It is important to understand these ideas of hierarchical modeling in the simple
+cases, before we move on to complex ones.</p>
+<p>A hierarcical model that consists of rigid pieces that rotate relative to each other (such as this arm, or even the windmill) is referred to as an <strong>articulated</strong> object. Sometimes the term is used more general for an object that has a set of pieces that move relative to each other.</p>
+<h2 id="summary">Summary</h2>
+<p>We've seen rotations, and how we use transformations to build hierarchical models.</p>
+<p>These are both important concepts that will not go away.</p>
+<p>We'll look at a slightly more complex example on the <a href="../../docs/5/">next page</a>.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 3: Transformations</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 3: Transformations)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Translate Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Scale Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Composition </a></li>
+        <li class="Side__Item Side__Selected"> 4: Rotation </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Hierarchy </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Quadcopter Exercise </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: SVG Exercise </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
