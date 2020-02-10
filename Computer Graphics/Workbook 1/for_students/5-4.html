@@ -1,0 +1,64 @@
+<html>
+<body>
+    <p>
+        Also, we will often put all of our "changes" into a single function, so there
+        is only one <code>requestAnimationFrame</code>. That function might call other functions.
+    </p>
+    <p>
+        And, since we don't know how fast the loop will go (since the browser might do some
+        work between calls, or the stuff we do might take some time), we need to look at the
+        actual "clock time" to make sure that things go at the right speed.
+    </p>
+    <p>
+        Here's a silly example where we make something blink (the hard way). The trick is that we want to change color every 250ms (not faster).
+        Look at the code.
+        <span id="span1">Some text to blink</span>
+    </p>
+    <p>
+        OK, that was horrible. Let's try to see if
+        <span id="span2">this is any better?</span>
+        Or, maybe <span id="span3">even this one</span>.
+    </p>
+    <p>
+        Those are all really annoying looking - You can try something better
+        on the next page...
+    </p>
+</body>
+<script>
+    /**
+     * A function that makes an HTML element blink
+     * 
+     * This creates a function that does the blinking, and makes an animation loop
+     * with requestAnimationFrame
+     * 
+     * @param {string} id - which element to find
+     * @param {number} [rate=250] - blink rate in milliseconds
+     * @param {Array<string>} [blinkColors=["red","yellow","green"]] - colors to cycle through
+     */
+     function makeBlink(id, rate, blinkColors) {
+        rate = rate ? rate : 250;
+        blinkColors = blinkColors ? blinkColors : ["red","yellow","green"];
+        let toblink = document.getElementById(id);
+        let lastBlinkTime = 0;
+        let lastBlinkColor = 0;
+        function blinker() {
+            let time = performance.now();
+            if ((time-lastBlinkTime) > rate) {
+                lastBlinkTime = time;
+                toblink.style.backgroundColor = blinkColors[lastBlinkColor % blinkColors.length];
+                lastBlinkColor++;
+            }
+            window.requestAnimationFrame(blinker);
+        }
+        blinker();
+    }
+
+    window.onload = function() {
+        makeBlink("span1");
+        makeBlink("span2",500);
+        makeBlink("span3",350,["lightpink","lightyellow","lightgreen"]);
+    }
+
+
+</script>
+</html>

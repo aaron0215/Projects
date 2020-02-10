@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <button id="start">Start the changes</button>
+    <ul>
+        <li id="future0">This will change on click. </li>
+        <li id="future1"> This will be changed in the future.</li>
+        <li id="future2"> This will be changed further in the future</li>
+        <li id="future3"> This will be changed even further in the future</li>
+    </ul>
+
+ </body>
+
+ <script type="module">
+window.onload = function() {
+    let timestamp = 0;
+
+    // cause things to change on click
+    document.getElementById("start").onclick = function() {
+        // read the clock at the beginning when we run
+        // and set the change
+        timestamp = performance.now();
+        document.getElementById("future0").innerHTML = "This was changed";
+        // schedule the next function to be called in the future
+        requestAnimationFrame(future1);
+    }
+
+    // change the span to say how far into the future we are
+    function future1() {
+        document.getElementById("future1").innerHTML = 
+            `Hello from ${(performance.now() - timestamp).toFixed(1)} ms in the future`;
+        // schedule another function 16ms later
+        requestAnimationFrame(future2);        
+    }
+    function future2() {
+        document.getElementById("future2").innerHTML = 
+            `Hello from ${(performance.now() - timestamp).toFixed(1)} ms in the future`;
+        requestAnimationFrame(future3);        
+        }
+    function future3() {
+        document.getElementById("future3").innerHTML = 
+            `Hello from ${(performance.now() - timestamp).toFixed(1)} ms in the future`;
+        }
+    }
+ </script>
+</html>

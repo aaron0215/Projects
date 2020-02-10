@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p>My sliders</p>
+    <p>
+      <p>Slider1: <span id="span1">0</span></p>
+      <p><input type="range" min="0" max="100" value = "0" id="slider1"></p>
+      <p>Slider2: <span id="span2">0</span></p>
+      <p><input type="range" min="0" max="100" value = "0" id="slider2"></p>
+      <p>Slider3: <span id="span3">0</span></p>
+      <p><input type="range" min="-100" max="100" value = "0" id="slider3"></p>
+    </p>
+</body>
+
+<script type="module">
+    // Put some code here
+    /** @type{HTMLInputElement} */ let slider61 = (/** @type{HTMLInputElement} */ document.getElementById("slider1"));
+    /** @type{HTMLInputElement} */ let slider62 = (/** @type{HTMLInputElement} */ document.getElementById("slider2"));
+    /** @type{HTMLInputElement} */ let slider63 = (/** @type{HTMLInputElement} */ document.getElementById("slider3"));
+    window.onload = function() {
+      slider61.oninput = function(){
+        slider63.value = slider62.value - slider61.value;
+        document.getElementById("span1").innerText = slider61.value;
+        document.getElementById("span3").innerText = slider63.value;
+      }
+      slider62.oninput = function() {
+        slider63.value = slider62.value - slider61.value;
+        document.getElementById("span2").innerText = slider62.value;
+        document.getElementById("span3").innerText = slider63.value;
+      }
+      slider63.oninput = function() {
+        let sum = Number(slider63.value)+Number(slider61.value); /** == slider62 **/
+        if(sum < 0){
+          slider62.value = "0";
+          slider61.value = (0-Number(slider63.value)).toString();
+        } else if(sum >= 0 && sum <= 100){
+          slider62.value = sum.toString();
+        } else{
+          slider62.value = "100";
+          slider61.value = (Number(slider62.value)-Number(slider63.value)).toString();
+        }
+        document.getElementById("span1").innerText = slider61.value;
+        document.getElementById("span2").innerText = slider62.value;
+        document.getElementById("span3").innerText = slider63.value;
+      }
+
+    }
+</script>
+</html>

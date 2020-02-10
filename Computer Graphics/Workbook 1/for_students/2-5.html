@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<p>
+    If you noticed in the previous box, there are a set of 4 boxes (div tags) next to each other. 
+    Being able to arrange elements is important.
+    HTML gives some very flexible ways to do it.
+    But this flexibility can make it complicated. 
+    In general, HTML specifies the basic idea of how the different elements should be arranged,
+    and the browser lays out the elements to best fit them on the screen according to
+    some complicated rules.
+</p>
+<style>
+/** simple box for text */
+.simplebox {
+    border: 2px solid black;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px; 
+    width: 500px;
+}
+</style>
+<div class="simplebox" style="width:200px">
+    <div class="simplebox" style="width:80%">
+            <div class="simplebox" style="width:40%">one</div>
+            <div class="simplebox" style="width:40%">two</div>
+    </div>
+    <div class="simplebox" style="width:80%">
+    </div>
+    <div class="simplebox" style="width:80%"></div>
+</div>
+<p>
+    You won't need to do too much of this for class, but get used to seeing 
+    HTML that does things to create desired layouts.
+</p>
+
+</body>

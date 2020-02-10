@@ -1,0 +1,26 @@
+<html>
+<body>
+    <p>
+        <input type="range" min="0" max="100" id="slider">
+    </p>
+</body>
+<script>
+    // a function schedules itself to be called in order to
+    // make an infinite loop
+    /** @type{HTMLInputElement} */ let slr1 = (/** @type{HTMLInputElement} */ document.getElementById("slider"));
+    function advanceSLR1() {
+        // add 1, roll over to zero if we hit the max
+        // note that the value of the slider is a string,
+        // so we have to convert it to a number
+        // The more obvious 1+"1" = "11" - thanks to JavaScript's
+        // aggressive coercion rules
+        let newValue = (Number(slr1.value)+1) % 100;
+        slr1.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR1);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    advanceSLR1();
+</script>
+</html>

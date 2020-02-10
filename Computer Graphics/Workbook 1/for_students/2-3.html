@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <style>
+        .redText {
+            color:darkred;
+        }
+    </style>
+
+<div id="one03" class="examplebox">
+    <p>
+        We can associate styles with particular IDs or classes. 
+        This styling information can be placed right into the HTML file.
+        If you look inside this "box" in the HTML file (look for <code>for_students/2-3.html</code>),
+        you will see a <code>&lt;style&gt;</code> tag, as well as things that use it.
+    </p>
+    <p>
+        The style information (look in the HTML file!) says that anything with a 
+        "redText" class should be dark red. 
+        <span class="redText">Like this span.</span>
+        Styles allow us to make a lot of things that share properties, like
+        <span class="redText">these words</span> and 
+        this <span class="redText">word</span> as well.
+    </p>
+    <p>
+        If you're looking at this HTML in Visual Studio Code (or some other IDEs),
+        when you read it you will see colors and other information shown with the styles.
+    </p>
+    <p>
+        The styles are written in a language called CSS. Usually, we do not put CSS 
+        right into our HTML, we put them into separate files (.CSS files) and we link
+        to those style sheets using an html "link" tag. 
+        The CSS file for this page is <code>2-3.css</code>
+    </p>
+    <link rel="stylesheet" href="2-3.css">
+    <p>
+        See if you can figure out why 
+        <span class="blueText">this text has one color</span>, 
+        but,
+        <span id="blueText">this text has another color!</span>
+        You should be able to change the colors by editing the style sheet file.
+    </p>
+    <p>
+        We will use style sheets to change the appearance of things besides text.
+        In the "one.css" style sheet, there's a definition for the box below. 
+        Try to experiment with it to change how it looks.
+    </p>
+    <div class="onebox">
+        This is a first box.
+    </div>
+    <div class="onebox">
+        This is a second box.
+    </div>
+</div>
+
+</body>

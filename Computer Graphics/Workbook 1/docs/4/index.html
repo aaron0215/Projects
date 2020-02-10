@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Doing things to HTML</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>On the last page, we added JavaScript to a web page, but we didn't do much with the JavaScript. Here's we'll see how we connect between JavaScript programs and web pages to make the code do things that we can see. Eventually, we'll make it do graphics, but for now, we'll do some simpler things.</p>
+<p>And yes, I am putting the javascript code right into the HTML for these simple examples. We won't do this in the future.</p>
+<h2 id="box-1---referring-to-html">Box 1 - Referring to HTML</h2>
+<p>We often need our JavaScript code to be able to refer to elements on the page so we can do things to them. The web browser provides many functions that allow us to search through the DOM (<em>Document Object Model</em>, the data structure that represents the web page). The most useful for us is to find an element by id. Remember from <a href="../../docs/1/">Page 1 (HTML and CS559)</a>, that we can label elements with an id attribute. In our JavaScript code, we can search for an element by Id and do something to it. The box has an example (and as you can guess, you should read the code in <a href="../../for_students/4-1.html" class="for_students">4-1.html</a>).</p>
+<iframe src="../../for_students/4-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>If you look at the code, you'll see a pattern: we find an element, and we do something to it. We changed the text of a span named <code>span1</code>, we changed the color of <code>span2</code> and added a click handler to the button. Read the code and make sure you understand how it works.</p>
+<p>There are many other ways to find elements on web pages - this is the simplest one, and the one we will use for almost everything in class.</p>
+<p>Here's a hint for looking at the code in the debugger: if you open the inner page (<a href="../../for_students/4-1.html" class="for_students">4-1.html</a> for this one), it still works in the browser. But the browser is working on this page. If you use &ldquo;view source&rdquo;, you'll see only the page's source. If you go to the browser console, you can also see the code - and use the debugger to set a breakpoint.</p>
+<p>This is a good time to practice using the debugger. Put a breakpoint before the text in <code>span1</code> is changed (stop on line 19). And you'll see the that HTML says something different before it is changed.</p>
+<h2 id="box-2---button-events">Box 2 - Button Events</h2>
+<p>We saw this on the last page, but when a button is clicked
+it calls the <code>onclick</code> handler.
+More generally, when something happens (to almost any element),
+it creates an event.
+We can tie a function (called a handler) to the event, and do things
+when the event happens.
+The style of programming is called <em>event driven programming</em> - we basically write code that does things in response to events. Even our initial set up thing happen in response to the window <code>onload</code> event.</p>
+<p>Different elements have different events associated with them. Buttons actually have a several different events (<code>onclick</code> that we've seen, as well as <code>onmousedown</code>, <code>onmouseup</code>, and <code>onmouseleave</code> and several others). This box uses them in different ways to get different behaviors. Try moving the mouse while clicking. And then make sure to read the code.</p>
+<iframe src="../../for_students/4-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>An obvious, but important thing here is that our code only gets
+run when an event happens. Otherwise, we don't do anything.
+This is called <em>event-driven</em> programming.</p>
+<p>Different kinds of HTML elements generate different kinds of events.</p>
+<h2 id="box-3---slider-events">Box 3 - Slider Events</h2>
+<iframe src="../../for_students/4-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>When you look at the code, you will see some weird looking comments with
+type information. See 
+ 
+
+    <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/typed-js/">Typed Java Script and CS559</a>
+ for an explanation.</p>
+<h2 id="box-4---sliders-as-outputs">Box 4 - Sliders as Outputs</h2>
+<p>Just as you can read a slider's value, you can also set it's value in order to move it.</p>
+<iframe src="../../for_students/4-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<h2 id="moving-on-">Moving On &hellip;</h2>
+<p>Being able to manipulate web pages is important. And buttons and sliders will be useful for controlling our graphics programs. On the <a href="../../docs/5/" class="Next__Page">Next Page</a>, we'll talk about animation loops - trying to make things change without user intervention.</p>
+<p><a href="../../docs/5/" class="Next__Page">Next: Animation Loops </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Selected"> 4: Doing things to HTML </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

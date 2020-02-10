@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Workbook 1: Getting Started</title>
+    <link>/docs/</link>
+    <description>Recent content in Docs on Workbook 1: Getting Started</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 17 Jan 2020 13:10:38 -0600</lastBuildDate>
+    
+	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HTML and CS559</title>
+      <link>/docs/1/</link>
+      <pubDate>Thu, 16 Jan 2020 22:09:56 -0600</pubDate>
+      
+      <guid>/docs/1/</guid>
+      <description>This semester, we will be doing graphics programming on the web. The graphics ideas work anywhere, but the web turns out to be a convenient place to learn it.
+This does mean that we need to know a bit about the web in order to do the assignments. Hopefully, you already know the basics of how web pages work, and this will be a review. But, we&#39;ll also explain how the workbooks are organized (since we&#39;ll have 12 of them this semester).</description>
+    </item>
+    
+    <item>
+      <title>HTML Basics</title>
+      <link>/docs/2/</link>
+      <pubDate>Thu, 16 Jan 2020 22:09:59 -0600</pubDate>
+      
+      <guid>/docs/2/</guid>
+      <description>This page is a quick review of how HTML and web pages work. Hopefully, its a review for you.
+The Basic Elements of HTML you should know A key idea is that a document (a web page) is a tree of parts. The overall document is the root of the tree. For example, the document may contain paragraphs, which contain sentences, which contain words, etc. Each part is known as an element.</description>
+    </item>
+    
+    <item>
+      <title>HTML and JavaScript</title>
+      <link>/docs/3/</link>
+      <pubDate>Thu, 16 Jan 2020 22:10:03 -0600</pubDate>
+      
+      <guid>/docs/3/</guid>
+      <description>One the Previous page we made simple web pages, here we&#39;ll see how to put JavaScript programs on them.
+Using JavaScript is tricky to learn because not only must you learn a new language, but usually the programming happens in the context of a web page in a web browser.
+The CS559 JavaScript pagehas all sorts of resources about JavaScript, including the rationale for why we are using it in class.</description>
+    </item>
+    
+    <item>
+      <title>Doing things to HTML</title>
+      <link>/docs/4/</link>
+      <pubDate>Fri, 17 Jan 2020 11:56:59 -0600</pubDate>
+      
+      <guid>/docs/4/</guid>
+      <description>On the last page, we added JavaScript to a web page, but we didn&#39;t do much with the JavaScript. Here&#39;s we&#39;ll see how we connect between JavaScript programs and web pages to make the code do things that we can see. Eventually, we&#39;ll make it do graphics, but for now, we&#39;ll do some simpler things.
+And yes, I am putting the javascript code right into the HTML for these simple examples.</description>
+    </item>
+    
+    <item>
+      <title>Animation Loops</title>
+      <link>/docs/5/</link>
+      <pubDate>Fri, 17 Jan 2020 13:10:29 -0600</pubDate>
+      
+      <guid>/docs/5/</guid>
+      <description>Thus far, we can do things in response to the user. Our code runs in response to an event happening. This is important in the web browser, because we want the browser to do other things, rather than just waiting around for the user to happen. Therefore, most web programming is event-based.
+But what happens if we want things to happen without the user doing anything? For example, when we want to animate something (have it move on its own).</description>
+    </item>
+    
+    <item>
+      <title>Try it Yourself</title>
+      <link>/docs/6/</link>
+      <pubDate>Fri, 17 Jan 2020 13:10:38 -0600</pubDate>
+      
+      <guid>/docs/6/</guid>
+      <description>So far, this workbook has mainly been you reading code (and html). Hopefully, you also took the opportunity to do some extra reading (for example, reading some JavaScript references). And some tinkering: one way to understand the programs is to try to make changes to see how things work.
+On this page, we have three boxes that you need to do yourself.
+To help you check that you are getting the concepts, here are a few little programming things to try.</description>
+    </item>
+    
+  </channel>
+</rss>

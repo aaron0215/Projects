@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">HTML Basics</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>This page is a quick review of how HTML and web pages work. Hopefully, its a review for you.</p>
+<h2 id="the-basic-elements-of-html-you-should-know">The Basic Elements of HTML you should know</h2>
+<p>A key idea is that a document (a web page) is a tree of parts. The overall document is the root of the tree. For example, the document may contain paragraphs, which contain sentences, which contain words, etc. Each part is known as an element. The tree of elements is known as the Document Object Model (or DOM).</p>
+<p>The basic idea of an HTML document is that we represent a tree of parts (elements) in a text file. In the text file, we use &ldquo;tags&rdquo; as special markings to tell the browser how to make elements from the text. Most tags come in matching pairs - you have a first tag to &ldquo;start&rdquo; the element, and a second tag to &ldquo;end&rdquo; it.</p>
+<p>Some important elements that you will need to know about for class:</p>
+<ul>
+<li>comments - things between <code>&lt;!--</code> and <code>--&gt;</code> are ignored by the browser (so you should read them)</li>
+<li><code>&lt;html&gt;</code> - this is the &ldquo;root&rdquo; of the tree, representing the whole document</li>
+<li><code>&lt;body&gt;</code> - this represents the container where the content of the document goes</li>
+<li>Headers (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code> etc.) - these are heading lines</li>
+<li><code>&lt;div&gt;</code> - these are &ldquo;divisions&rdquo; of the document - boxes that contain things. They are useful for creating hierarchy.</li>
+<li><code>&lt;span&gt;</code> - contain a &ldquo;run&rdquo; of text (or other objects). They are useful for creating hierarchy and grouping things together so that you can work with them.</li>
+<li><code>&lt;p&gt;</code> - paragraphs (a bunch of text)</li>
+<li><code>&lt;ul&gt;</code> - unordered lists and <code>&lt;ol&gt;</code> ordered (numbered) lists. Lists should contain <code>&lt;li&gt;</code> list item elements.</li>
+<li><code>&lt;code&gt;</code> - this is used for when we put source code (like HTML or JavaScript) onto a web page for someone to read. We do not use <code>&lt;code&gt;</code> elements for code the computer is supposed to run!</li>
+<li><code>&lt;script&gt;</code> - these are the elements that contain the code that the browser is actually supposed to run (usually JavaScript).</li>
+</ul>
+<p>You may also notice that some special characters show up in a weird way. If a character might be interpreted by the web browser as being part of HTML, we need to encode it as an <em>entity</em>. So, for example, if I want to write the left angle bracket <code>&lt;</code> I need to put <code>&amp;lt;</code> into the HTML.</p>
+<p>Usually in workbooks, separate examples will be in boxes like you will see below. These are stored as separated HTML files in the <code>boxes/</code> folder.
+You should read each box in the workbook page in the web browser to see how it looks.
+You should also read the &ldquo;source&rdquo; (html file and css files) for each box, to see how they work.</p>
+<p>Part of the idea of this page is to get you used to looking inside of HTML files when you read (and work on) workbooks. So, even if you know HTML well, please have a look at the these examples.</p>
+<h2 id="box-1-identifying-elements">Box 1: Identifying Elements</h2>
+<p>In this box, we are showing <a href="../../for_students/2-1.html" class="for_students">2-1.html</a> (the 1st box on page 2). Make sure you can find the html file. You should look at it in the text editor.</p>
+<iframe src="../../for_students/2-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>In that example, some of the text elements have <code>id</code> and <code>class</code> attributes associated with them. You should know what these are: they become important when we start programming for the web.</p>
+<h2 id="box-2-styling">Box 2: Styling</h2>
+<p>As you might guess, this is <a href="../../for_students/2-2.html" class="for_students">2-2.html</a>, a simple example that uses styling to change the appearance (in  this case the colors of text).</p>
+<iframe src="../../for_students/2-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Experiment with changing the styles of the text in this box. 
+We won't do too much with styling text
+in class, but we will want to style other things.</p>
+<h2 id="box-3-style-sheets">Box 3: Style Sheets</h2>
+<p>In this example, we combine those two ideas: naming things (with id and class), and using a style sheet. Style sheets allow us to apply the same style to different things.</p>
+<iframe src="../../for_students/2-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>We won't do much with CSS in class, but you should be able to use the basic idea. You can experiment with <a href="../../for_students/2-3.html" class="for_students">2-3.html</a> and <a href="../../for_students/2-3.css" class="for_students">2-3.css</a> to make sure you know how to do these things.</p>
+<h2 id="box-4-color">Box 4: Color</h2>
+<p>As you might guess, color is important for doing computer graphics.
+We'll learn a lot more about color later in the class. But for now, we
+need some basics to give things colors.</p>
+<p>Read the 
+ 
+
+    <a href="http://graphics.cs.wisc.edu/WP/tutorials/color-initial-answers-to-a-practical-question">CS559 Color Tutorial</a>
+ which will give you the basic ideas we need for now. In HTML, we can specify colors by name (e.g. &ldquo;red&rdquo;, &ldquo;blue&rdquo;, &ldquo;darkred&rdquo;, &ldquo;blueviolet&rdquo;).
+This is convenient in a web page, but isn't always available when programming. This box will let you practice with using Hex strings for colors.</p>
+<iframe src="../../for_students/2-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>By now, you should know that the code for that box is <a href="../../for_students/2-4.html" class="for_students">2-4.html</a>.</p>
+<h2 id="box-5-layout">Box 5: Layout</h2>
+<iframe src="../../for_students/2-5.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<h2 id="box-6-buttons">Box 6: Buttons</h2>
+<p>HTML has input elements, like buttons and sliders and type-in boxes. 
+They can be used with straight HTML for making forms. 
+We will use them with JavaScript programs.</p>
+<iframe src="../../for_students/2-6.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>By themselves, buttons don't do much. We need to connect them to JavaScript
+programs to make them more exciting. But make sure that you looked at the html for <a href="../../for_students/2-6.html" class="for_students">2-6.html</a></p>
+<h2 id="box-7-sliders">Box 7: Sliders</h2>
+<p>One last HTML element before we move on to programming: sliders. 
+Sliders are mainly useful when we have programs to read them.</p>
+<iframe src="../../for_students/2-7.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Sliders are pretty boring without programs that use them.
+We'll make use of sliders soon enough.
+But be sure to look at <a href="../../for_students/2-7.html" class="for_students">2-7.html</a> to see how we make them 
+on web pages.</p>
+<h2 id="moving-on">Moving on&hellip;</h2>
+<p>Make sure that you understand how those simple html files work, since we will use those
+basic aspects of web pages to make things for our graphics programs. Then move on to the <a href="../../docs/3/" class="Next__Page">Next Page</a>.</p>
+<p><a href="../../docs/3/" class="Next__Page">Next: HTML and JavaScript </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Selected"> 2: HTML Basics </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

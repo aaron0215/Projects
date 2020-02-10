@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+ /** These styles change the buttons **/
+.onebutton {
+    width:100px;
+    height:30px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin: 8px;
+}
+.onebutton:hover {
+    border: 4px solid black;
+}
+.onebutton:active {
+    color: white;
+    background-color: blue;
+}
+#button12 {
+    background-color: lightseagreen;
+}
+#button12:active {
+    background-color: lightgreen;
+}
+#button13 {
+    background-color: antiquewhite;
+}
+#button13:active {
+    background-color: aqua;
+}
+</style>
+<div id="one06" class="examplebox">
+    <p>
+    </p>
+    <p>
+        Input elements are just like any other elements - they are tags.
+        Here, I've made a button, right in the middle of my paragraph.
+        <button type="button">Button</button>
+        It probably looks silly in the middle of a paragraph.
+    </p>
+    <p>
+        There are multiple ways to make buttons, but using the <code>&lt;button&gt;</code>
+        tag is preferred.
+        See the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button">button documentation</a>.
+    </p>
+    <p>
+        Just like anything else in HTML, you can style buttons to make them
+        look any way you like. If you don't do anything, they may be ugly.
+        <button>Plain</button>
+        <button style="background-color: red; border: none; color:white">Red</button>
+        <button style="background-color:lightblue; border: 2px solid blue; color:blue; border-radius: 5px">Blue</button>
+        Of course, if you do something, it might still be ugly.
+        There are lots of style sheets around the web that make nice looking buttons.
+        See <a target="_blank" href="https://www.w3schools.com/css/css3_buttons.asp"> this page for ideas.</a>
+    </p>
+    <p>
+        Like other HTML elements, buttons can have classes and IDs. The latter will be
+        really important for finding particular buttons when we start programming.
+        Here are a few buttons with their appearance styled with CSS that is
+        in the css at the top of the file:
+    </p>
+    <div>
+        <button class="onebutton" id="button11">One</button>
+        <button class="onebutton" id="button12">Two</button>
+        <button class="onebutton" id="button13">Three</button>
+    </div>
+
+    <p>
+        Look at the CSS and HTML for those buttons and understand why they look
+        and behave the ways that they do. Experiment with changing the CSS to make
+        them look different.
+    </p>
+
+</div>
+
+</body>

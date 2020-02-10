@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Animation Loops</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Thus far, we can do things in response to the user.
+Our code runs in response to an event happening.
+This is important in the web browser, because we want the browser to do
+other things, rather than just waiting around for the user to happen.
+Therefore, most web programming is event-based.</p>
+<p>But what happens if we want things to happen without the user doing anything?
+For example, when we want to animate something (have it move on its own).</p>
+<p>We might make a loop - having things move each step, over and over until its
+done. This is bad because we have to handle events in the loop or ignore the user.</p>
+<p>Instead, the web paradigm is to use events - but have events that are not tied to
+user actions. Our program requests an event some time in the future. It's kindof like a timer - the event is when the time goes off.
+Our program gives up control - we schedule the event and return to the browser so it can handle other events. Once the &ldquo;timer&rdquo; event goes off, it gets put in the queue to be processed.</p>
+<p><code>RequestAnimationFrame</code> requests an &ldquo;event&rdquo; for the next
+screen redraw - it's basically saying &ldquo;call me in approximately 16ms&rdquo;.
+If something happens every 16 milliseconds, that means it happens 60 times per second, which is a common target rate. The exact rate is not constant (it's when the browser things it's time to repaint). See the 
+ 
+
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">Official RequestAnimationFrame Docs</a>
+ if you want more information.</p>
+<h2 id="box-1---a-toy-example">Box 1 - A Toy Example</h2>
+<p>This box has a simple example of RequestAnimationFrame.</p>
+<iframe src="../../for_students/5-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>If you read the code (and you should, you can figure out that this is page 5 box 1, so the file is <a href="../../for_students/5-1.html" class="for_students">5-1.html</a>) you'll see that when the button is clicked, the first line is changed and a timer is set to call the function <code>future1</code> in the future. When <code>future1</code> is called, it changes line 2, and schedules an event to call <code>future2</code> in the future. And this repeats a 3rd time.</p>
+<h2 id="a-more-realistic-example">A more realistic example</h2>
+<p>Here is some actual animation (using a slider, since that's all we know).</p>
+<iframe src="../../for_students/5-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The pattern that we see here in <a href="../../for_students/5-2.html" class="for_students">5-2.html</a> is a common one: we create an infinite loop by having a function schedule itself to be called in the future. Notice how we also need to call the function the first time. And read the comments, since there are some tips about dealing with a JavaScript weirdness.</p>
+<p>You may wonder why we don't do a more traditional loop, such as&hellip;</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">while</span><span style="color:#111">(</span><span style="color:#00a8c8">true</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">let</span> <span style="color:#75af00">newValue</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#111">Number</span><span style="color:#111">(</span><span style="color:#75af00">slr1</span><span style="color:#111">.</span><span style="color:#75af00">value</span><span style="color:#111">)</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span><span style="color:#111">;</span>
+    <span style="color:#75af00">slr1</span><span style="color:#111">.</span><span style="color:#75af00">value</span> <span style="color:#f92672">=</span> <span style="color:#75af00">newValue</span><span style="color:#111">.</span><span style="color:#75af00">toString</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>   
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Don't try this! (for me it crashed the browser) While it makes an infinite loop, it makes an infinite loop that blocks everything else. It never returns control to the browser (to allow other events to happen). In fact, you'll never even see the slider move, since the browser is so busy running this infinite loop that it never gets around to redrawing things (redrawing actually happens as part of even processing).</p>
+<h2 id="box-3-even-more-infinite-loop-examples">Box 3 Even more infinite loop examples</h2>
+<p><a href="../../for_students/5-3.html" class="for_students">5-3.html</a> has some more complex versions of that infinite loop from the previous box. 
+Be sure to look at the code to understand how it works! These kinds of things (looking at input elements within animation loops) will happen all of the time when we start doing graphics programming.</p>
+<iframe src="../../for_students/5-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<h2 id="box-4-intentionally-annoying">Box 4: Intentionally Annoying&hellip;</h2>
+<p>This example makes text blink, because sliders were getting boring.</p>
+<p>From a technique perspective, the trick here is to control timing.
+Because <code>window.requestAnimationFrame</code> doesn't provide a constant rate,
+we need to check the actual &ldquo;clock&rdquo; time to see if enough time has passed.</p>
+<iframe src="../../for_students/5-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p><a href="../../for_students/5-2.html" class="for_students">5-2.html</a> is an important example to read.
+It makes use of closures and other functional programming tricks. 
+And it uses the &ldquo;clock time&rdquo; to control speed, independently of how fast
+<code>window.requestAnimationFrame</code> triggers events. These are the kinds of
+techniques you will use a lot when we do graphics programming. 
+But, you won't have to wait that long. You'll get some things to try
+on the <a href="../../docs/6/" class="Next__Page">Next Page</a>.</p>
+<p><a href="../../docs/6/" class="Next__Page">Next: Try it Yourself </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Selected"> 5: Animation Loops </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+    <script type="module">
+        // a function we want to have run after the page loads
+        function mainA () {
+            console.log("Box 5A: Something else to write to console");
+        }
+        // define another function - just to show how there are multiple ways
+        // to define functions
+        let mainB = function() {
+            console.log("Box 5B: Yet another line to write to console");
+        }
+        /**
+         * define the "addStart" function that gives a new function to be
+         * called at window.onload - but first calls the old handler
+         * @param {function} func
+         */
+        function addStart(func) {
+            // make a local variable and store the old value of the handler
+            // this will be kept in closure when we define the new handler function
+            let previousStart = window.onload;
+            // define a new handler function and assign it to window.onload
+            window.onload = function() {
+                // if no previous start was given, then its value will be undefined,
+                // so we cannot call it as a function
+                if (previousStart) previousStart();
+                // now we can call the function that we want to call
+                func();
+            }
+        }
+        // now that we've defined addStart, let's use it
+        addStart(mainA);
+        addStart(mainB);
+    </script>
+
+    <body>
+        <p>The exciting part of this web page is the script hidden on it.</p>
+    </body>
+</html>

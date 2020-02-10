@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <p>
+        Just like buttons, sliders are elements that could be put anywhere
+        <input type="range"> 
+        like right in this paragraph. Note that a slider is called a "range"
+        input (since it's useful for making a number range).
+    </p>
+    <p>
+        In practice, we'll try to put sliders in more useful places.
+    </p>
+    <p>
+        Just like buttons (and most HTML elements), sliders can be styled. 
+        They can also have their minimum, maximum, and step sizes set. 
+        Here are a few sliders to try.
+    </p>
+    <div>
+        <!-- the "block" display type causes the sliders to stack -->
+        <input type="range" style="display: block">
+        <input type="range" style="display: block" step="10" min="0" max="100">
+        <input type="range" style="display: block; background: #DDD">
+        <input type="range" style="display: block; background: #DDD" step="5" min="0" max="20">
+    </div>
+    <p>
+        Unfortunately, handling of slider styling seems inconsistent
+        across browsers. The above looks very different in Chrome and Firefox.
+        There are all kinds of workarounds on the web - but for class, we won't worry
+        about it  - we understand that sliders may be ugly.
+    </p>
+
+</body>
+</html>

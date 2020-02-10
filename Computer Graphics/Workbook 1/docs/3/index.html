@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">HTML and JavaScript</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>One the <a href="../../docs/2/" class="Prev__Page">Previous page</a> we made simple web pages, here we'll see how to put JavaScript programs on them.</p>
+<p>Using JavaScript is tricky to learn because not only must you learn a new language, but usually the programming happens in the context of a web page in a web browser.</p>
+<p>The 
+ 
+
+    <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/javascript/">CS559 JavaScript page</a>
+ has all sorts of resources about JavaScript, including the rationale for why we are using it in class. If you are already a JavaScript expert, the page will tell you some rules for how we use JavaScript in class. If you are just learning JavaScript, the page has links to some good tutorials. You will also be able to figure a lot out from the examples we provide in the workbooks.</p>
+<p>The goal of this page is to help you understand where JavaScript programs go, when they run, and how they work with the workbooks.</p>
+<h2 id="box-1-where-does-my-code-go">Box 1: Where does my code go?</h2>
+<p>Here is a miniature web page <a href="../../for_students/3-1.html" class="for_students">3-1.html</a>. It's boring but it does have a little program in it.</p>
+<iframe src="../../for_students/3-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>The output of this program, from the <code>console.log</code> function, will be in the &ldquo;console&rdquo; of your web browser. Now is a good time to look for it (it should say &ldquo;Box 1's initial message to the console&rdquo;, but you'll also see the output from box 3 and 4).</p>
+<p>If you're not familiar with the console, now is a good time to find it and try it out. You can type JavaScript into the console to try things out. To open the console in Chrome and Firefox on Windows machines it's typically CTRL-SHIFT-I (the letter I).</p>
+<h2 id="box-2-another-place-to-put-code">Box 2: Another place to put code</h2>
+<p>When you make a button (or other element), you can attach code to it right in place, as in this example (again, look at the console and the code).</p>
+<iframe src="../../for_students/3-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>In general, we prefer not to put much code hidden inside of the html. It's fine for short things, but when the code gets complicated (as it will), it's easier to have it in a separate file.</p>
+<h2 id="box-3-where-to-put-code">Box 3: Where to put code</h2>
+<p>If we're not supposed to put JavaScript into the HTML files, the next
+question is where to put it.</p>
+<p>We will put JavaScript programs into separate files - dividing them up into
+smaller chunks (roughly &ldquo;modules&rdquo;), but that will come later.
+By convention, I will always name my JavaScript files with &lsquo;.js&rsquo;, although
+other people will do other things (for example, we might name the files
+with &lsquo;.es6&rsquo; to signify that we're using the ES6 version of JavaScript).</p>
+<p>Here's another simple example:</p>
+<iframe src="../../for_students/3-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>For something this simple, having things split between <a href="../../for_students/3-3.html" class="for_students">3-3.html</a> and <a href="../../for_students/3-3.js" class="for_students">3-3.js</a> may not be a big deal, but its a good habit to get into.</p>
+<p>If you're curious (and you should be) the <code>type=&quot;module&quot;</code>
+in the <code>&lt;script&gt;</code> tag tells the browser that we want the ES6 version of JavaScript, and that we want to treat the file as a separate module.</p>
+<h2 id="box-4-when-to-run-code">Box 4: When to run code</h2>
+<p>There is a question of when those little snippets of code get run. In some cases, it's simple: for the button in Box 2, we assigned code to the <code>onclick</code> event of the button, so the code was run when this even happened (we'll discuss events more later). But, for the code in the script tags (especially when the script tag loads another file), the code will be executed when the script tag is processed - and there's no guarantee of what order that will happen in. This becomes even more complicated because the web browser can do things <em>asynchronously</em> - it doesn't wait until the first thing finishes before starting the second. 
+This creates a potential problem: we want our JavaScript program
+to access our web page, but we don't know if the web page has finished
+loaded (and is ready to be accessed) when our program is run.</p>
+<p>The answer to this will be to delay running our JavaScript program until
+after we're sure that the web page is loaded.
+To do this, we'll put our program (the place to go when we want to &ldquo;start&rdquo;)
+as a function, and set this function to be called after the window finishes
+loading. The following is a trivial example.
+It's inside the script tag (remember you are supposed to read the code for this, and all files - and you should know this one is <a href="../../for_students/3-4.html" class="for_students">3-4.html</a>).</p>
+<iframe src="../../for_students/3-4.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>When you look at the code, notice (look in <a href="../../for_students/3-4.html" class="for_students">3-4.html</a> ) how there is a script inside the paragraph (like in box 1), but there is also a script at the beginning. This script creates a function (that is not named) and assigned to to <code>window.onload</code> (the handler for the event that occurs when the window finishes loading). Because this function is called after the window is called when the window is finished loading, it happens <em>after</em> processing the web page (so it's output happens after the other output).</p>
+<p>Make sure you understand this simple example - as it is quite important. It uses some key concepts (like creating functions and assigning them to handlers).</p>
+<p>In the example, I chose to define the function anonymously. I could have used the other function declaration syntax:</p>
+<div class="leftright">
+    <div class="left">
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span> <span style="color:#111">(</span><span style="color:#111">)</span> <span style="color:#111">{</span> 
+    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Box 4&#39;s output&#34;</span><span style="color:#111">)</span>
+<span style="color:#111">}</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+    <div class="right">
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">function</span> <span style="color:#75af00">main</span><span style="color:#111">(</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Box 4&#39;s output&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span> <span style="color:#f92672">=</span> <span style="color:#75af00">main</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+<p>These are pretty much equivalent. The version on the right names the function <code>main</code> so it can be used elsewhere, but it means we need to be careful not to use it again by mistake. By not naming it, we prevent it from being used again.</p>
+<p>There is one other subtlety here: when we embed <a href="../../for_students/3-4.html" class="for_students">3-4.html</a> as an <code>iframe</code> on this web page, it is treated as a separate web page. The <code>window</code> referred to in the code is the inner web page (not the outer one). The onload happens after the inner web page is finished loading. On a web page like this (with many embedded web pages), we may not know what order the different web pages will finish loading. This generally isn't an issue, because usually we don't do much embedding.</p>
+<p>Almost always, when we add code to a web page, we will set things up to run after the page finishes loading.</p>
+<h2 id="box-5-multiple-start-functions">Box 5: Multiple Start Functions</h2>
+<p>Having a start function is so useful that we often want to have many of them. But, the window has only a single <code>onload</code> function. So, if we tried:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">(</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Statement 1&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span> <span style="color:#111">}</span><span style="color:#111">;</span>
+<span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">(</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Statement 2&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span> <span style="color:#111">}</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+only statement 2 would get printed (the first anonymous function would never get called). When we set the handler, we are being impolite - we simply over-wrote whatever was there first! 
+<p>In this case, it's easy to fix things (because the 2 statements are in the code next to each other, we could re-write it as one function). More generally, the solution is to have the function call the function that was previously defined. A simple version is:</p>
+<p>A simple workaround is to have each function remember what function was defined before it. We could replace line 2 above with:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">let</span> <span style="color:#75af00">oldOnLoad</span> <span style="color:#f92672">=</span> <span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">onload</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">(</span><span style="color:#111">)</span> <span style="color:#111">{</span> 
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">oldOnLoad</span><span style="color:#111">)</span> <span style="color:#75af00">oldOnLoad</span><span style="color:#111">(</span><span style="color:#111">)</span><span style="color:#111">;</span>
+    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Statement 2&#34;</span><span style="color:#111">)</span><span style="color:#111">;</span> <span style="color:#111">}</span><span style="color:#111">;</span>
+<span style="color:#111">}</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+Notice how we store the old handler in a variable `oldOnLoad`, and then call the handler on line 3. The if statement checks to make sure there really was an old handler - if there wasn't one, we can't call it. 
+<p>There are many downsides to doing things this way - you have to change each of your functions, and you need to invent a variable for each one to store the information. A more elegant implementation is given in <a href="../../for_students/3-5.html" class="for_students">3-5.html</a>. We define a function called <code>addStart</code> that adds things to a list of functions that should be called at window onload.</p>
+<iframe src="../../for_students/3-5.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>We've given you addStart, so you don't need to write it yourself (it will be part of future workbooks). However, you should look at the code for it carefully and make sure you understand it. It's a nice example of the use of a <code>closure</code> - an important tool in functional programming that we will use a lot in class.</p>
+<p>Of course, in the future, we'll put our javascript in separate files.</p>
+<h2 id="moving-on">Moving On&hellip;</h2>
+<p>So now we've seen where code can go. Now let's see how to make it do something useful on the <a href="../../docs/4/" class="Next__Page">Next Page</a></p>
+<p><a href="../../docs/4/" class="Next__Page">Next: Doing things to HTML </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Selected"> 3: HTML and JavaScript </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">HTML and CS559</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>This semester, we will be doing graphics programming on the web. The graphics ideas work anywhere, but the web turns out to be a convenient place to learn it.</p>
+<p>This does mean that we need to know a bit about the web in order to do the assignments. Hopefully, you already know the basics of how web pages work, and this will be a review. But, we'll also explain how the workbooks are organized (since we'll have 12 of them this semester).</p>
+<h2 id="workbook-organization-and-web-pages">Workbook Organization and Web Pages</h2>
+<p>The web page you are reading (page 1 of the workbook) probably appears in your browser (the URL at the top) as something like <code>http://localhost:1313/docs/1/</code>. The <code>1313</code> may be a different number.</p>
+<div class="warnbox">
+If you see this as something beginning with `file:`, you are not using a local server. This will become a problem later. Figure out how to view the page with a local server (see 
+ 
+
+    <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/tools/">Tools</a>
+).
+</div>
+<p>The actual web page you are looking at is the file <code>index.html</code> in the <code>1</code> directory inside of the <code>docs</code> directory in the workbook. You might want to try to find the file to see where it is. The reason for the funny naming is that this page was automatically generated using a static web site generator (it's 
+ 
+
+    <a href="https://gohugo.io/">Hugo</a>
+ if you're curious). After this page, it won't matter since you will rarely have to look in the docs directory.</p>
+<p>The <code>docs</code> directory has the workbook pages that you read. When you actually need to look at the <code>html</code> or other files, the will be in the <code>for_students</code> directory. If you look in the workbook, you'll see that directory.</p>
+<p>For example, in that directory, you will see a file <code>1-1.html</code>, which is a web page you can look at. In fact, here's a link in case you want to open it, here's a link:  <a href="../../for_students/1-1.html" class="for_students">1-1.html</a>. HTML allows us to embed one page inside of another. So here, I will put that same page in a box:</p>
+<iframe src="../../for_students/1-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Note that you can't see the HTML for the contents of the box if you use the &ldquo;view source&rdquo; command in your web browser (it's CTRL-U for Firefox and Chrome on windows). Viewing the source will show you this web page (what you are reading outside the box). What you'll see on this web page is an <code>iframe</code> (which is the web element that embeds another web page). If you look you'll also see some funny looking JavaScript code that resizes the iframe (so that Firefox and Chrome behave the same way). This is another reason why we don't recommend looking at the sources to the <code>docs</code> pages.</p>
+<p>Now, for practice, edit that file (<code>1-1.html</code>) and change &ldquo;The student should change this line&rdquo; to something else. This isn't rocket science, but it's the thing you do with workbooks: edit the files in the <code>for_students</code> directory.</p>
+<p>After you change <code>1-1.html</code>, you may need to reload the page in order to see your changes. If you are using the Visual Studio Code Live Server (which we strongly recommend, see 
+ 
+
+    <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/vscode/">Visual Studio Code for CS559</a>
+), this should be automatically reloaded for you.</p>
+<h2 id="html">HTML</h2>
+<p>For CS559, we will assume that you know the basics of how to make web pages so that you can make pages to put your graphics programs on. We will only need some basic HTML and CSS stuff.</p>
+<p>If you aren't already familiar with HTML, please find a resource on the web and learn about the basics. Here are some suggestions:</p>
+<ul>
+<li>
+ 
+
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started">Mozilla Getting Started with HTML</a>
+ - this is the very most basic stuff.</li>
+<li>
+ 
+
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML">Mozilla HTML Learning Guide</a>
+ - this is a more complete guide, with many things that you won't need for class.</li>
+<li>
+ 
+
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS">Mozilla Tutorial on CSS</a>
+ - you only need the most basic parts of it.</li>
+</ul>
+<h2 id="some-thoughts-on-html-in-cs559">Some thoughts on HTML in CS559</h2>
+<p>We won't use any fancy HTML stuff for class - we will only make basic pages that we will put graphics on. However, you will need to know the basics so that you can read and write the workbooks.</p>
+<p>To make things easier, we are trying to keep the HTML simple, the pages for this class might look bit <strong>ugly</strong>. You can make nice looking things with HTML, but it takes effort, and leads to HTML that is harder to read.</p>
+<p>Typically, we would use tools to help us write HTML, rather than just typing it in an editor or IDE. But for class, what we need to do within the boxes is so simple, we're better off just using the same IDE that we use for programming.</p>
+<p>Enough about class, let's move on&hellip; <a href="../../docs/2/" class="Next__Page">Next: HTML Basics </a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Selected"> 1: HTML and CS559 </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

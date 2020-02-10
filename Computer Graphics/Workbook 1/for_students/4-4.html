@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <p>Try these! (both of them)</p>
+        <div>
+            <input id="box4-slider1" type="range" min="0" max="100" step="1"><br />
+            <input id="box4-slider2" type="range" min="0" max="100" step="1"><br />
+            <input id="box4-slider3" type="range" min="0" max="100" step="1"><br />
+        </div>
+    </body>
+<script type="module">
+window.onload = function () {
+    /**
+     * Have the sliders change each other
+     */
+    /** @type{HTMLInputElement} */ let slider41 = (/** @type{HTMLInputElement} */ document.getElementById("box4-slider1"));
+    /** @type{HTMLInputElement} */ let slider42 = (/** @type{HTMLInputElement} */ document.getElementById("box4-slider2"));
+    /** @type{HTMLInputElement} */ let slider43 = (/** @type{HTMLInputElement} */ document.getElementById("box4-slider3"));
+    slider41.onchange = function() {
+        slider42.value = slider41.value;
+    };
+    slider42.oninput = function() {
+        slider41.value = slider42.value;
+    };
+    slider43.onclick = function() {
+      slider41.value = slider43.value;
+      slider42.value = slider43.value;
+    }
+}
+
+</script>
+</html>

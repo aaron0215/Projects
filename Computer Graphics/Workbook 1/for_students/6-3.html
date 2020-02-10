@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<p>
+    Here is <span id="ex3-span">some text to make throb.</span>
+</p>
+
+
+<script type="module">
+    // put some code here
+    function hexColor(c) {
+      if(c < 256 && c > 0){
+        let retval = Math.abs(c).toString(16);
+        if(retval.length == 1){
+          return "0"+retval;
+        } else{
+          return retval;
+        }
+      }
+      return "00";
+    }
+    function makeFading(id, initialR, initialG, initialB) {
+      let rate = 200;
+      let tofade = document.getElementById(id);
+      let lastSwithTime = 0;
+      var red = parseInt(initialR, 10);
+      var green = parseInt(initialG, 10);
+      var blue = parseInt(initialB, 10);
+      // tofade.style.backgroundColor="#"+hexColor(red)+hexColor(green)+hexColor(blue);
+      function fade(){
+        let time = performance.now();
+        if ((time-lastSwithTime) > rate) {
+            lastSwithTime = time;
+            tofade.style.backgroundColor = "#"+hexColor(red)+hexColor(green)+hexColor(blue);
+            if(red == 255 && green < 255 && blue == 0){ // Red->Yellow
+              green += 15;
+            } else if(red > 0 && green == 255 && blue == 0){ // Yellow->Green
+              red -= 15;
+            } else if(red == 0 && green == 255 && blue < 255){ // Green->Blue
+              blue += 15;
+            } else if(red == 0 && green > 0 && blue == 255){ // Blue->Purple
+              green -= 15;
+            } else if(red < 255 && green == 0 && blue == 255){ // Purple->Pink
+              red += 15;
+            } else if(red == 255 && green == 0 && blue > 0){  // Pink->Red
+              blue -= 15;
+            }
+            tofade.style.backgroundColor = "#"+hexColor(red)+hexColor(green)+hexColor(blue);
+        }
+        window.requestAnimationFrame(fade);
+      }
+      fade();
+    }
+    window.onload = function() {
+        makeFading("ex3-span",255,0,0);
+    }
+</script>
+
+</body>

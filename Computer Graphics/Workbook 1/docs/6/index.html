@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Try it Yourself</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>So far, this workbook has mainly been you reading code (and html).
+Hopefully, you also took the opportunity to
+do some extra reading (for example, reading some JavaScript references).
+And some tinkering: one way to understand the programs is to try to
+make changes to see how things work.</p>
+<p>On this page, we have three boxes that you need to do yourself.</p>
+<p>To help you check that you are getting the concepts, here are a few
+little programming things to try. In each box, we will ask you to do
+something. You should edit the 
+<a href="../../for_students/6-1.html" class="for_students">6-1.html</a>, <a href="../../for_students/6-2.html" class="for_students">6-2.html</a>, and <a href="../../for_students/6-3.html" class="for_students">6-3.html</a> files
+accordingly to do it. These will be the things that the grader will check.</p>
+<p>These little exercises are simple - and not very interesting.
+But make sure you understand what you are doing, since they will
+be the building blocks for doing more interesting things later.</p>
+<p>And don't forget to edit the <code>README.md</code> file 
+(if we don't know your WiscID and GitHub ID, we can't give you credit).</p>
+<p>And of course, to correctly use GIT to commit your work and push it
+back to the repository on GitHub.</p>
+<p>For this workbook, it's OK that the JavaScript code is in the HTML files.</p>
+<h2 id="box-1-sliders">Box 1: Sliders</h2>
+<p>In this box (<a href="../../for_students/6-1.html" class="for_students">6-1.html</a>), make 3 sliders. Add event handlers such that the third
+slider shows the difference in value between the first two.
+So that slider3 = slider2 - slider1. Slider3 should move whenever
+slider1 or slider2 are moved. Making it such that slider1 and/or slider2 move
+when slider3 moves is a little trickier (and worth more points) - you need to figure out how to make reasonable values for slider 1 and 2 given a new value for slider 3.</p>
+<iframe src="../../for_students/6-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p><strong>Hint:</strong> Box 3 on <a href="../../docs/4/">Page 4 (Doing things to HTML)</a>  is a good starting point.
+The lower of the two sliders there has a nicer behavior for this exercise.
+Consider setting the <code>min</code> and <code>max</code>
+properties of the sliders so that the third slider has the right range.
+The <code>min</code> can be negative.</p>
+<p>Rubric (up to 10 points):</p>
+<ul>
+<li>3 points for making 3 sliders</li>
+<li>4 points for making slider3 be slider2-slider1 (and update when either slider2 or slider1 is moved)</li>
+<li>2 points for adjusting slider1 and slider2 when slider3 moves</li>
+</ul>
+<h2 id="box-2-start-stop">Box 2: Start Stop</h2>
+<p>In this box, make a slider and two buttons. One labeled &ldquo;start&rdquo; the other labeled &ldquo;stop&rdquo;.
+When you press &ldquo;start&rdquo;, the slider starts moving. 
+When you press &ldquo;stop&rdquo; the slider stops.
+This is sortof like the last slider in Box 3 on <a href="../../docs/5/">Page 5 (Animation Loops)</a>, except that you should
+use two buttons, rather than one checkbox.</p>
+<iframe src="../../for_students/6-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Rubric: (up to 10 points)</p>
+<ul>
+<li>3 points for making the 3 input elements</li>
+<li>3 points for making the slider move (continuously) when start is pressed</li>
+<li>2 points for making the slider stop when the stop button is pressed</li>
+<li>2 points for making the slider starting again when the start button is pressed (after being stopped)</li>
+</ul>
+<h2 id="box-3-throb-not-blink">Box 3: Throb, not blink</h2>
+<p>The &ldquo;blinking&rdquo; in Box 4 of <a href="../../docs/5/">Page 5 (Animation Loops)</a> is really annoying. Instead let's make
+something a little less annoying: instead of just changing to another color
+in a flash, have the color slowly (but not too slowly) change from one color to another and back. It should repeat.</p>
+<p><strong>Hint:</strong> We've been using HTML colors as hex (so red is #FF0000).
+You'll may want to do your math with regular numbers and convert.
+<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString">Here</a>
+is a reference page that might be useful. 
+Or, you might find a more convenient way to specify colors.</p>
+<p>You do not need to make thing just throb between red and white. You can pick any two colors. Or, have it take a list of colors. (just like page 5 switched between red, yellow, and green, you could make
+yours slowly fade from red to yellow to green then back to red).</p>
+<iframe src="../../for_students/6-3.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Rubric: 10 points for making things fade between colors.</p>
+<h2 id="the-end">The End!</h2>
+<p>When you're done with your work, remember to commit everything and push it back to GitHub. And don't forget to put your GitHub ID on the Canvas assignment page for 
+ 
+
+    <a href="https://canvas.wisc.edu/courses/189896/assignments/735440">Workbook 1: Getting Started</a>
+</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 1: Getting Started</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Introduction)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Selected"> 6: Try it Yourself </li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

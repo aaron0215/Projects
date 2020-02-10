@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>
+    Just like buttons, sliders generate different kinds of events.
+    With each of these sliders, we are catching a different event.
+    See if you can figure out the difference.
+</p>
+<div>
+    <input id="box3-slider1" type="range" min="0" max="100" step="1"><br />
+    <input id="box3-slider2" type="range" min="0" max="100" step="1"><br />
+    <input id="box3-slider3" type="range" min="0" max="100" step="1"><br />
+</div>
+<ul>
+        <li id="box3-li1">Slider 1 was not used yet</li>
+        <li id="box3-li2">Slider 2 was not used yet</li>
+        <li id="box3-li3">Slider 3 was not used yet</li>
+</ul>
+
+<script type="module">
+window.onload = function() {
+    /*
+     * 
+     * Here, use the 3 sliders and catch different events
+     */
+    // note the weird comments to declare type information!
+    // these aren't necessary, but they can be useful for type checking
+    /** @type{HTMLInputElement} */ let slider31 = (/** @type{HTMLInputElement} */ document.getElementById("box3-slider1"));
+    /** @type{HTMLInputElement} */ let slider32 = (/** @type{HTMLInputElement} */ document.getElementById("box3-slider2"));
+    /** @type{HTMLInputElement} */ let slider33 = (/** @type{HTMLInputElement} */ document.getElementById("box3-slider3"));
+
+    if (slider31 && slider32 && slider33) { // are we in box 3?
+ 
+        // respond to different events on each
+        slider31.onchange = function() {
+            document.getElementById("box3-li1").innerHTML = `Slider 1 - <b>onchange</b> - new value ${slider31.value}`;
+        };
+        slider32.oninput = function() {
+            document.getElementById("box3-li2").innerHTML = `Slider 2 - <b>oninput</b> - new value ${slider32.value}`;
+        };
+        slider33.onclick = function() {
+            document.getElementById("box3-li3").innerHTML = `Slider 3 - <b>onclick</b> - new value ${slider33.value}`;
+        };
+    }
+}
+
+</script>
+
+</body

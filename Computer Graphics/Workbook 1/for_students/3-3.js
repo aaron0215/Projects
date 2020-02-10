@@ -1,0 +1,1 @@
+console.log("Box3: This is from the script in 3-3.js");

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+       <p>
+            Here is another example.
+            Notice how the first slider doesn't
+            create an events. When the second slider
+            is updated, it polls the first (looks at its value).
+        </p>
+        <p>
+            Change the first slider to affect how the second one moves.
+        </p>
+        <p>
+            <input type="range" min="-5" max="5" value="1" id="slider1">
+            <input type="range" min="0" max="100" id="slider2">
+        </p>
+        <p>
+            Or with a checkbox (buttons are mainly good at generating events):
+        </p>
+        <p>
+            speed: <input type="checkbox" id="check1">
+            <input type="range" min="0" max="100" id="slider3">
+        </p>
+        <p>
+            Or, even this.... (which isn't that much different)
+        </p>
+        <p>
+            go: <input type="checkbox" id="check2">
+            <input type="range" min="0" max="100" id="slider4">
+        </p>
+        <p>
+            The thing to notice here is that the "loop" runs even if
+            the slider isn't moving! In this case, it's pretty wasteful.
+            But it gets at the main idea of animation loop programming:
+            the loop keeps going, and each iteration it checks to see if
+            something happened. In contrast, event-loop programming only
+            does things when something happens.
+        </p>
+</body>
+
+<script>
+    // both sliders can work, even though neither generates
+    // any events. everything happens by "polling."
+    /** @type{HTMLInputElement} */ let slr2 = (/** @type{HTMLInputElement} */ document.getElementById("slider1"));
+    /** @type{HTMLInputElement} */ let slr2b = (/** @type{HTMLInputElement} */ document.getElementById("slider2"));
+    function advanceSLR2() {
+        // add speed, roll over to zero if we hit the max
+        // note that the value of the slider is a string,
+        // so we have to convert it to a number
+        // The more obvious 1+"1" = "11" - thanks to JavaScripts
+        // aggressive coercion rules
+        let speed = Number(slr2.value);
+        let newValue = (Number(slr2b.value)+speed) % 100;
+        if (newValue<0) newValue=100;
+        slr2b.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR2);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    advanceSLR2();
+
+    /** @type{HTMLInputElement} */ let slr3 = (/** @type{HTMLInputElement} */ document.getElementById("slider3"));
+    /** @type{HTMLInputElement} */ let speedbut = (/** @type{HTMLInputElement} */ document.getElementById("check1"));
+    function advanceSLR3() {
+        // add speed, roll over to zero if we hit the max
+        // note that the value of the slider is a string,
+        // so we have to convert it to a number
+        // The more obvious 1+"1" = "11" - thanks to JavaScripts
+        // aggressive coercion rules
+        let speed = speedbut.checked ? 3 : 1;
+        let newValue = (Number(slr3.value)+speed) % 100;
+        if (newValue<0) newValue=100;
+        slr3.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR3);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    advanceSLR3();
+
+    /** @type{HTMLInputElement} */ let slr4 = (/** @type{HTMLInputElement} */ document.getElementById("slider4"));
+    /** @type{HTMLInputElement} */ let gobut = (/** @type{HTMLInputElement} */ document.getElementById("check2"));
+    function advanceSLR4() {
+        // add speed, roll over to zero if we hit the max
+        // note that the value of the slider is a string,
+        // so we have to convert it to a number
+        // The more obvious 1+"1" = "11" - thanks to JavaScripts
+        // aggressive coercion rules
+        let speed = gobut.checked ? 2 : 0;
+        let newValue = (Number(slr4.value)+speed) % 100;
+        if (newValue<0) newValue=100;
+        slr4.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR4);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    advanceSLR4();
+
+</script>
+
+</html>
