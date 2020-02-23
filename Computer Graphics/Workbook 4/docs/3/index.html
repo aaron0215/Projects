@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Cubics</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>We will create complicated shapes by putting together simple pieces. We need to do this in a careful way, otherwise we won't get continuity.</p>
+<p>If we try to make shapes out of linear pieces (line segments), we can never do better than C(0) continuity. The common thing in computer graphics is to use cubic polynomial segments. That will allow us to get C(1) (or better) continuity, and also have a lot of flexibility in the shapes that we can create.</p>
+<p>We could use even higher degree polynomials (quartic polynomials, quintic polynomials, etc.). However, for many reasons, in computer graphics, cubics are usually sufficient.</p>
+<p>This material is covered in the book in Sections 15.3 through 15.5.</p>
+<h2 id="cubics-and-polynomial-notation">Cubics and Polynomial Notation</h2>
+<p>We write a cubic polynomial as:
+<code>$$ \mathbf f(u) = \mathbf a_0 + \mathbf a_1 u + \mathbf a_2 u^2 + \mathbf a_3 u^3 $$</code>
+denoting the coefficients as <code>$ \mathbf a_0, \mathbf a_1, \mathbf a_2, \mathbf a_3 $</code> - in boldface since they are points. This is a nicer notation than writing (if our points are 2d):
+<code>$$ f_x(u) = a_{0x} + a_{1x} u + a_{2x} u^2 + a_{3x} u^3 $$</code>
+<code>$$ f_y(u) = a_{0y} + a_{1y} u + a_{2y} u^2 + a_{3y} u^3 $$</code>
+It's useful to remember that we have a separate function for each dimension.</p>
+<p>Trying to control the cubic by specifying the coefficients is not easy (e.g., what values for <code>$ \mathbf a_0, \mathbf a_1, \mathbf a_2, \mathbf a_3 $</code> gives a desired end position?). Therefore, we almost always specify using something more convenient - and compute the coefficients from these.</p>
+<p>Notice that a cubic segment has 4 coefficients. When we specify the cubic in some other way, we need to give enough information to compute these 4 things. If we give too little information or too much, it won't work exactly. Therefore, other representations will use 4 numbers too.</p>
+<h2 id="hermite-forms-for-cubics">Hermite forms for Cubics</h2>
+<p>One useful way to specify a cubic is <strong>Hermite</strong> form. Hermite forms are interpolating forms: we specify values that the curves have. With Hermite forms, we specify the values and derivatives for the curve at the beginning and end. We can have Hermite polynomials for different degrees. For example, a first degree Hermite polynomial is a line segment, where we specify the values at the ends. A quintic Hermite (5th degree) would specify the value and the first two derivatives at each end of the curve.</p>
+<p>For Hermite Cubics, we specify the value of the curve at the beginning, the value of the curve at the end, the first derivative (tangent vector) of the curve at the beginning, and the tangent vector (first derivative) of the curve at the end.</p>
+<figure>
+    <img src="../../images/hermite.png"
+         alt="hermite example"/> 
+</figure>
+
+<p>Here we denote the first point as P0, the second point as P1, and their associated derivatives as P0&rsquo; and P1&rsquo;.</p>
+<p>Even though the derivatives are vectors, we still refer to them as <strong>control points.</strong> Since it is a cubic, it has 4 control points.</p>
+<p>We can derive formulas for the coefficients (the <code>$ \mathbf a_0, \mathbf a_1, \mathbf a_2, \mathbf a_3 $</code>) from the Hermite control points. This is done in the book - but we won't ask you to do these derivations in class.</p>
+<p>Here are the equations:
+<code>$$\begin{aligned} f(u) = \mathbf p_0 &amp; \ u^0 + \\ \mathbf p_0' &amp; \ u^1 + \\ (-3 \mathbf p_0 -2 \mathbf p_0' + 3 \mathbf p_1 - \mathbf p_1') &amp; \ u^2 + \\ (2 \mathbf p_0 + \mathbf p_0' -2 \mathbf p_1 + \mathbf p_1') &amp; \ u^3 \\ \end{aligned}$$</code>
+Writing it out like this, it should be clear that <code>$\mathbf a_0 = \mathbf p_0$</code>, <code>$\mathbf a_1 = \mathbf p_0'$</code>, etc.</p>
+<p>The book uses matrix notation for writing out these equations. The connection to matrix notation becomes clearer if we format the equation a little differently:
+<code>$$\begin{aligned} f(u) = ( 1\ &amp;\mathbf p_0 + 0\ \mathbf p_0' + 0\ \mathbf p_1 + 0\ \mathbf p_1' ) \ u^0 + \\ ( 0\ &amp;\mathbf p_0 + 1\ \mathbf p_0' + 0\ \mathbf p_1 + 0\ \mathbf p_1' ) \ u^1 + \\ (-3\ &amp;\mathbf p_0 - 2\ \mathbf p_0' + 3\ \mathbf p_1 - 1\ \mathbf p_1' ) \ u^2 + \\ ( 2\ &amp;\mathbf p_0 + 1\ \mathbf p_0' - 2\ \mathbf p_1 + 1\ \mathbf p_1' ) \ u^3 \\ \\ \end{aligned}$$</code></p>
+<p>Which lets us write the equation as two matrix-vector multiplies:
+<code>$$f(u)= \begin{bmatrix} u^0 &amp; u^1 &amp; u^2 &amp; u^3 \end{bmatrix} \begin{bmatrix} 1&amp;0&amp;0&amp;0\\ 0&amp;1&amp;0&amp;0\\ -3&amp;-2&amp;3&amp;-1\\ 2&amp;1&amp;-2&amp;1 \end{bmatrix} \begin{bmatrix} \mathbf p_0 \\ \mathbf p_0' \\ \mathbf p_1 \\ \mathbf p_1' \end{bmatrix}$$</code>
+This is one of the few times in class where we actually do a left-multiply of a row vector with a matrix.</p>
+<h2 id="basis-functions">Basis Functions</h2>
+<p>We can re-organize the equations from the previous box to group terms by control points, rather than by parameter powers. Note that this is just the equation above, just with the terms regrouped:
+<code>$$\begin{aligned} f(u) = (1-3u^2+2u^3) &amp; \ \mathbf p_0 + \\ (u-2u^2+u^3) &amp; \ \mathbf p_0' + \\ (3 u^2-2u^3) &amp; \ \mathbf p_1 + \\ (-u^2+u^3) &amp; \ \mathbf p_1' \end{aligned}$$</code></p>
+<p>Notice that we now have a function of u for each control point. We could re-write this as:
+<code>$$f(u) = b_0(u)\ \mathbf p_0 + b_1(u)\ \mathbf p_0' + b_2(u)\ \mathbf p_1 + b_3(u)\ \mathbf p_1'$$</code>
+These new functions are called <strong>basis functions</strong>.</p>
+<p>Basis functions are a very convenient way to write curve equations.</p>
+<p>Polynomial curves can be written as basis functions. Writing them this way makes it clear that we are taking a linear combination of the control points.</p>
+<h2 id="cardinal-forms-for-cubics">Cardinal Forms for Cubics</h2>
+<p>Sometimes, it's inconvenient to have to specify the derivatives (tangent vectors) for cubics. With a <strong>cardinal spline</strong>, we specify a set of points to be interpolated and compute the derivatives at these points as a function of other points. Specifically, for point <code>$\mathbf p_i$</code>, we set its derivative
+<code>$\mathbf p_i'$</code> to be a scaled version of the vector between the next and previous points, so:
+<code>$$\mathbf p_i' = s ( \mathbf p_{i+1} - \mathbf p_{i-1} )$$</code>
+for some scaling factor s. We sometimes talk about this scaling factor as the &ldquo;tension&rdquo; (t) and compute it as <code>$ s = (1-t)/2 $</code>.</p>
+<p>For the most common case where t=0, or s=1/2, we call these curves Catmull-Rom splines. The &ldquo;Catmull&rdquo; refers to Ed Catmull, who was the founder of Pixar, and invented an amazing number of things in computer graphics (many of which we will learn over the course of the semester).</p>
+<p>Note that with a cardinal spline, to connect between two points (say <strong>p1</strong> and <strong>p2</strong>), we need to have the points before and after these points (<strong>p0</strong> and <strong>p3</strong>).</p>
+<p>Cardinal splines are a simple way to create C(1) continuous, interpolating curves.</p>
+<p>Note that we don't need to derive the equations for cardinal splines. Once we know how to compute the derivatives at each point, we can just use the equations for Hermite forms for each piece of the curve.</p>
+<h2 id="summary">Summary</h2>
+<p>This introduced the basics of using cubic polynomials. Look in the book to see the details, and the derivations.</p>
+<p>On <a href="../../docs/4/">Page4(Arc-Length Parameterizations)</a>, we'll discuss arc-length parameterizations.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Selected"> 3: Cubics </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

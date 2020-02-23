@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="generator" content="Hugo 0.61.0" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">CS559 Workbook 5: Curves in 2D</h1>
+	</header>
+	<div class="content main__content clearfix">
+		<p>In this workbook, we'll get beyond straight lines to consider curves in 2D.</p>
+<p>This workbook is a little unusual, because it is connected to the next one (Workbook 6). In previous semesters, we combined this workbook (tutorials about curves) with a mini-programming project (making the train). That was a lot for one week.</p>
+<p>Several pages have required exercises on them. But, as always, feel free to tinker with all of the provided example demos.</p>
+<p>Don't forget about the <code>README.md</code>. And to commit and push to GitHub!</p>
+<h2 id="required-reading">Required Reading</h2>
+<p>Note: you will want to mix the required reading, the optional reading, and the workbook together.</p>
+<p><strong>Textbook:</strong> Curves are covered in <a href="https://canvas.wisc.edu/files/10881438/">Fundamentals of CG-Ch15.pdf</a>. Since this chapter is a little mathematical, mix the reading with the lectures and the workbook to connect the intuitions. <a href="https://canvas.wisc.edu/files/10881446/">Hart-Ch20.pdf</a> is strongly recommended, as it covers much of the same material in a different way. We won't cover all the material in class. The required sections are:</p>
+<ol>
+<li>FCG 15.1 - basic ideas of curves, including parameterizations and piecewise representations</li>
+<li>FCG 15.2 - curve properties (especially continuity)</li>
+<li>FCG 15.3 - polynomial pieces - you need to have the basic intuitions, however, you will not need to do the derivations yourself.</li>
+<li>FCG 15.4 - putting pieces together - this makes things sound more complicated than they are</li>
+<li>FCG 15.5 - cubics - again, you won't have to derive the different cubic types, but make sure you know what hermites and cardinals are</li>
+<li>FCG 15.6.1 - Bézier curves - very important, since they are what gets used in Canvas and many other things.</li>
+</ol>
+<p>In Hart, you should read this to clarify and reinforce the required material above, but there isn't anything new, so this can be considered optional.</p>
+<ol>
+<li>Hart 20.0 - basics of curves, a good review of the terms discussed in FCG 15.1-15.3</li>
+<li>Hart 20.1 - the wiggle theorem - make sure you have the intuition that an nth degree polynomial has n-1 wiggles.</li>
+<li>Hart 20.2 - Lagrangian curves - this is also 15.3.6 in FCG - understand the basic idea to know why we don't use these things.</li>
+<li>Hart 20.3 - Hermite curves - these are in 15.3.4 and 15.5.2 of FCG. You won't need to derive them, but understanding what they are will be useful for Beziers and Cardinals, which we will use a lot.</li>
+<li>Hart 20.4 - Bézier curves - these are important, so seeing them more than once may help.</li>
+</ol>
+<p>The rest of the Chapter focuses on B-Splines and rational curves, which we won't cover in class.</p>
+<p><strong>Videos:</strong> A few years ago, we made some videos to explain Bezier curves (they are optional but helpful):</p>
+<ul>
+<li><a href="https://mediaspace.wisc.edu/media/1_ht8bd4ii">DeCastlejau 2</a> - Showing the algorithm for 3 points (a second degree curve)</li>
+<li><a href="https://mediaspace.wisc.edu/media/1_yfe2pejr">DeCastlejau 3</a> - Showing the algorithm for 4 points (a third degree curve)</li>
+<li><a href="https://mediaspace.wisc.edu/media/1_b45evtd7">DeCastlejau 4</a> - Shows the connection between the geometric constructions and the polynomial forms</li>
+</ul>
+<h2 id="rubric-for-grading">Rubric for Grading</h2>
+<p>Note: there aren't many bonus points this week. To earn an A, get an A+ next week - there will be lots of bonus opportunities.</p>
+<ul>
+<li>Have a correct <code>readme.md</code> file (5pts)</li>
+<li>Exercise 1 (page 1, box 2) - implement the correct tangent vector for the parabola (5pts)</li>
+<li>Exercise 2 (page 4, box 3) - make the green dot go around the triangle with arc-length parameterization (10pts)</li>
+<li>Exercise 3 (page 7, box 1) - draw the spiral and control the drawing (10pts for drawing the spiral, 10pts for switching between dots and lines, 10pts for a slider that controls the number of points/line segments) (30pts)</li>
+<li>Exercise 4 (page 7, box 2) - draw a picture that demonstrate the use of <code>bezierCurveTo</code> in Canvas (20pts, up to 2 bonus points for a picture that makes cool use of curves) (20+2 pts)</li>
+<li>Exercise 5 (page 8, box 1) - use the UI code (10pts for correctly drawing a polygon with appropriate dots, 5 points for changing the initial setup to a hexagon) (15pts)</li>
+</ul>
+<h2 id="assessment">Assessment</h2>
+<p>The graders will check that you have done the required programs correctly. We'll use a local server for grading your workbooks.</p>
+<p>The grader will check that you have correctly done the <code>README.md</code> file, as well as filled in the exercises on pages 1, 4, 7, and 8. Remember to read through things carefully including the source code (mainly the JavaScript files). The code is part of the reading! You will learn how to do the programming parts (in part) by reading code. There are other readings linked on the different web pages.</p>
+<p>As you go through the workbook pages, feel free to tinker with the programs we have given you as a way to understand how they work!</p>
+<p>There are opportunities for bonus points on page 7.</p>
+<h2 id="get-started">Get Started</h2>
+<p>Don't forget to commit and push as you work!</p>
+<p>Get started on <a href="./docs/1/">Page1(Curves)</a>.</p>
+
+	</div>
+    <ul>
+    
+    
+    </ul>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 5: Curves in 2D) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

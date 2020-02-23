@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">DeCastlejau Constructions</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>On this page we'll look at a different way to construct Bézier curves. This will give you a sense of the mathematical beauty of them. Seeing the construction makes the properties of the curves obvious, and gives good intuitions for the formulas. The construction also leads to practical algorithms since it gives us a fast way to divide the curve into two parts, so we can create divide and conquer algorithms.</p>
+<p>This material is in <a href="https://canvas.wisc.edu/files/10881438/">Fundamentals of CG-Ch15.pdf</a> section 6.1 under the heading &ldquo;Geometric Intuitions for Bézier Curves&rdquo;.</p>
+<h2 id="box-1-and-box-2-the-decastlejau-construction">Box 1 and Box 2: The DeCastlejau Construction</h2>
+<p>Suppose we have a Bézier curve defined by n points. I'll just number the points 0,1,2, &hellip; It doesn't matter what dimension the points are in.</p>
+<p>Suppose we want to evaluate the curve for a parameter value u, where
+<code>$ 0 \leq u \leq 1 $</code>. What we do is:</p>
+<ol>
+<li>Between every consecutive pair of points, linearly interpolate u of the way between the beginning and end.</li>
+<li>If there is more than 1 point left, repeat the process with the new set of points.</li>
+</ol>
+<p>If we start with 2 points, this is a line segment (linear interpolation between the points).</p>
+<p>If we start with 3 points, we first interpolate between points 0 and 1, and between 1 and 2. This gives us 2 new points (call them 01 and 12). Then we interpolate between 01 and 12, to get point 0112, which is our answer.</p>
+<p>If we start with 4 points, we first interpolate between points 0 and 1, 1 and 2, and between 2 and 3. This gives us 3 new points (call them 01, 12 and 23). Then we interpolate between these to get 0112 and 1223. Then we interpolate these two points to get the final answer.</p>
+<p>Notice that we do a sequence of linear interpolations.</p>
+<p>Here in <a href="../../for_students/6-1.html" class="for_students">6-1.html</a> and <a href="../../for_students/6-1.js" class="for_students">6-1.js</a> is an animation where you can set u to see what the construction does for 2,3,4 and 5 points.</p>
+<iframe src="../../for_students/6-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>In <a href="../../for_students/6-2.html" class="for_students">6-2.html</a> and <a href="../../for_students/6-2.js" class="for_students">6-2.js</a> this box you can drag the points around to see what happens as the points move. Use shift click to add points (they add at the end of the list), and ctrl-click (or meta-click on a Mac) to remove points.</p>
+<iframe src="../../for_students/6-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<h2 id="from-decastlejau-to-bernstein">From DeCastlejau to Bernstein</h2>
+<p>It may not be obvious, but the construction in above gives exactly the same curves as the polynomial forms on the previous page! There is an interesting history, but it seems like the two approaches (the geometric construction above and the use of Bernstein polynomials) were developed independently by different groups around the same time (and both at French car companies!).</p>
+<p>To see the equivalence, write out the expressions for the process. The line segment is easy. For the 3 point case, the algebra is fairly easy. Compute points 01 and 12 as functions of 0,1,2 and u. Then compute 0112 as using these two terms and u. Using <code>$ p_0 $</code> for 0&hellip;</p>
+<p><code>$$\mathbf p_{01} = (1-u) \ \mathbf p_0 + u\ \mathbf p_1 \\ \mathbf p_{12} = (1-u) \ \mathbf p_1 + u\ \mathbf p_2 \\ \mathbf p_{0112} = (1-u) \ \mathbf p_{01} + u\ \mathbf p_{12} \\ \mathbf p_{0112} = (1-u) \ ((1-u) \ \mathbf p_0 + u\ \mathbf p_1) + u ((1-u) \ \mathbf p_1 + u\ \mathbf p_2)\\ \mathbf p_{0112} = (1-u)^2\ \mathbf p_1 + 2 u (1-u) \mathbf p_1 + u^2 \mathbf p_2$$</code></p>
+<p>Note that these can be written nicely as <strong>basis functions.</strong> For each control point, there is a function of u that tells us the weight on the control point for a given value of u. For a value of u, the resulting position is a linear combination of the control points (where the weights are determined by potentially non-linear functions of u).</p>
+<p>Here is a video (<a href="https://mediaspace.wisc.edu/media/1_b45evtd7">DeCastlejau 4</a>) doing the derivation on the whiteboard. (optional)</p>
+<h2 id="dividing-bzier-curves">Dividing Bézier Curves</h2>
+<p>The DeCastlejau construction also provides a method to divide a Bézier curve into two smaller Bézier curves, each with the same degree (and number of points) as the original.</p>
+<p>To split a Bézier curve at the position u, we perform the DeCastlejau construction to determine the position of the points for u. The points for the first curve are the starting point of each line up to the new point (including the new point). The second curve starts at the new point. It's other points are the ends of all the line segments after it.</p>
+<p>As an example, suppose we have a Bézier curve with control points <code>$\mathbf p_0, \mathbf p_1, \mathbf p_2$</code> (as in the previous box). If we divide the curve at value u, we get two new curves. One with points (<code>$\mathbf p_0, \mathbf p_{01}, \mathbf p_{0112}$</code>) and one with points (<code>$\mathbf p_{0112},\mathbf p_{12},\mathbf p_{2}$</code>).</p>
+<p>Figure 15.17 in Foundations of Computer Graphics shows this for a cubic (4 point) Bézier curve for value u=.5. The book's notation uses A, B, C and D for the points, so the old curve is (A,B,C,D) and the new curves are (A,AB,AC,AD) and (AD,BD,CD,D). Here it is again:</p>
+<figure>
+    <img src="../../images/decastlejau.png"
+         alt="DeCastlejau example" width="600"/> 
+</figure>
+
+<p>Being able to divide Bézier curves into smaller pieces is really useful in order to implement algorithms to process them. We can start with a Bézier curve and divide it into smaller pieces until those pieces are small enough that we can approximate them with lines (or pixels). This gives effective algorithms for drawing them smoothly, intersecting them, etc.</p>
+<h2 id="summary-geometric-constructions-of-bzier-curves">Summary: Geometric Constructions of Bézier Curves</h2>
+<p>The DeCastlejau construction gives us a geometric way to create Bézier curves for any number of points. The geometric construction gives intuitions of why these curves have the nice properties that they do. It also gives us an algorithm to divide the curve into pieces which is very useful.</p>
+<p>On <a href="../../docs/7/">Page7(Shape Practice)</a> you will work with Bézier curves in Canvas.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Selected"> 6: DeCastlejau Constructions </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

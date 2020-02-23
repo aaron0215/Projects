@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Workbook 5: Curves</title>
+    <link>/docs/</link>
+    <description>Recent content in Docs on Workbook 5: Curves</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Feb 2020 14:36:13 -0600</lastBuildDate>
+    
+	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Curves</title>
+      <link>/docs/1/</link>
+      <pubDate>Tue, 11 Feb 2020 14:35:45 -0600</pubDate>
+      
+      <guid>/docs/1/</guid>
+      <description>Fundamentals of CG-Ch15.pdf describes multiple ways to define curves. We are going to focus on parametric curves in this workbook.
+Box 1: Parametric Curves in 2D A parametric curve is a shape represented by a function $f(u)$, which returns 2D values. We can think of it as either $\mathbf x=f(u)$ or as separate functions for each dimension, $x=f_x(u), y=f_y(u)$.
+The parameter of this function is the &amp;ldquo;free parameter&amp;rdquo; and it goes over some range.</description>
+    </item>
+    
+    <item>
+      <title>Continuity</title>
+      <link>/docs/2/</link>
+      <pubDate>Tue, 11 Feb 2020 14:35:48 -0600</pubDate>
+      
+      <guid>/docs/2/</guid>
+      <description>The concept of continuity is explained in section 15.2.1 of Fundamentals of CG-Ch15.pdf
+On this page, we&#39;ll just emphasize some of the more important concepts.
+By the way, the code snippets are taken from the previous page (or in the style of functions used on the previous page). The parametric functions are defined on the range (0,1). Given a parameter value, they return the position (x,y) and the tangent vector ($\partial x/\partial u, \partial y/\partial u$).</description>
+    </item>
+    
+    <item>
+      <title>Cubics</title>
+      <link>/docs/3/</link>
+      <pubDate>Tue, 11 Feb 2020 14:35:51 -0600</pubDate>
+      
+      <guid>/docs/3/</guid>
+      <description>We will create complicated shapes by putting together simple pieces. We need to do this in a careful way, otherwise we won&#39;t get continuity.
+If we try to make shapes out of linear pieces (line segments), we can never do better than C(0) continuity. The common thing in computer graphics is to use cubic polynomial segments. That will allow us to get C(1) (or better) continuity, and also have a lot of flexibility in the shapes that we can create.</description>
+    </item>
+    
+    <item>
+      <title>Arc-Length Parameterizations</title>
+      <link>/docs/4/</link>
+      <pubDate>Tue, 11 Feb 2020 14:35:53 -0600</pubDate>
+      
+      <guid>/docs/4/</guid>
+      <description>Arc length parameterization is discussed in Section 15.1.1 of Fundamentals of CG-Ch15.pdf - but this is a more intuition based description.
+Box 1: Arc-length and non-arc length We usually like to define our parameterizations such that each piece goes from 0 to 1. But this means that if we move at a constant speed in the parameter, the pen would move at a variable speed. An arc-length parameterization is a parameterization where the pen moves at a constant speed (assuming the parameter changes at a constant speed).</description>
+    </item>
+    
+    <item>
+      <title>Bézier Curves</title>
+      <link>/docs/5/</link>
+      <pubDate>Tue, 11 Feb 2020 14:35:58 -0600</pubDate>
+      
+      <guid>/docs/5/</guid>
+      <description>Cubic Bézier Curves Hermite cubics are convenient because they make it easy to build C(1) curves from pieces. We just need to match the end of one segment to the beginning of the next.
+But, if you wanted to make a user interface for a Hermite cubic, you&#39;d have a problem: how do you specify the derivative? The end points are points in the space of the curve, but the derivatives are something different.</description>
+    </item>
+    
+    <item>
+      <title>DeCastlejau Constructions</title>
+      <link>/docs/6/</link>
+      <pubDate>Tue, 11 Feb 2020 14:36:07 -0600</pubDate>
+      
+      <guid>/docs/6/</guid>
+      <description>On this page we&#39;ll look at a different way to construct Bézier curves. This will give you a sense of the mathematical beauty of them. Seeing the construction makes the properties of the curves obvious, and gives good intuitions for the formulas. The construction also leads to practical algorithms since it gives us a fast way to divide the curve into two parts, so we can create divide and conquer algorithms.</description>
+    </item>
+    
+    <item>
+      <title>Shape Practice</title>
+      <link>/docs/7/</link>
+      <pubDate>Tue, 11 Feb 2020 14:36:10 -0600</pubDate>
+      
+      <guid>/docs/7/</guid>
+      <description>On this page, we&#39;ll consider how we actually program curves in practice.
+Box 1: Discretizing curves - Exercise 3 If we draw a parametric curve $\mathbf{x} = \mathbf{f}(u)$, the obvious thing to do is to pick a set of $u$ values, find the corresponding positions $\mathbf{x}$, and plot those points. The simplest way to do this is to choose a number of points ahead of time, and make equally spaced $u$ values.</description>
+    </item>
+    
+    <item>
+      <title>UI Exercises</title>
+      <link>/docs/8/</link>
+      <pubDate>Tue, 11 Feb 2020 14:36:13 -0600</pubDate>
+      
+      <guid>/docs/8/</guid>
+      <description>This page has a simple exercises to warm up for the bigger programming task in the next workbook.
+Box 1: Exercise 5, Try out the UI To write the demos, we provided some utility routines that augment a Canvas. You&#39;ll need to be able to use these in the future to make your own programs, so we want you to try them out.
+One helper is called runCanvas - we&#39;ll look at it next week.</description>
+    </item>
+    
+  </channel>
+</rss>

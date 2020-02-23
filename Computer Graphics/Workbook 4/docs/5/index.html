@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Bézier Curves</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="cubic-bzier-curves">Cubic Bézier Curves</h2>
+<p>Hermite cubics are convenient because they make it easy to build C(1) curves from pieces. We just need to match the end of one segment to the beginning of the next.</p>
+<p>But, if you wanted to make a user interface for a Hermite cubic, you'd have a problem: how do you specify the derivative? The end points are points in the space of the curve, but the derivatives are something different.</p>
+<p>A simple solution might be to do something like what we did to draw the tangent vectors on page 1: we can create a new point that is at the end of the tangent vector if the tangent vector starts at the curve end point. There's another issue that the tangent vector is probably too long to be convenient, so we need to scale it down. When we drew the tangents on page 1, we scaled them by 40%, but that was arbitrary. And we can point the end tangent backwards, so we have symmetry. In other words, we can map the four &ldquo;controls&rdquo; of a Hermite cubic (<code>$\mathbf{h0}, \mathbf{h1}, \mathbf{h0'}, \mathbf{h1'}$</code>) to four &ldquo;control points&rdquo; as:
+<code>$$\mathbf{p0} = \mathbf{h0} \\ \mathbf{p1} = \mathbf{h0} + \frac{1}{3} \mathbf{h0'} \\ \mathbf{p2} = \mathbf{h1} - \frac{1}{3} \mathbf{h1'} \\ \mathbf{p3} = \mathbf{h1}$$</code></p>
+<p>Or, as a picture:</p>
+<figure>
+    <img src="../../images/bezier.png"
+         alt="bezier example"/> 
+</figure>
+
+<p>These curve pieces are cubic Bézier segments.</p>
+<p>Note that the picture in the book (Figure 15.10) is wrong: since the tangent arrows are 3 times the difference in the control points, they should be longer, not shorter.</p>
+<p>The connection between cubic Bézier segments and Hermite segments makes them easy to convert. If we have a Hermite segment (or can get one, from some other cubic form), we can easily convert to Bézier form.</p>
+<h2 id="general-bzier-curves">General Bézier Curves</h2>
+<p>Cubic Bézier curves are a specific case: Bézier curves can be created for any degree. A first degree (two points) Bézier curve is a line segment. We can have degree 2 (quadratic, 3 points), degree 3 (cubic, 4 points), or any higher degree Bézier curves.</p>
+<p>Bézier curves have many useful properties. These are described in the book, but they are so important, we will repeat them here:</p>
+<ol>
+<li>A Bézier curve can be constructed for any number of points <code>$n&gt;1$</code>.</li>
+<li>A Bézier curve with n control points is an n-1 degree polynomial.</li>
+<li>Bézier curves are parameterized for u in the range 0 to 1.</li>
+<li>A Bézier curve <strong>interpolates</strong> its first and last points. That is, at u=0, it has the value of its first point and for u=1 it has the value of its last point.</li>
+<li>Bézier curves are <strong>symmetric</strong>. If you reverse the order you get the same curve backwards. The parameter goes in the opposite direction.</li>
+<li>The first derivative at the beginning of the curve (u=0) is proportional to the vector between the first and second point. By symmetry, the first derivative at the end of the curve (u=1) is proportional to the vector between the last points. The scaling factor is the degree of the curve. So for a cubic curve, the tangent vector is three times the vector between the first two points.</li>
+<li>The Bézier curve is bounded by the <strong>convex hull</strong> of its control points. If you make a polygon from the control points, the curve stays inside of it.</li>
+<li>Bézier curves are <strong>affine invariant</strong> &ndash; the affine transform of a Bézier curve is the curve created by performing the transform on the control points.</li>
+<li>Bézier curves are <strong>variation diminishing.</strong> A Bézier curve has fewer &ldquo;wiggles&rdquo; than it does control points.</li>
+</ol>
+<h2 id="bzier-curves-in-canvas">Bézier Curves in Canvas</h2>
+<p>The HTML Canvas API provides both quadratic and cubic Bézier curves. It allows you to use these curves as pieces of longer paths.</p>
+<p>One thing that is slightly surprising about Bézier segments in Canvas is that they take one fewer control point as an argument as the curve needs. The first control point is always the most recent pen position. So, if you want to give the four points of a Bézier segment, you need to do a <code>moveTo</code> first to get that first point:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">moveTo</span><span style="color:#111">(</span><span style="color:#75af00">ax</span><span style="color:#111">,</span> <span style="color:#75af00">ay</span><span style="color:#111">)</span><span style="color:#111">;</span>
+<span style="color:#75af00">context</span><span style="color:#111">.</span><span style="color:#75af00">bezierCurveTo</span><span style="color:#111">(</span><span style="color:#75af00">bx</span><span style="color:#111">,</span> <span style="color:#75af00">by</span><span style="color:#111">,</span> <span style="color:#75af00">cx</span><span style="color:#111">,</span> <span style="color:#75af00">cy</span><span style="color:#111">,</span> <span style="color:#75af00">dx</span><span style="color:#111">,</span> <span style="color:#75af00">dy</span><span style="color:#111">)</span><span style="color:#111">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This is actually convenient because we often want to connect segments together.</p>
+<h2 id="connecting-bzier-segments">Connecting Bézier Segments</h2>
+<p>In Computer Graphics, we typically create complicated shapes by connecting low-degree pieces. Most often, we use cubics.</p>
+<p>With Bézier curves, we can control the continuity when we put two segments (each a Bézier curve) together.</p>
+<ul>
+<li>We can get C(0) continuity by making sure that the last control point of the first segment is the same as the first control point of the second segment.</li>
+<li>We can get G(1) continuity by having the last two points of the first segment and the first two points of the second segment be co-linear.</li>
+<li>We can get C(1) continuity by having the vector between the last two points of the first segment be equal to the vector between the first two points of the second segment.</li>
+</ul>
+<h2 id="summary-bzier-curves">Summary: Bézier Curves</h2>
+<p>Bézier curves are discussed in <a href="https://canvas.wisc.edu/files/10881438/">Fundamentals of CG-Ch15.pdf</a> section 6.1. Here, we focused on the specific kinds of Bézier curves we see in Canvas. We see the connection with Hermite (and therefore Cardinal) cubics and how they are drawn in Canvas. The list of properties is in the book, but they are important.</p>
+<p>On <a href="../../docs/6/">Page6(DeCastlejau Constructions)</a> we will look at a geometric construction for Bézier curves that will help provide intuitions for their properties.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Selected"> 5: Bézier Curves </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

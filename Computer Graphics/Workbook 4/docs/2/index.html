@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Continuity</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>The concept of continuity is explained in section 15.2.1 of <a href="https://canvas.wisc.edu/files/10881438/">Fundamentals of CG-Ch15.pdf</a></p>
+<p>On this page, we'll just emphasize some of the more important concepts.</p>
+<p>By the way, the code snippets are taken from the previous page (or in the style of functions used on the previous page). The parametric functions are defined on the range (0,1). Given a parameter value, they return the position (x,y) and the tangent vector (<code>$\partial x/\partial u, \partial y/\partial u$</code>).</p>
+<h2 id="box-1-continuity">Box 1: Continuity</h2>
+<p>On the previous page, we saw that when there was an <code>if</code> statement in our parametric function, there was a chance for an abrupt change (in the position or the derivative). We formalize this with a notion of continuity.</p>
+<p>We say that a curve has <strong>continuity</strong> at a particular site (parameter value) if the value is the same whether we approach the site from above or below. For example, in the two line segment example from the previous page:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">function</span> <span style="color:#75af00">disconnect</span><span style="color:#111">(</span><span style="color:#75af00">u</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span><span style="color:#111">]</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">200</span><span style="color:#111">]</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>for the site u=.5, the curve has a very different value if you are infinitesimally less than .5 (approaching it from below has value (0,100)) than if you are infinitesimally more than .5 (approaching it from above has value (20,100)). We say this curve has a discontinuity in value at .5. Since we typically talk about discontinuities in terms of derivatives, we say that the curve has a discontinuity in its zeroth derivative.</p>
+<p>For the V shape, something similar happens with the first derivative.</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">function</span> <span style="color:#75af00">twoLines</span><span style="color:#111">(</span><span style="color:#75af00">u</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span><span style="color:#111">]</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">200</span><span style="color:#111">]</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>For the values (zeroth derivative), there is no discontinuity (the value at .5 is (50,100) whether we approach it from above or below). But there is a discontinuity in the first derivative (tangent). Approaching .5 from below, the derivative (with respect to u) is (100,200), while approaching it from above it is (100,-200). We say this curve has a discontinuity in its first derivative.</p>
+<p>We say a curve is continuous (or has continuity), if it has no discontinuities across its parameter range. If a curve has no discontinuities of its zeroth derivatives (its values) we call it C(0). If a curve has no discontinuities in its zeroth or first derivatives, we call it C(1). More generally, if a curve has no discontinuities in any of its derivatives up to n, we call it C(n).</p>
+<p>Note that if we say a curve is C(1), that implies that it is also C(0). It is possible to contrive a curve that has first derivative continuity but not value continuity, such as:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">function</span> <span style="color:#75af00">broken</span><span style="color:#111">(</span><span style="color:#75af00">u</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#75af00">u</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>such curves don't occur often in practice.</p>
+<p>Note that the V shape is C(0) but not C(1). Here's an example of a shape that is C(1) but not C(2):</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// this code has the derivatives removed to be easier to read
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">function</span> <span style="color:#75af00">twoQuarterCircles</span><span style="color:#111">(</span><span style="color:#75af00">u</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">let</span> <span style="color:#75af00">pu</span> <span style="color:#f92672">=</span> <span style="color:#111">Math</span><span style="color:#111">.</span><span style="color:#75af00">PI</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">50</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#111">Math</span><span style="color:#111">.</span><span style="color:#75af00">cos</span><span style="color:#111">(</span><span style="color:#75af00">pu</span><span style="color:#111">)</span><span style="color:#111">,</span> <span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#111">Math</span><span style="color:#111">.</span><span style="color:#75af00">sin</span><span style="color:#111">(</span><span style="color:#75af00">pu</span><span style="color:#111">)</span><span style="color:#111">]</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">50</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#111">Math</span><span style="color:#111">.</span><span style="color:#75af00">cos</span><span style="color:#111">(</span><span style="color:#75af00">pu</span><span style="color:#111">)</span><span style="color:#111">,</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#111">Math</span><span style="color:#111">.</span><span style="color:#75af00">sin</span><span style="color:#111">(</span><span style="color:#75af00">pu</span><span style="color:#111">)</span><span style="color:#111">]</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><iframe src="../../for_students/2-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>Here (<a href="../../for_students/2-1.html" class="for_students">2-1.html</a>), two circular arcs connect at u=.5. At the connection point, whether you are approaching from below or above, the tangent vector is horizontal and to the left. Watch the animation on the previous page.</p>
+<p>This connection of two arcs is C(1), but it is not C(2) - the second derivatives are different between the first (top) part and the second (bottom) part. In the former, at .5 the derivative is turning upwards, whereas in the latter it is turning downwards. The 2nd derivative discontinuity is this rapid change: elsewhere (as we go around the circle) the second derivative does change, but it changes smoothly.</p>
+<p>Also, notice that when we talk about continuity, we only need to consider the switching points. The functions are generally continuous in between these exceptional points. We assemble curves from smooth pieces (such as arcs and polynomials), and the potential for discontinuities is at the connections.</p>
+<h2 id="geometric-continuity">Geometric Continuity</h2>
+<p>Suppose we aren't animating the pen, only looking at the resulting drawing. If we have a curve that changes its derivative, but we can't see that change, we might not care.</p>
+<p>For example, consider the curve:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#00a8c8">function</span> <span style="color:#75af00">speedUp</span><span style="color:#111">(</span><span style="color:#75af00">u</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">u</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">)</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#75af00">u</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span><span style="color:#111">;</span>
+  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">return</span> <span style="color:#111">[</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#75af00">u</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The curve is a straight line, but the pen speeds up halfway (in parameter space). This curve is not C(1) as the derivative changes at u=.5. However, since the direction of the tangent does not change (only its speed), this might be &ldquo;continuous enough&rdquo;. We call this easier kind of continuity (where the direction remains the same, even if the magnitude might change) <strong>geometric continuity</strong> (as opposed to the derivative continuity we had been discussing). We denote geometric continuity as G(n) (for nth derivatives). So G(1) means that the curves first derivatives have no discontinuities in their direction.</p>
+<p>More formally, geometric continuity is defined in terms of arc-length parameterizations. However, since we haven't introduced those yet (they are on page 4 of the workbook), we'll stick to the intuition based version. The book explains the details.</p>
+<h2 id="summary-continuity">Summary: Continuity</h2>
+<p>Continuity is the key to putting pieces together. On <a href="../../docs/3/">Page3(Cubics)</a> we will look at cubic polynomial segments, which are a common piece to put together.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Selected"> 2: Continuity </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
