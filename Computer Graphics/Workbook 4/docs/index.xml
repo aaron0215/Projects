@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Workbook 4: Transformation Math</title>
+    <link>/docs/</link>
+    <description>Recent content in Docs on Workbook 4: Transformation Math</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Feb 2020 14:37:14 -0600</lastBuildDate>
+    
+	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Transformations as Math vs. Code</title>
+      <link>/docs/1/</link>
+      <pubDate>Tue, 04 Feb 2020 14:30:07 -0600</pubDate>
+      
+      <guid>/docs/1/</guid>
+      <description>When working with Canvas, we write lots of code that refers to the positions of points using things such as context.moveTo(x,y), context.lineTo(x,y) or context.fillRect(x,y,w,h). In these cases, we pass points as a pair of numbers (x,y).
+When thinking about points, it is easier notation to write points directly. So we can use a variable p to refer to a point. In terms of implementation, we might represent p as an array (of length 2 for 2D), or as an object with members for x and y.</description>
+    </item>
+    
+    <item>
+      <title>Linear, Affine, Projective</title>
+      <link>/docs/2/</link>
+      <pubDate>Tue, 04 Feb 2020 14:36:59 -0600</pubDate>
+      
+      <guid>/docs/2/</guid>
+      <description>On this page, we&#39;ll finally get to doing things in terms of vector / linear algebra.
+Again, this is more of a review than a workbook. Read it to have the notation that we can use going forward.
+Linear Transformations Many useful transformations can be written as linear combinations of the input variables. $$ x&#39; = ax + by $$ $$ y&#39; = cx + dy $$ The &amp;ldquo;new x&amp;rdquo; is some multiple of the old x, added to some multiple of the old y.</description>
+    </item>
+    
+    <item>
+      <title>Matrices in Code</title>
+      <link>/docs/3/</link>
+      <pubDate>Tue, 04 Feb 2020 14:37:02 -0600</pubDate>
+      
+      <guid>/docs/3/</guid>
+      <description>Vectors and Matrices in JavaScript By itself, JavaScript doesn&#39;t deal with matrices very well. We will almost always want to use a library that implements matrices. However, for now, we will do it ourselves. Part of this is so that we don&#39;t need to take the time to learn about a matrix library until later in the class when we&#39;ll get one as part of a graphics API. Part of this is so that we can understand what happens inside.</description>
+    </item>
+    
+    <item>
+      <title>Matrix Exercises</title>
+      <link>/docs/4/</link>
+      <pubDate>Tue, 04 Feb 2020 14:37:05 -0600</pubDate>
+      
+      <guid>/docs/4/</guid>
+      <description>Over the past few pages, you saw the connection between the math of transformations and the code we write to draw using Canvas. On this page, you&#39;ll get to try writing some code to test it out.
+Hint for some of these: remember that the canvas transform allows you to specify an affine transformation as a matrix. It&#39;s up to you to figure out what the matrix should be and put it into the 6 values that are passed to transform.</description>
+    </item>
+    
+    <item>
+      <title>Lots of Flying Objects</title>
+      <link>/docs/5/</link>
+      <pubDate>Tue, 04 Feb 2020 14:37:14 -0600</pubDate>
+      
+      <guid>/docs/5/</guid>
+      <description>This page and it&#39;s exercise and bonus problems are more about graphics programming than fundamental graphics concepts.
+If you want to play with the end results, try some circa-2008 sample code (2008 Boids Example). Because your computer is probably 10,000 faster than the one it was written on in 2008, you probably want to lower the velocity. We don&#39;t recommend trying to read the code! It&#39;s archaic JavaScript. We will also provide some videos on Piazza that show previous versions of this assignment.</description>
+    </item>
+    
+  </channel>
+</rss>

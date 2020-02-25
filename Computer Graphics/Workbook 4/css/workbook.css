@@ -1,0 +1,181 @@
+/* global setting - everything gets some defaults */
+html {
+  font-family: Calibri, Helvetica, sans-serif;
+  background: lightgray; }
+
+/* make the body */
+/* the div surrounding the body parts - float the sidebar next to the content*/
+.container {
+  background: white;
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  min-width: 600px;
+  margin: 0 auto;
+  margin: 25px auto;
+  box-shadow: 0 0 10px rgba(50, 50, 50, 0.17);
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: flex-end; }
+
+.maincolumn {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 600px;
+  margin: 10px; }
+
+.sidebar {
+  border: 2px grey solid;
+  border-radius: 5px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  margin: 10px;
+  padding: 5px;
+  font-size: 80%; }
+
+/* make the sidebar menu bulletless */
+.Side__List {
+  margin: 0;
+  list-style-type: none;
+  padding-left: 0; }
+
+.Side__Item {
+  margin-left: 0;
+  padding: 4px 4px 4px 1rem; }
+
+.Side__Item a {
+  text-decoration: none; }
+
+.Side__Selected {
+  background-color: darkred;
+  color: white; }
+
+/* make the notes on the side look better */
+.Side__Note {
+  margin-block-start: 0;
+  margin-block-end: 0; }
+
+.sidebar h2 {
+  margin: 0; }
+
+/* in general, underlined links look terrible, so avoid them */
+a:link {
+  text-decoration: none;
+  font-weight: 700; }
+
+a:hover {
+  color: darkred; }
+
+/* make the "for students" links look better 
+   (avoid underlines since they usually have dots in them
+   */
+.for_students {
+  text-decoration: none;
+  font-weight: 700;
+  font-family: monospace; }
+
+/* when we want 2 column side by side things for comparison */
+.leftright {
+  display: flex;
+  flex-direction: row; }
+  .leftright .left {
+    width: 50%;
+    margin-right: 5px; }
+
+.right {
+  width: 50%;
+  margin-left: 5px; }
+
+/************************************************************************/
+/* Making the exercises look right... */
+/** We always like to put borders around Canvas and SVG */
+canvas {
+  border: 2px solid black; }
+
+svg {
+  border: 2px solid black; }
+
+/** put each example into a box */
+.examplebox {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  margin: 15px 5px 15px 5px; }
+
+/** make the summaries a little different */
+.sumbox {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  margin: 15px 5px 15px 5px; }
+
+/** simple box for text */
+.simplebox {
+  border: 2px solid black;
+  padding: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  width: 500px; }
+
+.halfbox {
+  border: 2px solid black;
+  padding: 5px 5px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  width: 45%; }
+
+/** a warning box */
+.warnbox {
+  border: 2px solid darkgoldenrod;
+  background-color: #F0E59f;
+  padding: 10px;
+  margin: 10px;
+  width: 80%; }
+
+/** basic button style so things aren't too ugly */
+/* for playing with the buttons */
+.basicbutton {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin: 8px;
+  background-color: lightgrey; }
+
+.basicbutton:hover {
+  border: 4px solid black; }
+
+.basicbutton:active {
+  color: white;
+  background-color: darkgray; }
+
+/** very plain tables */
+table {
+  border-collapse: collapse; }
+
+table, th, td {
+  border: 1px solid black; }
+
+th, td {
+  padding: 3px; }
+
+/*********************************************/
+/* stuff for expand (adapted from book) */
+.book-expand {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e9ecef;
+  border-radius: 0.15rem;
+  overflow: hidden; }
+  .book-expand .book-expand-head {
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    cursor: pointer; }
+  .book-expand .book-expand-content {
+    display: none;
+    padding: 1rem; }
+  .book-expand input[type="checkbox"]:checked + .book-expand-content {
+    display: block; }
+
+.expand__button {
+  color: darkred;
+  font-style: italic; }

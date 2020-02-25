@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="generator" content="Hugo 0.61.0" />
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">CS559 Workbook 4: Transformation Math</h1>
+	</header>
+	<div class="content main__content clearfix">
+		<p>Last time, we learned about transformations and coordinate systems. We learned a few transformations (translate, scale and rotate), how to think about transformations as changes of coordinate systems, and some ways we use transformations (e.g., to build hierarchy or create convenient coordinate systems). This week we'll learn about how they work mathematically.</p>
+<p>We'll start by looking at a notational reason why our math (or the math in a textbook) looks different than the code we write for the Canvas API. We'll then look at the general math for transformations as well as the special, simple case of <em>linear</em> transformations. Linear transformations are the most common case in graphics - and include all of the transformations we've discussed so far. Then we can dive into the math of linear transformations (although, the textbooks cover this well). As part of this, we'll look at a common graphics trick of using <em>homogeneous coordinates</em> which will allow us to represent translation as a linear transformation. When we get to 3D, this will let us do other things as well.</p>
+<p>Also, as part of this workbook, we'll experiment with a fun animation technique as a way to practice vector algebra.</p>
+<p>This workbook has less code than normal - but we'll make up for that on the last page. The HTML is unimportant - don't worry about trying to read it.</p>
+<p><a href="./docs/4/">Page 4</a> has required exercises on it. And <a href="./docs/5/">Page 5</a> has a non-trivial programming exercise. But feel free to tinker with the code on other pages as a way to understand how the examples work.</p>
+<p>Don't forget about the <code>README.md</code>. And to commit and push to GitHub!</p>
+<h2 id="required-reading">Required Reading</h2>
+<p><strong>Tutorials:</strong> If you still haven't read the <a href="https://graphics.cs.wisc.edu/WP/tutorials/points-vectors-and-coordinate-systems-why-are-points-and-vectors-different/">CS559 Tutorial: Points, Vectors, Coordinate System Note</a>, now might be a good time.</p>
+<p><strong>Textbook:</strong> The math of transformations is covered well in the graphics textbooks. You are required to read sections 6.1, 6.3, 6.4 and 6.5 of <a href="https://canvas.wisc.edu/files/10881412/">Chapter 6 of Foundations of Computer Graphics</a> (although, 6.1.6 is a more advanced topic that we won't discuss in class, and the 3D parts, including 6.2 we'll come back to later). You are also required to read  <a href="https://canvas.wisc.edu/files/10881406/">Chapter 5 of Hart&#39;s Big Fun Graphics Book</a> - which covers the same material. It is important enough that you should see it twice, and each one adds extra details.</p>
+<p>However, you might want to start reading through the workbook first - it will set up the connection to the textbook chapters.</p>
+<p><strong>Optional:</strong> If you want a refresher on linear algebra, you may want to look at <a href="https://canvas.wisc.edu/files/10881405/">Practical Linear Algebra-Ch1.pdf</a>, <a href="https://canvas.wisc.edu/files/10881401/">Practical Linear Algebra-Ch2.pdf</a>, and <a href="https://canvas.wisc.edu/files/10881402/">Practical Linear Algebra-Ch4.pdf</a> of Practical Linear Algebra. The book is discussed on the <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/books/">Books Page</a>, and you can find it <a href="https://search.library.wisc.edu/catalog/9911163667202121">Practical Linear Algebra at the UW Library</a>.</p>
+<p>If you may want to read ahead a little bit, next week's readings will include section 8.1 of <a href="https://canvas.wisc.edu/files/10881415/">Fundamentals of Computer Graphics 4e, Chapter 8</a>.</p>
+<h2 id="exercises">Exercises</h2>
+<p>The five exercises: four on <a href="./docs/4/">page 4</a> and one on <a href="./docs/5/">page 5</a>. You are expected to write your own Javascript code.</p>
+<h3 id="rubric-for-grading">Rubric for Grading</h3>
+<p>Note that for this assignment, there are 80 &ldquo;basic&rdquo; points. The bonus points (to get up to 100) are harder things.</p>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span class="expand__button">Expand</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" style="display: none" />
+    <div class="book-expand-content markdown-inner">
+      <ul>
+<li>Baseline for turning in anything - with a correct README (25pts)</li>
+<li>Exercise 1 (page 4, box 1) - upper left corner is a red dot and upper right a green dot. Points should be draggable together with the square. The graders will check that you did this with translate, rotate, scale. (5 pts)</li>
+<li>Exercise 2 (page 4, box 2) - upper left corner is a red dot and upper right a green dot. Points should be draggable together with the square. The graders will check that you did this with transform. (5 pts)</li>
+<li>Exercise 3 (page 4, box 3) - the green dot should be in the corner opposite to upper left corner of the square. Points should be draggable. Square must remain a square. (5 pts)</li>
+<li>Exercise 4 (page 4, box 4) - replace all rotate, translate, and scale commands into a single transform command that does the same thing (5 pts)</li>
+<li>Exercise 5 (page 4, box 5) - implement shear-x to draw sheared squares (5 pts)</li>
+<li>Exercise 6 (page 5, box 1) - Boids covering all the listed requirements (30pts, plus up to 20 bonus points)
+<ul>
+<li>add button (5pts)</li>
+<li>clear button (5pts)</li>
+<li>boids face forward (have a front that faces the direction of motion) (5pts)</li>
+<li>bounce off walls (10pts)</li>
+<li>change color after bouncing (for a brief, but visible, time) (5pts)</li>
+<li>objects bounce off each other (bonus) (5 pts)</li>
+<li>steering behaviors (bonus) (3-10 pts) - because these behaviors are typically blended together, it is hard to tell which ones are there or not. You will get the full 10 pts if you put 2-3 of these together to make an interesting behavior. The scoring here is subjective - be sure to describe what you did in your <code>README</code>.
+<ul>
+<li>alignment</li>
+<li>separation</li>
+<li>cohesion</li>
+<li>chasing</li>
+<li>mouse attraction or repulsion</li>
+</ul>
+</li>
+<li>obstacles (bonus) (5pts)</li>
+</ul>
+</li>
+</ul>
+    </div>
+  </label>
+</div>
+<h2 id="assessment">Assessment</h2>
+<p>The graders will check that you have done the required programs correctly. We'll use a local server for grading your workbooks.</p>
+<p>The grader will check that you have correctly done the <code>README.md</code> file, as well as filled in the exercises on pages 4 and 5. Remember to read through things carefully including the source code (mainly the JavaScript files). The code is part of the reading! You will learn how to do the programming parts (in part) by reading code. There are other readings linked on the different web pages.</p>
+<p>As you go through the workbook pages, feel free to tinker with the programs we have given you as a way to understand how they work!</p>
+<p>There are opportunities for bonus points on page 5.</p>
+<h2 id="get-started">Get Started</h2>
+<p>Don't forget to commit and push as you work!</p>
+<p>Get started on <a href="./docs/1/">page 1</a>.</p>
+
+	</div>
+    <ul>
+    
+    
+    </ul>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 4: Transformation Math</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 4: Transformation Math) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Transformations as Math vs. Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Linear, Affine, Projective </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Matrices in Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Matrix Exercises </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Lots of Flying Objects </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
