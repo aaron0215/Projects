@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\[','\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Shape Practice</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>On this page, we'll consider how we actually program curves in practice.</p>
+<h2 id="box-1-discretizing-curves---exercise-3">Box 1: Discretizing curves - Exercise 3</h2>
+<p>If we draw a parametric curve <code>$\mathbf{x} = \mathbf{f}(u)$</code>, the obvious thing to do is to pick a set of <code>$u$</code> values, find the corresponding positions <code>$\mathbf{x}$</code>, and plot those points. The simplest way to do this is to choose a number of points ahead of time, and make equally spaced <code>$u$</code> values.</p>
+<p>This approach has problems. If you pick too many <code>$u$</code> values, it is wasteful: they will all end up in the same place (because ultimately, we have finite sized pixels). If you pick too few <code>$u$</code> values, you will get gaps between the points. Worse, if the curve varies in how fast it changes (it isn't arc length parameterized), there may be some places where you have too many and other places where you have too few.</p>
+<p>Things look slightly better if you connect the dots with lines - no more gaps. However, if you have too few points, your curve won't look smooth, and if you have too many points, it is still wasteful.</p>
+<p>In this box, we want you to try out the idea of changing the number of points. We want you to draw a spiral that circles around the origin 4 times, expanding outward. Here's the function to use:
+<code>$$ \mathbf{x} = \mathbf{f}(u) = \left( 200 + u*180*cos(2*\pi*4*u), 200+180*u*sin(2*\pi*4*u) \right)$$</code>
+If you let <code>$u$</code> go in the range from 0 to 1, this will make a sprial that fits nicely into the 400x400 canvas in <a href="../../for_students/7-1.js" class="for_students">7-1.js</a>  and <a href="../../for_students/7-1.html" class="for_students">7-1.html</a>.</p>
+<p>Drawing the spiral is pretty easy - but, we want you to add 2 features to make it more interesting.</p>
+<ol>
+<li>
+<p>First, add a checkbox on the page (<a href="../../for_students/7-1.html" class="for_students">7-1.html</a>) that switches between drawing dots for each point and connecting the dots with lines.</p>
+</li>
+<li>
+<p>Second, add a slider that controls the number of points that gets drawn. Make sure the slider has a range that goes from too few points (so you can see the spiral, but it looks jagged) to enough points that it looks smooth the whole way around.</p>
+</li>
+</ol>
+<iframe src="../../for_students/7-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>One of the goals here is to make sure you can write programs that use sliders and checkboxes to control your graphics.</p>
+<p>If you're curious, here's what my example solution looks like:</p>
+<p><figure>
+    <img src="../../images/7-1-1.png" width="35%"/> 
+</figure>
+ <figure>
+    <img src="../../images/7-1-2.png" width="35%"/> 
+</figure>
+</p>
+<p>Hints:</p>
+<ul>
+<li>To see if a checkbox is checked, access its <code>checked</code> property (not its <code>value</code>).</li>
+<li>You will want to call your draw function when either the checkbox or the slider changes (use <code>onChange</code>).</li>
+<li>You can add the slider and checkbox elements in the html file.</li>
+</ul>
+<p>In this simple example (in fact, you can just look at the pictures of mine), you can see how the number of points you need varies over the length of the spiral - the fixed steps are OK near the center, but less good as you get farther outside).</p>
+<h2 id="adaptive-drawing">Adaptive Drawing</h2>
+<p>Fancier drawing algorithms adjust the spacing of the samples as they draw.</p>
+<p>For certain curve types (including lines, circles, and cubic Bezier curves), correct drawing algorithms compute an exact value for every pixel - you always get exactly the right number of dots. We won't show you these algorithms, but you can trust that the web browser does this correctly when it draws with the canvas or SVG drawing commands. For this reason, we often prefer to let Canvas (or SVG) draw Beziers (or circles or lines) for us when we want smooth curves. Indeed, if we have a curve that is not one of these other types, the best strategy is often to convert it to one of the kinds of curves that the underlying library can draw correctly.</p>
+<p>If the curve is not something that Canvas knows how to draw, we need to break it into pieces and convert the pieces to things Canvas can draw. For example, in the previous example, we approximated the spiral by a bunch of line segments. If we wanted a smoother result, we could have approximated the spiral with a set of Bezier segments. This can be tricky: we not only must compute the spiral's derivatives (to figure out the tangent direction), but scale them accordingly (since the spiral is divided up among a number of Bezier segments).</p>
+<p>If the curve is something that is easy to convert to cubic Bezier form (for example, a different kind of cubic segment), then using canvas Bezier drawing commands is a good idea.</p>
+<h2 id="box-2-exercise-4-a-picture">Box 2: Exercise 4, A Picture</h2>
+<p>In this box, you can practice using the canvas Bezier drawing commands. The canvas context has functions that put Bezier segments onto the end of the current path. Just as <code>context.lineTo(x,y)</code> extends the current path with a line segment from the current end of the path to <code>x,y</code>, the <code>context.bezierCurveTo</code> function extends the path with a cubic Bezier segment. The function takes 3 points (the segment uses 4 points as it includes the end of the path before the function is called). Paths with curves can be stroked and filled like any other paths.</p>
+<p>Make a picture in the box below using Canvas drawing commands. Your picture must use curves (cubic Bezier curves - with the Canvas <code>bezierCurveTo</code> function). You should edit <a href="../../for_students/7-2.js" class="for_students">7-2.js</a> (<a href="../../for_students/7-2.html" class="for_students">7-2.html</a>).</p>
+<iframe src="../../for_students/7-2.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>There is one more exercise on the <a href="../../docs/8/" class="Next__Page">next page.</a></p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Selected"> 7: Shape Practice </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: UI Exercises </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

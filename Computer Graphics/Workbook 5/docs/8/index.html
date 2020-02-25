@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">UI Exercises</h1>
+		</header>
+		<div class="content post__content clearfix">
+			<p>This page has a simple exercises to warm up for the bigger programming task in the next workbook.</p>
+<h2 id="box-1-exercise-5-try-out-the-ui">Box 1: Exercise 5, Try out the UI</h2>
+<p>To write the demos, we provided some utility routines that augment a Canvas. 
+You'll need to be able to use these in the future to make your own programs, so we want you to try them out.</p>
+<p>One helper is called <code>runCanvas</code> - we'll look at it next week.</p>
+<p>The other helper helper is called <code>dragPoints</code> - it keeps track of a list of points and allows the user to drag them around. The function in the <code>dragPoints</code> file is called <code>draggablePoints</code>.</p>
+<p>With dragPoint, click near a point to drag it. Shift-Click to add a new point (at the end of the list). Ctrl-Click (or Meta-Click on a Mac) to delete a point. DragPoint needs the function you use to redraw the Canvas, and the list of points (it will change it as needed). Your redraw function needs to draw the dots for the points. You pass the redraw function to <code>draggablePoints</code> so it gets called when the points are moved.</p>
+<p>You've actually been using this for a while in the demos. But now, make sure you can use the code. Have a draw function that connects the points into a polygon (connect all pairs of points with line segments). You also should draw circles for the points so you know where to click. Change the initial value for the points so the program draws a hexagon when it is loaded. You should edit <a href="../../for_students/8-1.js" class="for_students">8-1.js</a> (<a href="../../for_students/8-1.html" class="for_students">8-1.html</a>).</p>
+<p><code>dragPoint</code> lets you move, add, and remove points - it does not let you re-order them.</p>
+<iframe src="../../for_students/8-1.html" width="100%" height="100%" scrolling="no" frameborder="0" style="overflow:hidden;height:100%;width:100%;border: 2px solid gray;border-radius: 5px;"></iframe>
+<p>You'll see more UI code in next week's workbook.</p>
+<p>Next week in the workbook, you'll make a train that goes around a curved track.</p>
+
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 5: Curves</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 5: Curves in 2D)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Continuity </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Cubics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Arc-Length Parameterizations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Bézier Curves </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Shape Practice </a></li>
+        <li class="Side__Item Side__Selected"> 8: UI Exercises </li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
