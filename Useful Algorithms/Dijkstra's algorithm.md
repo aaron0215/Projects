@@ -1,5 +1,5 @@
-#Dijkstra's Algo (S):
-#Initalize priority queue by inserting S withkey d(S) = 0 and all V != s with key d'(V) = Infinite
+##Dijkstra's Algo (S):
+##Initalize priority queue by inserting S withkey d(S) = 0 and all V != s with key d'(V) = Infinite
 #While PQ is non-empty:
   #V = get(PQ)
   #set d(V) = d'(V)
