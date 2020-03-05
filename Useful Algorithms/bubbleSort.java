@@ -1,5 +1,5 @@
-class RawBubbleSort {
-  public void bubbleSort(int[] arr) {
+class bubbleSort {
+  public void sort(int[] arr) {
     int lastIndex = arr.length - 1;
 
     for (int i = lastIndex; i >= 1; i--) {
